@@ -71,6 +71,22 @@ const SpillVar kBestSlcID([](const caf::SRSpillProxy* sp) -> unsigned {
     return returnID;
   });
 
+// const SpillVar kTrueE([](const caf::SRSpillProxy *sp) ->double {
+//     return sp->slc[kBestSlcID(sp)].truth.E;
+//   });
+
+const SpillVar kNuAngle([](const caf::SRSpillProxy *sp) -> double{
+  auto const& slc = sp->slc[kBestSlcID(sp)];
+  double xNu = slc.truth.position.x;
+  double yNu = slc.truth.position.y;
+
+  double dx = xNu-kPrismCentroid[0];
+  double dy = yNu-kPrismCentroid[1];
+  double dz = kDistanceFromBNB;
+
+  return atan(sqrt(dx*dx+dy*dy)/dz)*180/PI;
+});
+
 const SpillVar kFlashTrigVar([](const caf::SRSpillProxy *sp) ->unsigned {
     return sp->pass_flashtrig ? 1 : 0;
   });
@@ -268,6 +284,8 @@ const SpillVar kLeadingShwEnergy([](const caf::SRSpillProxy* sp) -> double {
 
 std::vector<Plot<SpillVar>> recoPlots = {//{ "E#theta^{2}", kEtheta2Var, Binning::Simple(15,-10,10),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
             { "E#theta^{2}", kEtheta2Var, Binning::Simple(10,0.,5.),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
+            { "#theta_{#nu}", kNuAngle, Binning::Simple(10,0.,2.),";#theta_{#nu};Events", "theta_nu",{.59,.57,.89,.85}},
+            { "#theta_{#nu} (Zoom)", kNuAngle, Binning::Simple(10,0.,0.2),";#theta_{#nu};Events", "theta_nu",{.59,.57,.89,.85}},
             { "E#theta^{2} (Zoom)", kEtheta2Var, Binning::Simple(15,0.,kEtheta2Cut),";E#theta^{2};Events", "E_theta_zoom",{.59,.57,.89,.85}},
             { "E#theta^{2} (Zoom x 2)", kEtheta2Var, Binning::Simple(15,0.,0.005),";E#theta^{2};Events", "E_theta_zoom_zoom",{.59,.57,.89,.85}},
             { "N Slices", kNSlices, Binning::Simple(30,0,30), ";nSlices;Events", "n_slices", {.59,.57,.89,.85} },

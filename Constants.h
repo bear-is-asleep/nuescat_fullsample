@@ -1,7 +1,11 @@
 using namespace std;
 
+const double PI = 3.14159265;
+
 const double kEtheta2Cut = 0.01; //GeV rad^2
 const double kRazzleCutVal = 0.6;
+const vector<double> kPrismCentroid {-74.,0.}; //x,y [cm]
+const double kDistanceFromBNB = 110e3; // [cm]
 
 const double kElectronMass   =  5.109989461e-04;        // GeV
 const double kMuonMass       =  1.056583745e-01;         // GeV

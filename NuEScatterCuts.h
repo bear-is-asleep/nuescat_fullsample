@@ -155,16 +155,16 @@ std::vector<CutDef> nuescatter_cuts = { { "No Cut", "no_cut", kNoSpillCut },
   { "Has Slc", "has_slc", kHasSlc },
   { "Has Nu Slc", "has_nu_slc", kHasNuSlc },
   { "Has Nu FV Slc", "has_nu_fv_slc", kHasNuFVSlc },
-  //{ "Has CRUMBS Slc", "has_crumbs_slc", kHasCRUMBSSlc },
+  { "Has CRUMBS Slc", "has_crumbs_slc", kHasCRUMBSSlc },
   { "Is FV", "is_fv", kIsFV },
-  {"Etheta2 Cut","Etheta2",kEtheta2},
+  // {"Etheta2 Cut","Etheta2",kEtheta2},
   {"Has No Tracks","no_trks",kHasNoTrks},
   {"Has One Shower","one_shw",kHasOneShw},
-  {"Electron Razzle","erazzle",kRazzleCut}
+  // {"Electron Razzle","erazzle",kRazzleCut}
 };
 
 const SpillCut kPreSelection = kHasSlc && kHasNuSlc && kHasNuFVSlc;
 const SpillCut kCosmicRej    = kPreSelection && kHasCRUMBSSlc && kIsFV;
-const SpillCut kFullSelection = kEtheta2 && kHasNoTrks && kHasOneShw && kRazzleCut;
+const SpillCut kFullSelection = kPreSelection && kCosmicRej && kEtheta2 && kHasNoTrks && kHasOneShw && kRazzleCut;
 
 

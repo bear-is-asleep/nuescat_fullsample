@@ -27,3 +27,11 @@ struct TrueCategory {
   int colour = kBlack;
   TString label = "";
 };
+
+struct SystEnsemble {
+  TString name = "";
+  int color = kBlack;
+  TString label = "";
+  Var var;
+  EnsembleSpectrum* syst;
+};

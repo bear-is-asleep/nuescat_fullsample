@@ -9,14 +9,14 @@ const SpillVar kPiZeroID([](const caf::SRSpillProxy* sp) -> unsigned {
     return 999999;
   });
 
-const SpillVar kNuEScatID([](const caf::SRSpillProxy* sp) -> unsigned {
-    if(!kSignal(sp)) return 999999;
-    if(sp->mc.nu[kBestNuID(sp)].nprim > 1) return 999999;
-    auto const& prim = sp->mc.nu[kBestNuID(sp)].prim[0];
-    if(abs(prim.pdg) == 11) return i; //Is an electron
+// const SpillVar kNuEScatID([](const caf::SRSpillProxy* sp) -> unsigned {
+//     if(!kSignal(sp)) return 999999;
+//     if(sp->mc.nu[kBestNuID(sp)].nprim > 1) return 999999;
+//     auto const& prim = sp->mc.nu[kBestNuID(sp)].prim[0];
+//     if(abs(prim.pdg) == 11) return i; //Is an electron
 
-    return 999999;
-  });
+//     return 999999;
+//   });
 
 const SpillVar kNuECCID([](const caf::SRSpillProxy* sp) -> unsigned {
     //if(!kSignal(sp)) return 999999;
@@ -77,7 +77,7 @@ const SpillVar kPiZeroLeadingPhotonID([](const caf::SRSpillProxy* sp) -> unsigne
   });
 
 const SpillVar kPiZeroSubLeadingPhotonID([](const caf::SRSpillProxy* sp) -> unsigned {
-    if(!kSignalTwoGamma(sp)) return false;
+    if(!kTwoGamma(sp)) return false;
 
     const unsigned pion_id = kPiZeroID(sp);
 
@@ -113,7 +113,7 @@ const SpillVar kPiZeroSubLeadingPhotonID([](const caf::SRSpillProxy* sp) -> unsi
   });
 
 const SpillVar kPiZeroThresholdRecoStatus([](const caf::SRSpillProxy *sp) {
-    if(!kSignalTwoGamma(sp)) return -1.;
+    if(!kTwoGamma(sp)) return -1.;
     
     int photon_one_id = sp->true_particles[kPiZeroLeadingPhotonID(sp)].G4ID;
     int photon_two_id = sp->true_particles[kPiZeroSubLeadingPhotonID(sp)].G4ID;
@@ -142,29 +142,29 @@ const SpillVar kPiZeroThresholdRecoStatus([](const caf::SRSpillProxy *sp) {
       return 4.;
   });
 
-const SpillVar kTruthShw([](const caf::SRSpillProxy *sp) {
-  //if(!kSignal(sp)) return 999999;
-  int nshw = 0;
-  auto const& slc = sp->slc[kBestSlcID(sp)];
-  for (auto const& pdg : sp->truth.pdg){
-    if abs(pdg) == 11:{++nshw;}
-    else if pdg == 22:{++nshw;}
-    else if pdg == 111:{nshw+=2;}   
-  }
-  return nshw;
-});
+// const SpillVar kTruthShw([](const caf::SRSpillProxy *sp) {
+//   //if(!kSignal(sp)) return 999999;
+//   int nshw = 0;
+//   auto const& slc = sp->slc[kBestSlcID(sp)];
+//   for (auto const& pdg : slc.truth.pdg){
+//     if (abs(pdg) == 11):{++nshw;}
+//     else (if pdg == 22):{++nshw;}
+//     else (if pdg == 111):{nshw+=2;}   
+//   }
+//   return nshw;
+// });
 
-const SpillVar kTruthTrk([](const caf::SRSpillProxy *sp) {
-  //if(!kSignal(sp)) return 999999;
-  int ntrk = 0;
-  auto const& slc = sp->slc[kBestSlcID(sp)];
-  for (auto const& pdg : sp->truth.pdg){
-    if abs(pdg) == 2212:{++ntrk;}
-    else if abs(pdg) == 13:{++ntrk;}
-    else if abs(pdg) == 211:{++ntrk;}   
-  }
-  return ntrk;
-});
+// const SpillVar kTruthTrk([](const caf::SRSpillProxy *sp) {
+//   //if(!kSignal(sp)) return 999999;
+//   int ntrk = 0;
+//   auto const& slc = sp->slc[kBestSlcID(sp)];
+//   for (auto const& pdg : slc.truth.pdg){
+//     if (abs(pdg) == 2212):{++ntrk;}
+//     else if (abs(pdg) == 13):{++ntrk;}
+//     else if (abs(pdg) == 211):{++ntrk;}   
+//   }
+//   return ntrk;
+// });
 
 //Not yet implemented
 // const SpillVar kTruthStub([](const caf::SRSpillProxy *sp) {
@@ -178,3 +178,5 @@ const SpillVar kTruthTrk([](const caf::SRSpillProxy *sp) {
 //   }
 //   return ntrk;
 // });
+
+

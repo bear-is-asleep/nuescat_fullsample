@@ -19,6 +19,7 @@ const SpillVar kBestNuID([](const caf::SRSpillProxy* sp) {
         if(visE > most_en)
           {
             most_en = visE;
+
             id      = counter;
           }
         ++counter;
@@ -68,7 +69,7 @@ const SpillVar kTrueBestSlice([](const caf::SRSpillProxy* sp) -> unsigned {
     return returnid;
   });
 
-// Determine if this event contains multiple interactions in the AV. Note this is 
+// Determine if this event contains multiple interactions in the AV. Note this is
 // different to the kMultiNu cut as kMultiNu does not exclude dirt neutrinos.
 const SpillCut kPileUp([](const caf::SRSpillProxy* sp) {
     if(sp->mc.nnu < 2) return false;
@@ -110,7 +111,7 @@ const SpillCut kCCNuE([](const caf::SRSpillProxy* sp) {
     return kCC(sp) && std::abs(sp->mc.nu[kBestNuID(sp)].pdg) == 12 &&
       sp->mc.nu[kBestNuID(sp)].hitnuc != 0;
   });
-    
+
 const SpillVar kNPiPlus([](const caf::SRSpillProxy* sp) -> unsigned {
     if(kCosmicSpill(sp)) return std::numeric_limits<unsigned>::max();
 
@@ -169,6 +170,8 @@ const SpillVar kNProton([](const caf::SRSpillProxy* sp) -> unsigned {
     return nproton;
   });
 
+const SpillVar kNChargedHadron = kNChargedPi + kNProton; //Include kaons later?
+
 const SpillCut kNCPiZero([](const caf::SRSpillProxy* sp) {
     return kNC(sp) && kNChargedPi(sp) == 0 && kNPiZero(sp) >= 1;
   });
@@ -176,22 +179,19 @@ const SpillVar kNPrim([](const caf::SRSpillProxy* sp) {
   return sp->mc.nu[kBestNuID(sp)].nprim;
 });
 
+const SpillVar kCCQENuE([](const caf::SRSpillProxy* sp) {
+    return kCCNuE(sp) && kNPrim(sp) == 2 && sp->mc.nu[kBestNuID(sp)].hitnuc != 0;
+  });
+
 const SpillVar kNuEScat([](const caf::SRSpillProxy* sp) -> unsigned {
     if(kDirt(sp) || kCosmicSpill(sp) || kCCNuE(sp) || kCCNuMu(sp)){return false;}
-    if (kNElectron(sp) == 1 && kNPrim(sp) == 2 && sp->mc.nu[kBestNuID(sp)].hitnuc == 0){
-      std::cout<<"kNuEScat"<<kNPrim(sp)<<std::endl;
-      std::cout<<"Nele"<<kNElectron(sp)<<std::endl;
-      std::cout<<"Hit Nuc: "<<sp->mc.nu[kBestNuID(sp)].hitnuc<<std::endl;
-      //Loop over primaries. What are these?
-      for (int i =0; i<sp->mc.nu[kBestNuID(sp)].nprim; i++){
-        std::cout<<"Prim: "<<i<<" pdg: "<<sp->mc.nu[kBestNuID(sp)].prim[i].pdg<<std::endl;
-      }
-      std::cout<<"run,subrun,event "<<sp->hdr.run<<","<<sp->hdr.subrun<<","<<sp->hdr.evt<<std::endl;
-      //return true;
-    }
-    return kNElectron(sp) == 1 && kNPrim(sp) == 2 && sp->mc.nu[kBestNuID(sp)].hitnuc == 0; //&& sp->mc.nu[kBestNuID(sp)].nprim==2;
+    return kNElectron(sp) == 1 && kNPrim(sp) == 2 && sp->mc.nu[kBestNuID(sp)].hitnuc == 0;
 
   });
+
+// const SpillCut kCCNuEZeroHadron([](const caf::SRSpillProxy* sp){
+//   return kCCNuE(sp) &&
+// });
 
 const SpillCut kSignal([](const caf::SRSpillProxy* sp) {
     return kTrueFV(sp) && kNuEScat(sp);
@@ -260,6 +260,6 @@ std::vector<TrueCategory> nuescat_sel_categories = {
   {"CC #nu_{#mu}", kCCNuMu, kGreen+2, "CCNuMu"},
   {"CC #nu_{e}", kCCNuE, kCyan+2, "CCNuE"},
   {"Dirt", kDirt, kOrange+3, "Dirt"},
-  {"Cosmic", kCosmicSpill, kRed+1, "Cosmic"},
+  //{"Cosmic", kCosmicSpill, kRed+1, "Cosmic"},
   //{"Other", !kNC && !kCCNuMu && !kCCNuE && !kDirt && !kCosmicSpill, kBlack, "Other"}
 };

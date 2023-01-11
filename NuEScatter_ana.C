@@ -3,14 +3,33 @@
 #include "sbnanaobj/StandardRecord/Proxy/SRProxy.h"
 #include "sbnana/SBNAna/Cuts/VolumeDefinitions.h"
 
+//Systs
+#include "sbnana/CAFAna/Systs/SBNWeightSysts.h"
+#include "sbnana/CAFAna/Core/EnsembleRatio.h"
+#include "sbnana/CAFAna/Core/EnsembleSpectrum.h"
+#include "sbnana/CAFAna/Core/LoadFromFile.h"
+#include "sbnana/CAFAna/Cuts/TruthCuts.h"
+#include "sbnana/CAFAna/Core/Var.h"
+
+#include "sbnana/CAFAna/Core/Binning.h"
+#include "sbnana/CAFAna/Core/SpectrumLoader.h"
+#include "sbnana/CAFAna/Core/EnsembleRatio.h"
+
+#include "sbnana/CAFAna/Analysis/ExpInfo.h"
+#include "sbnanaobj/StandardRecord/SRTrueInteraction.h"
+
+//#include "SystEnsembles.h"
+
 using namespace ana;
 
 #include "Constants.h"
 #include "Structs.h"
 #include "TrueEventCategories.h"
+#include "NuEScatterTruthVars.h"
 #include "NuEScatterRecoVars.h"
 #include "NuEScatterCuts.h"
 #include "utils.h"
+#include "Reducer.h"
 
 #include <string>
 #include "TTree.h"
@@ -20,36 +39,96 @@ using namespace ana;
 #include "TH1.h"
 #include "TPaveText.h"
 #include "TSystem.h"
+#include "TFile.h"
 
 using namespace std;
 
-void NuEScatter_ana()
+const string state_fname = "NuEScatter_state_all.root";
+//const string state_nuescat_fname = "NuEScatter_state_nuescat.root";
+//const string state_ncpi0_fname = "NuEScatter_state_ncpi0.root";
+
+
+// std::vector<SystEnsemble> setup_systematics(SpectrumLoader loader,
+//     Var var,std::vector<TString> names, std::vector<SpillCut> cuts, std::vector<int> colors,
+//     std::vector<TString> labels,std::vector<Var> weis,HistAxis ax){
+//       //all the same size
+//       assert(names.size() == cuts.size());
+//       assert(colors.size() == labels.size());
+//       assert(names.size() == labels.size());
+
+//       std::vector<SystEnsemble> systs;
+
+//       for (unsigned i=0; i<cuts.size(); i++){
+//         EnsembleSpectrum syst(loader,ax,cuts[i],kNoCut,weis);
+//         systs.emplace_back({names[i],colors[i],labels[i],var,systs});
+//       }
+//       return systs;
+//     }
+
+void NuEScatter_ana(bool reload = true)
 {
+  //std::cout.setstate(std::ios_base::failbit);
+
   //selectionstyle();
   setlocale(LC_NUMERIC, "");
+
+  //gROOT->SetBatch(kTRUE);
   
   //Use my sample with nu e scat
   const std::string inputNameNuE = "/sbnd/data/users/brindenc/analyze_sbnd/nue/v09_58_02/CAFnue1.root";
   const std::string inputNameNu = "defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd";
+  const std::string inputNameNu_noflat = "defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_caf_sbnd";
   //const std::string inputNameIntime = "defname: official_MCP2022A_prodcorsika_proton_intime_filter_sce_reco2_concat_flat_caf_sbnd";
 
 
   const double gPOT = 10e20;
   const bool save = true;
   const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date();
+  const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date();
   //const TString date = get_date();
 
   SpectrumLoader loaderNu(inputNameNu);
   //SpectrumLoader loaderIntime(inputNameIntime);
 
   std::vector<Spectrum*> sNu;
+  //std::vector<EnsembleSpectrum*> sNuSyst;
   //sIntime;
 
   SpillCut previousCuts = kNoSpillCut;
 
+  const std::vector<std::string>& flux_systs = GetSBNBoosterFluxWeightNames();
+  //systs = {"multisim_Genie"};
+  vector<Var> weis; //Initialize weights
+  for (unsigned j=0; j<1000; j++) {
+    weis.push_back(kUnweighted);
+  }
+  const Var kTrueE = SIMPLEVAR(truth.E);
+  const Binning binsEnergy = Binning::Simple(30, 0, 3);
+  HistAxis ax("True Energy (GeV)",binsEnergy,kTrueE);
+  for (unsigned j=0; j<1000; j++){
+    weis[j] = weis[j]*GetUniverseWeight("multisim_Genie", j); //Get weight from 
+  }
+
+  //Flux syst
+  vector<Var> weis_flux; //Initialize weights
+  for (unsigned j=0; j<1000; j++) {
+    weis_flux.push_back(kUnweighted);
+  }
+  for (unsigned i =0; i<flux_systs.size(); i++){
+    for (unsigned j=0; j<1000; j++){
+      weis[j] = weis[j]*GetUniverseWeight(flux_systs[i], j); //Get weight from 
+    }
+  }
+
+
+  std::vector<TString> syst_names = {"CCNuE","nuescat","all"};
+  std::vector<TString> syst_labels = {"CC #nu_{e}","#nu + e","All"};
+  std::vector<int> syst_colors = {kCyan,kRed,kOrange};
+
   for (auto const& cut : nuescatter_cuts){
     std::cout<<cut.name<<std::endl;
     for(auto const& plot : recoPlots){
+      std::cout<<"--"<<plot.name<<std::endl;
       for(auto const& category : nuescat_sel_categories){
         string name = *category.label.Data() + "_" + *plot.name.Data();
 	      sNu.emplace_back(new Spectrum("nu_" + name, plot.binning, loaderNu, 
@@ -58,12 +137,66 @@ void NuEScatter_ana()
 	      // sIntime.emplace_back(new Spectrum("intime_" + name, plot.binning, 
 				// 		loaderIntime, plot.variable,  
 				// 		category.cut && previousCuts && cut.cut));
+        
       }
     }
     previousCuts = previousCuts && cut.cut;
+    if (cut.name == "Etheta2 Cut"){
+      //std::cout<<"reducer started";
+      //reducer(previousCuts,inputNameNu_noflat);
+      //std::cout<<"reducer finished"<<std::endl;
+      
+    }
   }
+  std::vector<SpillCut> syst_cuts = {previousCuts && kSignal,
+    previousCuts && kCCNuE && kTrueFV, previousCuts};
+  //std::vector<SystEnsemble> systs = setup_systematics(loaderNu,kTrueE,syst_names,syst_cuts,syst_colors,syst_labels,weis,ax);
+  std::vector<SystEnsemble> systs;
+  std::vector<SystEnsemble> systs_flux;
+
+  std::cout<<"Filling"<<std::endl;
+  for (unsigned i=0; i<syst_cuts.size(); i++){
+    SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
+      new EnsembleSpectrum(loaderNu,ax,syst_cuts[i],kNoCut,weis)};
+    systs.emplace_back(syst);
+
+    SystEnsemble syst_flux = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
+      new EnsembleSpectrum(loaderNu,ax,syst_cuts[i],kNoCut,weis_flux)};
+    systs_flux.emplace_back(syst_flux);
+    //syst = {};
+  }
+  //std::vector<std::vector<SystEnsemble>> systematics = {systs,systs_flux};
+  std::cout<<"Filled"<<std::endl;
+
+  //if(reload || TFile(state_fname.c_str()).IsZombie()){
+    //std::cout<<"Making weights"<<std::endl;
+    // EnsembleSpectrum sNuSyst(loaderNu,ax,previousCuts,kNoCut,weis);
+    // EnsembleSpectrum sNueScatSyst(loaderNu,ax,previousCuts && kSignal,kNoCut,weis);
+    // EnsembleSpectrum sNueCCSyst(loaderNu,ax,previousCuts && kNuECC && kTrueFV,kNoCut,weis);
+
+  //}
+  //else{
+    //TFile fin(state_fname.c_str());
+    //EnsembleSpectrum* sNuSyst = LoadFrom<EnsembleSpectrum>(fin.GetDirectory("cc")).release();
+    //EnsembleSpectrum* sNueScatSyst = LoadFrom<EnsembleSpectrum>(fin.GetDirectory("nc")).release();
+  //}
+  //EnsembleSpectrum sNcpi0Syst(loaderNu,ax,previousCuts,kNCPiZero && kTrueFV,weis);
+  //EnsembleSpectrum sNuESyst(loaderNu,ax,previousCuts,kCCNuE && kTrueFV,weis);
+  std::cout.setstate(std::ios_base::failbit);
   loaderNu.Go();
+  std::cout.clear();
   //loaderIntime.Go();
+
+  TFile fout(state_fname.c_str(),"RECREATE");
+
+  gSystem->Exec("mkdir -p " + stateDir);
+  //gSystem->Exec("mkdir -p " + stateDir + "/nuescat");
+  //std::cout<<"Saving states"<<std::endl;
+  // sNuSyst.SaveTo(fout.mkdir("all"));
+  // sNueScatSyst.SaveTo(fout.mkdir("nuescat"));
+  // sNueScatSyst.SaveTo(fout.mkdir("nuecc"));
+  //sNcpi0Syst.SaveTo(fout.mkdir("nuescat"));
+  //std::cout<<"Saved states"<<std::endl;
 
   const double nomInt           = 5e12;
   const double targetLive       = gPOT / nomInt;
@@ -157,5 +290,84 @@ void NuEScatter_ana()
 	}
       ++j;
     }
+  
+  //TFile fin(state_fname.c_str());
+  //EnsembleSpectrum* sNuSyst = LoadFrom<EnsembleSpectrum>(fin.GetDirectory("nue_scat")).release();
+
+  TCanvas *canvas = new TCanvas("c");
+  TLegend *legend = new TLegend(.59,.67,.89,.85);
+  double max_val = -9999;
+  for (auto const& syst : systs){
+    TH1D *hist_nom = syst.syst->Nominal().ToTH1(gPOT, syst.color);
+    for(unsigned int i = 0; i < syst.syst->NUniverses(); ++i){
+      TH1D *hist = syst.syst->Universe(i).ToTH1(gPOT, syst.color-10);
+      if (hist->GetMaximum() > max_val){max_val = hist->GetMaximum();}
+      hist->SetLineColorAlpha(syst.color, 0.1);
+      hist->SetMaximum(30000);
+      hist->Draw("hist same");
+    }
+    //Redraw nominal over top
+    hist_nom->SetMaximum(30000);
+    hist_nom->Draw("hist same");
+
+    legend->AddEntry(hist_nom, syst.label, "lf");
+  }
+  legend->SetLineColorAlpha(0,0);
+	legend->SetTextSize(0.04);
+  legend->Draw();
+  gSystem->Exec("mkdir -p "+saveDir+"/systs");
+  gPad->Print(saveDir + "/systs/all_interaction.png");
+  
+  //delete legend,canvas;
+
+  
+  //TCanvas *canvas = new TCanvas("c");
+  //TLegend *legend = new TLegend(.59,.67,.89,.85);
+
+  for (auto const& syst: systs){
+    new TCanvas;
+    //std::cout<<"In loop"<<std::endl;
+    TGraphAsymmErrors* band = syst.syst->ErrorBand(gPOT,"error_band_"+syst.name,stateDir+"/");
+    DrawErrorBand(syst.syst->Nominal().ToTH1(gPOT, syst.color), band);
+    //std::cout<<"Drew error band"<<std::endl;
+    gPad->Print(saveDir + "/systs/error_band_"+syst.name+".png");
+  }
+
+  // sNuSyst.Nominal().ToTH1(gPOT, kRed)->Draw("hist");
+  // //sNcpi0Syst.Nominal().ToTH1(gPOT, kRed)->Draw("hist");
+  // for(unsigned int i = 0; i < sNuSyst.NUniverses(); ++i){
+  //   sNuSyst.Universe(i).ToTH1(gPOT, kRed-10)->Draw("hist same");
+  // }
+  // //Redraw nominal over top
+  // sNuSyst.Nominal().ToTH1(gPOT, kRed)->Draw("hist same");
+  // gSystem->Exec("mkdir -p "+saveDir+"/systs");
+  // gPad->Print(saveDir + "/systs/all.png");
+
+  // new TCanvas;
+
+  // sNueScatSyst.Nominal().ToTH1(gPOT, kOrange)->Draw("hist");
+  // for(unsigned int i = 0; i < sNueScatSyst.NUniverses(); ++i){
+  //   sNueScatSyst.Universe(i).ToTH1(gPOT, kOrange-10)->Draw("hist same");
+  // }
+  // //Redraw nominal over top
+  // sNueScatSyst.Nominal().ToTH1(gPOT, kOrange)->Draw("hist same");
+  // legend->AddEntry(sNueScatSyst.Nominal().ToTH1(gPOT, kOrange), Form("%s (%'.0f)", , integral), "lf");
+
+
+  // gPad->Print(saveDir + "/systs/nuescat.png");
+
+  // new TCanvas;
+
+  // TGraphAsymmErrors* band = sNuSyst.ErrorBand(gPOT,"error_band_all",stateDir+"/");
+  // DrawErrorBand(sNuSyst.Nominal().ToTH1(gPOT, kRed), band);
+
+  // gPad->Print(saveDir + "/systs/all_band.png");
+
+  // new TCanvas;
+
+  // TGraphAsymmErrors* band_nue = sNueScatSyst.ErrorBand(gPOT,"error_band_nuescat",stateDir+"/");
+  // DrawErrorBand(sNuSyst.Nominal().ToTH1(gPOT, kOrange), band_nue);
+
+  // gPad->Print(saveDir + "/systs/nuescat_band.png");
 
 }
