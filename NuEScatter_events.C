@@ -77,6 +77,11 @@ void NuEScatter_events()
   vector<int> ntrk;
   vector<int> nstub;
   vector<int> nslc;
+  vector<int> nele;
+  vector<int> nrele;
+  vector<int> nrph;
+
+  vector<double> shw_conversion_gap;
 
   vector<int> evt_type;
 
@@ -103,8 +108,12 @@ void NuEScatter_events()
   tree->Branch("truentrk",&ntrk);
   tree->Branch("nstub",&nstub);
   tree->Branch("nslc",&nslc);
+  tree->Branch("nele",&nele);
+  tree->Branch("razzle.electrons",&nrele);
+  tree->Branch("razzle.photons",&nrph);
   tree->Branch("Etheta",&Etheta);
   tree->Branch("evt_type",&evt_type);
+  tree->Branch("shw.conversion_gap",&shw_conversion_gap);
 
   tree->Branch("vtx.x",&vtxx);
   tree->Branch("vtx.y",&vtxy);
@@ -132,6 +141,9 @@ void NuEScatter_events()
         ntrk.push_back(kNTracks(sp));
         nstub.push_back(kNStubs(sp));
         nslc.push_back(sp->nslc);
+        nele.push_back(kNElectrons(sp));
+        nrele.push_back(kNRazzleElectrons(sp));
+        nrph.push_back(kNRazzlePhotons(sp));
         Etheta.push_back(kEtheta2Var(sp));
         evt_type.push_back(kEventType(sp));
         truenshw.push_back(kTruthShw(sp));
@@ -139,6 +151,7 @@ void NuEScatter_events()
         vtxx.push_back(kNuX(sp));
         vtxy.push_back(kNuY(sp));
         vtxz.push_back(kNuZ(sp));
+        shw_conversion_gap.push_back(kConversionGap(sp));
         return 1;
       }
     //} 

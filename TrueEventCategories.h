@@ -278,7 +278,7 @@ std::vector<TrueCategory> nuescat_sel_categories = {
   //{"NC N#pi^{0}", kNCPiZero, kMagenta+2, "NCpi0"},
   //{"Other NC", kNC && !kNCPiZero, kYellow+2, "NC"},
   //{"CC #nu_{#mu}", kCCNuMu, kRed+2, "CCNuMu"},
-  {"CC #nu_{e}", kCCNuE, kTeal+2, "CCNuE"},
+  //{"CC #nu_{e}", kCCNuE, kTeal+2, "CCNuE"},
   //{"Dirt", kDirt, kOrange+3, "Dirt"},
   //{"Cosmic", kCosmicSpill, kRed+1, "Cosmic"},
   //{"Other", kOther, kBlack, "Other"}
