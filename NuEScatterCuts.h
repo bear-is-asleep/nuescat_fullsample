@@ -16,7 +16,7 @@ const SpillCut kHasNuFVSlc([](const caf::SRSpillProxy* sp) {
       {
 	if(slc.is_clear_cosmic) continue;
 
-	if(PtInVolAbsX(slc.vertex, fvndAbs)) return true;
+	if(PtInVolAbsX(slc.vertex, fvndNuEScat)) return true;
       }
     return false;
   });
@@ -45,6 +45,7 @@ const SpillCut kEtheta2([](const caf::SRSpillProxy* sp) {
   int pdg = 0;
   int bestplane = -1;
   double Etheta2 = 999;
+  //std::cout<<"nslc: "<<sp->nslc<<std::endl;
   auto const& slc = sp->slc[kBestSlcID(sp)];
   int cnt = 0;
   //Showers
@@ -62,10 +63,10 @@ const SpillCut kEtheta2([](const caf::SRSpillProxy* sp) {
     Etheta2 = Eng*theta*theta;
     if (Etheta2 < kEtheta2Cut && Eng != 0){ 
       if (kNuEScat(sp)){
-        std::cout<<"passed shw "<<shw.dir.z<<","<<theta<<","<<Eng<<","<<Etheta2<<","<<cnt<<std::endl;
-        std::cout<<"n shw "<< slc.reco.nshw<< std::endl;
-        std::cout<<"n trk "<< slc.reco.ntrk<< std::endl;
-        std::cout<<"n stub "<< slc.reco.nstub<< std::endl;
+        // std::cout<<"passed shw "<<shw.dir.z<<","<<theta<<","<<Eng<<","<<Etheta2<<","<<cnt<<std::endl;
+        // std::cout<<"n shw "<< slc.reco.nshw<< std::endl;
+        // std::cout<<"n trk "<< slc.reco.ntrk<< std::endl;
+        // std::cout<<"n stub "<< slc.reco.nstub<< std::endl;
       }
       // std::cout<<"passed "<<shw.dir.z<<","<<theta<<","<<Eng<<","<<Etheta2<<std::endl;
       // std::cout<<"nue scat?  "<< kNuEScat(sp)<< std::endl;
@@ -77,11 +78,11 @@ const SpillCut kEtheta2([](const caf::SRSpillProxy* sp) {
     else if(kNuEScat(sp)){
       TVector3 mom(shw.truth.p.genp.x,shw.truth.p.genp.y,shw.truth.p.genp.z);
       double true_angle = acos(mom.Z()/mom.Mag());
-      std::cout<<mom.X()<<","<<mom.Y()<<","<<mom.Z()<<std::endl;
-      std::cout<<"failed shw "<<shw.dir.z<<","<<theta<<",true angle "<<true_angle<<Eng<<","<<Etheta2<<","<<cnt<<std::endl;
-      std::cout<<"n shw "<< slc.reco.nshw<< std::endl;
-      std::cout<<"n trk "<< slc.reco.ntrk<< std::endl;
-      std::cout<<"n stub "<< slc.reco.nstub<< std::endl;
+      // std::cout<<mom.X()<<","<<mom.Y()<<","<<mom.Z()<<std::endl;
+      // std::cout<<"failed shw "<<shw.dir.z<<","<<theta<<",true angle "<<true_angle<<Eng<<","<<Etheta2<<","<<cnt<<std::endl;
+      // std::cout<<"n shw "<< slc.reco.nshw<< std::endl;
+      // std::cout<<"n trk "<< slc.reco.ntrk<< std::endl;
+      // std::cout<<"n stub "<< slc.reco.nstub<< std::endl;
     }
   }
   //Tracks
@@ -99,11 +100,11 @@ const SpillCut kEtheta2([](const caf::SRSpillProxy* sp) {
     Etheta2 = Eng*theta*theta;
     if (Etheta2 < kEtheta2Cut && Eng != 0){ 
       if (kNuEScat(sp)){
-        std::cout<<"passed trk "<<trk.dir.z<<","<<theta<<","<<Eng<<","<<Etheta2<<","<<cnt<<std::endl;
+        // std::cout<<"passed trk "<<trk.dir.z<<","<<theta<<","<<Eng<<","<<Etheta2<<","<<cnt<<std::endl;
 
-        std::cout<<"n shw "<< slc.reco.nshw<< std::endl;
-        std::cout<<"n trk "<< slc.reco.ntrk<< std::endl;
-        std::cout<<"n stub "<< slc.reco.nstub<< std::endl;
+        // std::cout<<"n shw "<< slc.reco.nshw<< std::endl;
+        // std::cout<<"n trk "<< slc.reco.ntrk<< std::endl;
+        // std::cout<<"n stub "<< slc.reco.nstub<< std::endl;
       }
       // std::cout<<"passed "<<trk.dir.z<<","<<theta<<","<<Eng<<","<<Etheta2<<std::endl;
       // std::cout<<"nue scat?  "<< kNuEScat(sp)<< std::endl;
@@ -115,11 +116,11 @@ const SpillCut kEtheta2([](const caf::SRSpillProxy* sp) {
     else if(kNuEScat(sp)){
       TVector3 mom(trk.truth.p.genp.x,trk.truth.p.genp.y,trk.truth.p.genp.z);
       double true_angle = acos(mom.Z()/mom.Mag());
-      std::cout<<mom.X()<<","<<mom.Y()<<","<<mom.Z()<<std::endl;
-      std::cout<<"failed trk "<<trk.dir.z<<","<<theta<<",true angle "<<true_angle<<Eng<<","<<Etheta2<<","<<cnt<<std::endl;
-      std::cout<<"n shw "<< slc.reco.nshw<< std::endl;
-      std::cout<<"n trk "<< slc.reco.ntrk<< std::endl;
-      std::cout<<"n stub "<< slc.reco.nstub<< std::endl;
+      // std::cout<<mom.X()<<","<<mom.Y()<<","<<mom.Z()<<std::endl;
+      // std::cout<<"failed trk "<<trk.dir.z<<","<<theta<<",true angle "<<true_angle<<Eng<<","<<Etheta2<<","<<cnt<<std::endl;
+      // std::cout<<"n shw "<< slc.reco.nshw<< std::endl;
+      // std::cout<<"n trk "<< slc.reco.ntrk<< std::endl;
+      // std::cout<<"n stub "<< slc.reco.nstub<< std::endl;
     }
   }
   //std::cout<<Etheta2<<std::endl;
@@ -155,12 +156,12 @@ std::vector<CutDef> nuescatter_cuts = { { "No Cut", "no_cut", kNoSpillCut },
   { "Has Slc", "has_slc", kHasSlc },
   { "Has Nu Slc", "has_nu_slc", kHasNuSlc },
   { "Has Nu FV Slc", "has_nu_fv_slc", kHasNuFVSlc },
-  { "Has CRUMBS Slc", "has_crumbs_slc", kHasCRUMBSSlc },
+  //{ "Has CRUMBS Slc", "has_crumbs_slc", kHasCRUMBSSlc },
   { "Is FV", "is_fv", kIsFV },
-  // {"Etheta2 Cut","Etheta2",kEtheta2},
-  {"Has No Tracks","no_trks",kHasNoTrks},
   {"Has One Shower","one_shw",kHasOneShw},
-  // {"Electron Razzle","erazzle",kRazzleCut}
+  {"Has No Tracks","no_trks",kHasNoTrks},
+  {"Electron Razzle","erazzle",kRazzleCut},
+  {"Etheta2 Cut","Etheta2",kEtheta2},
 };
 
 const SpillCut kPreSelection = kHasSlc && kHasNuSlc && kHasNuFVSlc;

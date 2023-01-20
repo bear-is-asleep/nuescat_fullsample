@@ -2,7 +2,7 @@
 
 const FidVol fvndNuEScat{  +1.5, +190.,  // x
                       -190., +190.,  // y
-                       +20., +480.}; // z
+                       +10., +485.}; // z
 
 template <typename T>
 struct Plot {
@@ -13,6 +13,17 @@ struct Plot {
   TString label;
   std::vector<float> legBox = {.1, .1, .4, .3};
 };
+
+// struct Plot2D {
+//   TString name = "";
+//   T x;
+//   T y; 
+//   Binning binningx;
+//   Binning binningy;
+//   TString axes_labels;
+//   TString label;
+//   std::vector<float> legBox = {.1, .1, .4, .3};
+// };
 
 struct CutDef {
   TString name = "";

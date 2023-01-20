@@ -57,5 +57,6 @@ mcprim_keys = ['pdg',
   'genE',
   'genp.x',
   'genp.y',
-  'genp.z']
+  'genp.z',
+  'truth.E']
 mcprim_keys = [primprefix+key for key in mcprim_keys]

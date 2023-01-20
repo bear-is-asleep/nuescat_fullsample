@@ -142,30 +142,6 @@ const SpillVar kPiZeroThresholdRecoStatus([](const caf::SRSpillProxy *sp) {
       return 4.;
   });
 
-// const SpillVar kTruthShw([](const caf::SRSpillProxy *sp) {
-//   //if(!kSignal(sp)) return 999999;
-//   int nshw = 0;
-//   auto const& slc = sp->slc[kBestSlcID(sp)];
-//   for (auto const& pdg : slc.truth.pdg){
-//     if (abs(pdg) == 11):{++nshw;}
-//     else (if pdg == 22):{++nshw;}
-//     else (if pdg == 111):{nshw+=2;}   
-//   }
-//   return nshw;
-// });
-
-// const SpillVar kTruthTrk([](const caf::SRSpillProxy *sp) {
-//   //if(!kSignal(sp)) return 999999;
-//   int ntrk = 0;
-//   auto const& slc = sp->slc[kBestSlcID(sp)];
-//   for (auto const& pdg : slc.truth.pdg){
-//     if (abs(pdg) == 2212):{++ntrk;}
-//     else if (abs(pdg) == 13):{++ntrk;}
-//     else if (abs(pdg) == 211):{++ntrk;}   
-//   }
-//   return ntrk;
-// });
-
 //Not yet implemented
 // const SpillVar kTruthStub([](const caf::SRSpillProxy *sp) {
 //   if(!kSignal(sp)) return 999999;
