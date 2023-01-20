@@ -28,10 +28,12 @@ using namespace ana;
 
 #include "Constants.h"
 #include "Structs.h"
-#include "TrueEventCategories.h"
-#include "NuEScatterTruthVars.h"
-#include "NuEScatterRecoVars.h"
-#include "NuEScatterCuts.h"
+//#include "TrueEventCategories.h"
+//#include "NuEScatterRecoVars.h"
+//#include "NuEScatterCuts.h"
+#include "TrueEventCategories_simple.h"
+#include "NuEScatterRecoVars_simple.h"
+#include "NuEScatterCuts_simple.h"
 #include "utils.h"
 #include "Reducer.h"
 #include "plotStyle.C"
@@ -67,7 +69,7 @@ void NuEScatter_ana(bool reload = true)
 
   const double gPOT = 10e20;
   const bool save = true;
-  const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"nueonly_other";
+  const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"nueonly_simple";
   const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date();
   //const TString date = get_date();
 
