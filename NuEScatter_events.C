@@ -51,19 +51,19 @@ int kEventType(const caf::SRSpillProxy* sp){
     return 1; //"NCpi0";
   }
   else if (kNC(sp) && ! kNCPiZero(sp)){
-    return 2 //"NC";
+    return 2; //"NC";
   }
   else if (kCCNuMu(sp)){
-    return 3 //"CCNuMu";
+    return 3; //"CCNuMu";
   }
   else if (kCCNuE(sp)){
-    return 4 //"CCNuE";
+    return 4; //"CCNuE";
   }
   else if (kDirt(sp)){
-    return 5 //"Dirt";
+    return 5; //"Dirt";
   }
   else{
-    return 6 //"Other";
+    return 6; //"Other";
   }
 }
 
@@ -129,7 +129,7 @@ void NuEScatter_events()
   out <<"Run\t Subrun\t Event\t SpillID\n";
   const SpillVar dummy_var([&](const caf::SRSpillProxy* sp){
     //for(const auto& slc: sp->slc) {
-      if(kFullSelection(sp)) {
+      if(kPreSelection(sp)) {
         out << sp->hdr.run << "\t" << sp->hdr.subrun
             << "\t" << sp->hdr.evt << "\t" << kBestSlcID(sp) <<"\n";
             //<< "\tVertex: (" 
@@ -151,18 +151,34 @@ void NuEScatter_events()
         vtxx.push_back(kNuX(sp));
         vtxy.push_back(kNuY(sp));
         vtxz.push_back(kNuZ(sp));
-        shw_conversion_gap.push_back(kConversionGap(sp));
+        //shw_conversion_gap.push_back(kConversionGap(sp));
         return 1;
       }
     //} 
     return 0;
   });
+  //Get other universe
+  vector<Var> weis; //Initialize weights
+  for (unsigned j=0; j<10; j++) {
+    weis.push_back(kUnweighted);
+  }
+  const std::vector<std::string>& flux_systs = GetSBNBoosterFluxWeightNames();
+  const Var kTrueE = SIMPLEVAR(truth.E);
+  const Binning binsEnergy = Binning::Simple(10, 0, 4);
+  HistAxis ax("True Energy (GeV)",binsEnergy,kTrueE);
+  for (unsigned i =0; i<flux_systs.size(); i++){
+    for (unsigned j=0; j<10; j++){
+      weis[j] = weis[j]*GetUniverseWeight(flux_systs[i], j)*GetUniverseWeight("multisim_Genie", j); //Get weight from 
+    }
+  }
 
   const Binning dummy_bins = Binning::Simple(2, 0, 2);
   Spectrum dummy_spec("Dummy Label", dummy_bins, loader, dummy_var, kNoSpillCut);
+  EnsembleSpectrum dummy_spec_univ(loader,ax,kNoSpillCut,kNoCut,weis);
 
   loader.Go();
   tree->Fill();
   file->Write();
+  //gSystem->Exec("mv " + stateDir+"/cut_events.root"+" "+stateDir+"/cut_events_univ0.root");
 
 }

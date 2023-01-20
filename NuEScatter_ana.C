@@ -67,7 +67,7 @@ void NuEScatter_ana(bool reload = true)
 
   const double gPOT = 10e20;
   const bool save = true;
-  const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"nueonly_moreplots";
+  const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"fullsample_nosyst";
   const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date();
   //const TString date = get_date();
 
@@ -332,11 +332,11 @@ void NuEScatter_ana(bool reload = true)
       TH1D *hist = syst.syst->Universe(i).ToTH1(gPOT, syst.color-10);
       if (hist->GetMaximum() > max_val){max_val = hist->GetMaximum();}
       hist->SetLineColorAlpha(syst.color, 0.1);
-      hist->SetMaximum(30000);
+      hist->SetMaximum(500);
       hist->Draw("hist same");
     }
     //Redraw nominal over top
-    hist_nom->SetMaximum(30000);
+    hist_nom->SetMaximum(500);
     hist_nom->Draw("hist same");
 
     legend_flux->AddEntry(hist_nom, syst.label, "lf");
