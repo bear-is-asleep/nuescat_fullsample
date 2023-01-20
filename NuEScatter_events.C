@@ -159,7 +159,7 @@ void NuEScatter_events()
   });
   //Get other universe
   vector<Var> weis; //Initialize weights
-  for (unsigned j=0; j<10; j++) {
+  for (unsigned j=0; j<1000; j++) {
     weis.push_back(kUnweighted);
   }
   const std::vector<std::string>& flux_systs = GetSBNBoosterFluxWeightNames();
@@ -167,18 +167,19 @@ void NuEScatter_events()
   const Binning binsEnergy = Binning::Simple(10, 0, 4);
   HistAxis ax("True Energy (GeV)",binsEnergy,kTrueE);
   for (unsigned i =0; i<flux_systs.size(); i++){
-    for (unsigned j=0; j<10; j++){
+    for (unsigned j=0; j<1000; j++){
       weis[j] = weis[j]*GetUniverseWeight(flux_systs[i], j)*GetUniverseWeight("multisim_Genie", j); //Get weight from 
     }
   }
 
   const Binning dummy_bins = Binning::Simple(2, 0, 2);
-  Spectrum dummy_spec("Dummy Label", dummy_bins, loader, dummy_var, kNoSpillCut);
-  EnsembleSpectrum dummy_spec_univ(loader,ax,kNoSpillCut,kNoCut,weis);
+  //Spectrum dummy_spec("Dummy Label", dummy_bins, loader, dummy_var, kNoSpillCut);
+  Spectrum dummy_spec_univ(loader,ax,kNoSpillCut,kNoCut,kNoShift,weis[0]);
+  
 
   loader.Go();
   tree->Fill();
   file->Write();
-  //gSystem->Exec("mv " + stateDir+"/cut_events.root"+" "+stateDir+"/cut_events_univ0.root");
+  gSystem->Exec("mv " + stateDir+"/cut_events.root"+" "+stateDir+"/cut_events_univ0.root");
 
 }

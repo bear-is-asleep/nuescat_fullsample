@@ -272,14 +272,20 @@ const SpillCut kOther([](const caf::SRSpillProxy* sp) {
   }
 });
 
+const SpillCut kOtherFV([](const caf::SRSpillProxy* sp) {
+  return kOther(sp) && kTrueFV(sp);
+});
+
 std::vector<TrueCategory> nuescat_sel_categories = {
   //{"#nu + e",kSignal,kOrange+2,"Signal"},
-  {"#nu + e",kNuEScat,kBlue,"NuEScat"},
-  {"NC N#pi^{0}", kNCPiZero, kMagenta+2, "NCpi0"},
-  {"Other NC", kNC && !kNCPiZero, kYellow+2, "NC"},
-  {"CC #nu_{#mu}", kCCNuMu, kRed+2, "CCNuMu"},
-  {"CC #nu_{e}", kCCNuE, kTeal+2, "CCNuE"},
-  {"Dirt", kDirt, kOrange+3, "Dirt"},
+  {"#nu + e FV",kNuEScat && kTrueFV,kBlue,"NuEScatFV"},
+  {"#nu + e",kNuEScat,kBlue+3,"NuEScat"},
+  //{"NC N#pi^{0}", kNCPiZero && kTrueFV, kMagenta+2, "NCpi0"},
+  //{"Other NC", kNC && !kNCPiZero && kTrueFV, kYellow+2, "NC"},
+  //{"CC #nu_{#mu}", kCCNuMu && kTrueFV, kRed+2, "CCNuMu"},
+  //{"CC #nu_{e}", kCCNuE && kTrueFV, kTeal+2, "CCNuE"},
+  //{"Dirt", kDirt && kTrueFV, kOrange+3, "Dirt"},
   //{"Cosmic", kCosmicSpill, kRed+1, "Cosmic"},
-  //{"Other", kOther, kBlack, "Other"}
+  {"Other", kOther, kBlack, "Other"},
+  {"Other FV", kOtherFV, kOrange+2, "OtherFV"},
 };
