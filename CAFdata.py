@@ -14,6 +14,7 @@ recoslcprefix = 'rec.slc.reco.' #Add this to beginning of string for flat cafana
 recoprefix = 'rec.reco.' #Add this to beginning of string for flat cafana for neutrino events
 shwprefix = recoslcprefix+'shw.'
 trkprefix = recoslcprefix+'trk.'
+primsliceprefix = mcslcprefix+'prim'
 
 #Write down CAF keys we want to use
 nreco_keys = ['nshw',
@@ -49,7 +50,9 @@ mcslc_keys = ['pdg',
   'parent_pdg',
   'position.x',
   'position.y',
-  'position.z']
+  'position.z',
+  'hitnuc',
+  'nprim']
 mcslc_keys = [mcslcprefix+key for key in mcslc_keys]
 mcprim_keys = ['pdg',
   'gstatus',
@@ -60,3 +63,12 @@ mcprim_keys = ['pdg',
   'genp.z',
   'truth.E']
 mcprim_keys = [primprefix+key for key in mcprim_keys]
+slcprim_keys = ['pdg',
+  'gstatus',
+  'genT',
+  'genE',
+  'genp.x',
+  'genp.y',
+  'genp.z',
+  'truth.E']
+slcprim_keys = [primsliceprefix+key for key in mcprim_keys]

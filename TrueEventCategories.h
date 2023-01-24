@@ -93,24 +93,25 @@ const SpillCut kDirt([](const caf::SRSpillProxy *sp) {
     return !kCosmicSpill(sp) && !PtInVolAbsX(sp->mc.nu[kBestNuID(sp)].position, avnd);
   });
 
+const SpillCut kNuEScat([](const caf::SRSpillProxy* sp) {
+    return sp->mc.nu[kBestNuID(sp)].genie_inttype == 1098; //Interaction number for nu e scat
+  });
+
 const SpillCut kNC([](const caf::SRSpillProxy* sp) {
-    return !kDirt(sp) && !kCosmicSpill(sp) && sp->mc.nu[kBestNuID(sp)].isnc &&
-      sp->mc.nu[kBestNuID(sp)].hitnuc != 0;
+    return !kDirt(sp) && !kCosmicSpill(sp) && sp->mc.nu[kBestNuID(sp)].isnc;
+      //sp->mc.nu[kBestNuID(sp)].hitnuc != 0;
   });
 
 const SpillCut kCC([](const caf::SRSpillProxy* sp) {
-    return !kDirt(sp) && !kCosmicSpill(sp) && sp->mc.nu[kBestNuID(sp)].iscc &&
-      sp->mc.nu[kBestNuID(sp)].hitnuc != 0;
+    return !kDirt(sp) && !kCosmicSpill(sp) && sp->mc.nu[kBestNuID(sp)].iscc;
   });
 
 const SpillCut kCCNuMu([](const caf::SRSpillProxy* sp) {
-    return kCC(sp) && std::abs(sp->mc.nu[kBestNuID(sp)].pdg) == 14 &&
-      sp->mc.nu[kBestNuID(sp)].hitnuc != 0;
+    return kCC(sp) && std::abs(sp->mc.nu[kBestNuID(sp)].pdg) == 14 && !kNuEScat(sp);
   });
 
 const SpillCut kCCNuE([](const caf::SRSpillProxy* sp) {
-    return kCC(sp) && std::abs(sp->mc.nu[kBestNuID(sp)].pdg) == 12 &&
-      sp->mc.nu[kBestNuID(sp)].hitnuc != 0;
+    return kCC(sp) && std::abs(sp->mc.nu[kBestNuID(sp)].pdg) == 12 && !kNuEScat(sp);
   });
 
 const SpillVar kNPiPlus([](const caf::SRSpillProxy* sp) -> unsigned {
@@ -174,26 +175,14 @@ const SpillVar kNProton([](const caf::SRSpillProxy* sp) -> unsigned {
 const SpillVar kNChargedHadron = kNChargedPi + kNProton; //Include kaons later?
 
 const SpillCut kNCPiZero([](const caf::SRSpillProxy* sp) {
-    return kNC(sp) && kNChargedPi(sp) == 0 && kNPiZero(sp) >= 1;
+    return kNC(sp) && kNChargedPi(sp) == 0 && kNPiZero(sp) >= 1; 
   });
 const SpillVar kNPrim([](const caf::SRSpillProxy* sp) {
   return sp->mc.nu[kBestNuID(sp)].nprim;
 });
 
 const SpillVar kCCQENuE([](const caf::SRSpillProxy* sp) {
-    return kCCNuE(sp) && kNPrim(sp) == 2 && sp->mc.nu[kBestNuID(sp)].hitnuc != 0;
-  });
-
-const SpillCut kNuEScat([](const caf::SRSpillProxy* sp) {
-    if(kDirt(sp) || kCosmicSpill(sp) || kCCNuE(sp) || kCCNuMu(sp)){return false;}
-    else{
-      // std::cout<<"kNuEScat----------------"<<std::endl;
-      // std::cout<<"run info: "<<sp->hdr.run<<", "<<sp->hdr.subrun<<", "<<sp->hdr.evt<<std::endl;
-      // std::cout<<"nprim: "<< kNPrim(sp) <<std::endl;
-      // std::cout<<"nele: "<< kNElectron(sp) <<std::endl;
-      // std::cout<<"hitnuc: "<< sp->mc.nu[kBestNuID(sp)].hitnuc <<std::endl;
-      return kNElectron(sp) == 1 && kNPrim(sp) == 2 && sp->mc.nu[kBestNuID(sp)].hitnuc == 0;
-    }
+    return kCCNuE(sp) && sp->mc.nu[kBestNuID(sp)].genie_inttype == 1001;
   });
 
 // const SpillCut kCCNuEZeroHadron([](const caf::SRSpillProxy* sp){
@@ -263,11 +252,14 @@ const SpillCut kCCNuMuZeroPi([](const caf::SRSpillProxy* sp) {
 const SpillCut kOther([](const caf::SRSpillProxy* sp) {
   if(kNC(sp) || kCCNuMu(sp) || kCCNuE(sp) || kDirt(sp) || kCosmicSpill(sp) || kNuEScat(sp)){return false;}
   else{
-    // std::cout<<"kOther----------------"<<std::endl;
-    // std::cout<<"run info: "<<sp->hdr.run<<", "<<sp->hdr.subrun<<", "<<sp->hdr.evt<<std::endl;
-    // std::cout<<"nprim: "<< kNPrim(sp) <<std::endl;
-    // std::cout<<"nele: "<< kNElectron(sp) <<std::endl;
-    // std::cout<<"hitnuc: "<< sp->mc.nu[kBestNuID(sp)].hitnuc <<std::endl;
+    std::cout<<"kOther----------------"<<std::endl;
+    std::cout<<"run info: "<<sp->hdr.run<<", "<<sp->hdr.subrun<<", "<<sp->hdr.evt<<std::endl;
+    std::cout<<"nprim: "<< kNPrim(sp) <<std::endl;
+    std::cout<<"nele: "<< kNElectron(sp) <<std::endl;
+    std::cout<<"hitnuc: "<< sp->mc.nu[kBestNuID(sp)].hitnuc <<std::endl;
+    std::cout<<"charged hadr: "<<kNChargedHadron(sp)<<std::endl;
+    for(auto const& prim : sp->mc.nu[kBestNuID(sp)].prim)
+      std::cout<<"--prim pdg: "<<prim.pdg;
     return true;
   }
 });
@@ -278,14 +270,14 @@ const SpillCut kOtherFV([](const caf::SRSpillProxy* sp) {
 
 std::vector<TrueCategory> nuescat_sel_categories = {
   //{"#nu + e",kSignal,kOrange+2,"Signal"},
-  {"#nu + e FV",kNuEScat && kTrueFV,kBlue,"NuEScatFV"},
-  {"#nu + e",kNuEScat,kBlue+3,"NuEScat"},
-  //{"NC N#pi^{0}", kNCPiZero && kTrueFV, kMagenta+2, "NCpi0"},
-  //{"Other NC", kNC && !kNCPiZero && kTrueFV, kYellow+2, "NC"},
-  //{"CC #nu_{#mu}", kCCNuMu && kTrueFV, kRed+2, "CCNuMu"},
-  //{"CC #nu_{e}", kCCNuE && kTrueFV, kTeal+2, "CCNuE"},
-  //{"Dirt", kDirt && kTrueFV, kOrange+3, "Dirt"},
+  {"#nu + e",kNuEScat && kTrueFV,kBlue,"NuEScat"},
+  //{"#nu + e",kNuEScat,kBlue+3,"NuEScat"},
+  {"NC N#pi^{0}", kNCPiZero && kTrueFV, kMagenta+2, "NCpi0"},
+  {"Other NC", kNC && !kNCPiZero && kTrueFV, kYellow+2, "NC"},
+  {"CC #nu_{#mu}", kCCNuMu && kTrueFV, kRed+2, "CCNuMu"},
+  {"CC #nu_{e}", kCCNuE && kTrueFV, kTeal+2, "CCNuE"},
+  {"Dirt", kDirt, kOrange+3, "Dirt"},
   //{"Cosmic", kCosmicSpill, kRed+1, "Cosmic"},
-  {"Other", kOther, kBlack, "Other"},
-  {"Other FV", kOtherFV, kOrange+2, "OtherFV"},
+  //{"Other", kOther, kBlack, "Other"},
+  //{"Other FV", kOtherFV, kOrange+2, "OtherFV"},
 };

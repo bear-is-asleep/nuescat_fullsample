@@ -1,6 +1,6 @@
 #include <math.h>
 
-const SpillVar kBestSlcID([](const caf::SRSpillProxy* sp) -> unsigned {
+const SpillVar kBestSlcID_Etheta([](const caf::SRSpillProxy* sp) -> unsigned {
     unsigned i = 0;
     unsigned returnID = 0;
     double Etheta2 = 999;
@@ -68,6 +68,27 @@ const SpillVar kBestSlcID([](const caf::SRSpillProxy* sp) -> unsigned {
 
 	    ++i;
     }
+    return returnID;
+  });
+
+const SpillVar kBestSlcID([](const caf::SRSpillProxy* sp) -> unsigned {
+    unsigned i = 0;
+    double bestCrumbsScore = -std::numeric_limits<double>::max();
+    unsigned returnID = 0;
+
+    for(auto const& slc : sp->slc)
+      {
+	if(slc.is_clear_cosmic || isnan(slc.crumbs_result.score) || !PtInVolAbsX(slc.vertex, fvndAbs)) 
+	  { ++i; continue; }
+
+	if(slc.crumbs_result.score > bestCrumbsScore)
+	  {
+	    bestCrumbsScore = slc.crumbs_result.score;
+	    returnID        = i;
+	  }
+
+	++i;
+      }
     return returnID;
   });
 
@@ -491,7 +512,7 @@ const SpillVar kRecoE([](const caf::SRSpillProxy* sp) -> double {
     return Eng;
   });
 
-const SpillVar kTrueSpillE([](const caf::SRSpillProxy* sp) -> double {
+const SpillVar kTrueSliceE([](const caf::SRSpillProxy* sp) -> double {
   if(sp->nslc==0) return -1;
   auto const& slc = sp->slc[kBestSlcID(sp)];
     double Eng = 0;
@@ -744,7 +765,7 @@ std::vector<Plot<SpillVar>> recoPlots = {//{ "E#theta^{2}", kEtheta2Var, Binning
             { "ph Razzle", kNRazzlePhotons, Binning::Simple(5,0,5),";Razzle Photons;Events", "ph_razzle",{.59,.57,.89,.85}},
             { "Reco E", kRecoE, Binning::Simple(30,0,3),";Reco E [GeV];Events", "reco_E",{.59,.57,.89,.85}},
             { "True E_{#nu}", kTrueNuE, Binning::Simple(30,0,3),";True E_{#nu}[GeV];Events", "true_Enu",{.59,.57,.89,.85}},
-            { "True E", kTrueSpillE, Binning::Simple(30,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
+            { "True E", kTrueSliceE, Binning::Simple(30,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
             { "Reco #theta", kRecoSmallestTheta, Binning::Simple(15,0,1),";Reco #theta ;Events", "reco_theta",{.59,.57,.89,.85}},
             { "Reco #theta (Zoom)", kRecoSmallestTheta, Binning::Simple(15,0,0.1),";Reco #theta;Events", "reco_theta_zoom",{.59,.57,.89,.85}},
             { "True #theta", kTrueSmallestTheta, Binning::Simple(15,0,1),";True #theta ;Events", "true_theta",{.59,.57,.89,.85}},

@@ -81,7 +81,7 @@ void NuEScatter_events()
   vector<int> nrele;
   vector<int> nrph;
 
-  vector<double> shw_conversion_gap;
+  //vector<double> shw_conversion_gap;
 
   vector<int> evt_type;
 
@@ -93,6 +93,28 @@ void NuEScatter_events()
   vector<double> vtxx;
   vector<double> vtxy;
   vector<double> vtxz;
+
+  vector<double> true_spill_eng;
+  vector<double> reco_eng;
+  vector<double>  reco_theta;
+  vector<double> true_theta;
+
+  vector<double> lshw_eng;
+  vector<double> lshw_dedx;
+  vector<double> lshw_cnvgap;
+  vector<double> lshw_dens;
+  vector<double> lshw_len;
+  vector<double> lshw_openangle;
+
+  vector<double> slshw_eng;
+  vector<double> slshw_dedx;
+  vector<double> slshw_cnvgap;
+  vector<double> slshw_dens;
+  vector<double> slshw_len;
+  vector<double> slshw_openangle;
+
+  vector<int> genie_inttype;
+  vector<int> genie_mode;
 
 
   //Make TTree
@@ -113,11 +135,34 @@ void NuEScatter_events()
   tree->Branch("razzle.photons",&nrph);
   tree->Branch("Etheta",&Etheta);
   tree->Branch("evt_type",&evt_type);
-  tree->Branch("shw.conversion_gap",&shw_conversion_gap);
+  //tree->Branch("shw.conversion_gap",&shw_conversion_gap);
 
   tree->Branch("vtx.x",&vtxx);
   tree->Branch("vtx.y",&vtxy);
   tree->Branch("vtx.z",&vtxz);
+
+  tree->Branch("true_spill_eng",&true_spill_eng);
+  tree->Branch("reco_eng",&reco_eng);
+  tree->Branch("reco_theta",&reco_theta);
+  tree->Branch("true_theta",&true_theta);
+
+  tree->Branch("lshw.eng",&lshw_eng);
+  tree->Branch("lshw.dedx",&lshw_dedx);
+  tree->Branch("lshw.cnvgap",&lshw_cnvgap);
+  tree->Branch("lshw.dens",&lshw_dens);
+  tree->Branch("lshw.len",&lshw_len);
+  tree->Branch("lshw.openangle",&lshw_openangle);
+
+  tree->Branch("slshw.eng",&slshw_eng);
+  tree->Branch("slshw.dedx",&slshw_dedx);
+  tree->Branch("slshw.cnvgap",&slshw_cnvgap);
+  tree->Branch("slshw.dens",&slshw_dens);
+  tree->Branch("slshw.len",&slshw_len);
+  tree->Branch("slshw.openangle",&slshw_openangle);
+
+  tree->Branch("genie_inttype",&genie_inttype);
+  tree->Branch("genie_mode",&genie_mode);
+
 
 
 
@@ -129,7 +174,7 @@ void NuEScatter_events()
   out <<"Run\t Subrun\t Event\t SpillID\n";
   const SpillVar dummy_var([&](const caf::SRSpillProxy* sp){
     //for(const auto& slc: sp->slc) {
-      if(kPreSelection(sp)) {
+      if(kEthetaSelection(sp)) {
         out << sp->hdr.run << "\t" << sp->hdr.subrun
             << "\t" << sp->hdr.evt << "\t" << kBestSlcID(sp) <<"\n";
             //<< "\tVertex: (" 
@@ -151,35 +196,42 @@ void NuEScatter_events()
         vtxx.push_back(kNuX(sp));
         vtxy.push_back(kNuY(sp));
         vtxz.push_back(kNuZ(sp));
-        //shw_conversion_gap.push_back(kConversionGap(sp));
+
+        true_spill_eng.push_back(kTrueSliceE(sp));
+        reco_eng.push_back(kRecoE(sp));
+        reco_theta.push_back(kRecoSmallestTheta(sp));
+        true_theta.push_back(kTrueSmallestTheta(sp));
+
+        lshw_eng.push_back(kLeadingShwEnergy(sp));
+        lshw_dedx.push_back(kLeadingShwdEdx(sp));
+        lshw_cnvgap.push_back(kLeadingShwCnvGap(sp));
+        lshw_dens.push_back(kLeadingShwDensity(sp));
+        lshw_len.push_back(kLeadingShwLen(sp));
+        lshw_openangle.push_back(kLeadingShwOpenAngle(sp));
+
+        slshw_eng.push_back(kSubLeadingShwEnergy(sp));
+        slshw_dedx.push_back(kSubLeadingShwdEdx(sp));
+        slshw_cnvgap.push_back(kSubLeadingShwCnvGap(sp));
+        slshw_dens.push_back(kSubLeadingShwDensity(sp));
+        slshw_len.push_back(kSubLeadingShwLen(sp));
+        slshw_openangle.push_back(kSubLeadingShwOpenAngle(sp));
+
+        genie_inttype.push_back(sp->slc[kBestSlcID(sp)].truth.genie_inttype);
+        genie_mode.push_back(sp->slc[kBestSlcID(sp)].truth.genie_mode);
         return 1;
       }
     //} 
     return 0;
   });
-  //Get other universe
-  vector<Var> weis; //Initialize weights
-  for (unsigned j=0; j<1000; j++) {
-    weis.push_back(kUnweighted);
-  }
-  const std::vector<std::string>& flux_systs = GetSBNBoosterFluxWeightNames();
-  const Var kTrueE = SIMPLEVAR(truth.E);
-  const Binning binsEnergy = Binning::Simple(10, 0, 4);
-  HistAxis ax("True Energy (GeV)",binsEnergy,kTrueE);
-  for (unsigned i =0; i<flux_systs.size(); i++){
-    for (unsigned j=0; j<1000; j++){
-      weis[j] = weis[j]*GetUniverseWeight(flux_systs[i], j)*GetUniverseWeight("multisim_Genie", j); //Get weight from 
-    }
-  }
 
   const Binning dummy_bins = Binning::Simple(2, 0, 2);
-  //Spectrum dummy_spec("Dummy Label", dummy_bins, loader, dummy_var, kNoSpillCut);
-  Spectrum dummy_spec_univ(loader,ax,kNoSpillCut,kNoCut,kNoShift,weis[0]);
-  
+  Spectrum dummy_spec("Dummy Label", dummy_bins, loader, dummy_var, kNoSpillCut);
+  //Spectrum dummy_spec_univ("Dummy weighted",binsEnergy,loader,kTrueE,kNoCut,weis[0]);
+  //EnsembleSpectrum dummy_spec_univ(loader,ax,kPreSelection,kNoCut,weis);
 
   loader.Go();
   tree->Fill();
   file->Write();
-  gSystem->Exec("mv " + stateDir+"/cut_events.root"+" "+stateDir+"/cut_events_univ0.root");
+  gSystem->Exec("mv " + stateDir+"/cut_events.root"+" "+stateDir);
 
 }

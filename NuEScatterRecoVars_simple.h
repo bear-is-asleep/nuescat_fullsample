@@ -1,6 +1,6 @@
 #include <math.h>
 
-const SpillVar kBestSlcID([](const caf::SRSpillProxy* sp) -> unsigned {
+const SpillVar kBestSlcID_Etheta([](const caf::SRSpillProxy* sp) -> unsigned {
     unsigned i = 0;
     unsigned returnID = 0;
     double Etheta2 = 999;

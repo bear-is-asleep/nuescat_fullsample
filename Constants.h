@@ -26,5 +26,7 @@ map<int,double> pdgmass{
   {2112,kNeutronMass},
   {22,kPhotonMass}};
 
+const std::vector<int> colors = {kRed,kGreen,kBlue,kYellow,kMagenta,kCyan,kOrange,kSpring,kTeal,kAzure,kViolet,kPink};
+
 
 
