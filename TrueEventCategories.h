@@ -113,6 +113,9 @@ const SpillCut kCCNuMu([](const caf::SRSpillProxy* sp) {
 const SpillCut kCCNuE([](const caf::SRSpillProxy* sp) {
     return kCC(sp) && std::abs(sp->mc.nu[kBestNuID(sp)].pdg) == 12 && !kNuEScat(sp);
   });
+const SpillCut kNuEEvent([](const caf::SRSpillProxy* sp) {
+    return std::abs(sp->mc.nu[kBestNuID(sp)].pdg) == 12 && !kNuEScat(sp);
+  });
 
 const SpillVar kNPiPlus([](const caf::SRSpillProxy* sp) -> unsigned {
     if(kCosmicSpill(sp)) return std::numeric_limits<unsigned>::max();
@@ -268,16 +271,50 @@ const SpillCut kOtherFV([](const caf::SRSpillProxy* sp) {
   return kOther(sp) && kTrueFV(sp);
 });
 
-std::vector<TrueCategory> nuescat_sel_categories = {
-  //{"#nu + e",kSignal,kOrange+2,"Signal"},
+std::vector<TrueCategory> full_sel_categories = {
   {"#nu + e",kNuEScat && kTrueFV,kBlue,"NuEScat"},
-  //{"#nu + e",kNuEScat,kBlue+3,"NuEScat"},
   {"NC N#pi^{0}", kNCPiZero && kTrueFV, kMagenta+2, "NCpi0"},
   {"Other NC", kNC && !kNCPiZero && kTrueFV, kYellow+2, "NC"},
   {"CC #nu_{#mu}", kCCNuMu && kTrueFV, kRed+2, "CCNuMu"},
   {"CC #nu_{e}", kCCNuE && kTrueFV, kTeal+2, "CCNuE"},
   {"Dirt", kDirt, kOrange+3, "Dirt"},
-  //{"Cosmic", kCosmicSpill, kRed+1, "Cosmic"},
-  //{"Other", kOther, kBlack, "Other"},
-  //{"Other FV", kOtherFV, kOrange+2, "OtherFV"},
+  {"Cosmic", kCosmicSpill, kRed+1, "Cosmic"},
 };
+
+std::vector<TrueCategory> nuecc_sel = {
+  {"CC #nu_{e}", kCCNuE && kTrueFV, kTeal+2, "CCNuE"},
+};
+
+std::vector<TrueCategory> nue_sel = {
+  {"#nu + e",kNuEScat && kTrueFV,kBlue,"NuEScat"},
+};
+
+std::vector<TrueCategory> nuecc_nue_sel = {
+  {"#nu + e",kNuEScat && kTrueFV,kBlue,"NuEScat"},
+  {"CC #nu_{e}", kCCNuE && kTrueFV, kTeal+2, "CCNuE"},
+};
+
+std::vector<TrueCategory> no_cosmic_sel = {
+  {"#nu + e",kNuEScat && kTrueFV,kBlue,"NuEScat"},
+  {"NC N#pi^{0}", kNCPiZero && kTrueFV, kMagenta+2, "NCpi0"},
+  {"Other NC", kNC && !kNCPiZero && kTrueFV, kYellow+2, "NC"},
+  {"CC #nu_{#mu}", kCCNuMu && kTrueFV, kRed+2, "CCNuMu"},
+  {"CC #nu_{e}", kCCNuE && kTrueFV, kTeal+2, "CCNuE"},
+  {"Dirt", kDirt, kOrange+3, "Dirt"},
+  {"Cosmic", kCosmicSpill, kRed+1, "Cosmic"},
+};
+
+
+
+//{"#nu + e",kSignal,kOrange+2,"Signal"},
+//{"#nu + e",kNuEScat && kTrueFV,kBlue,"NuEScat"},
+//{"#nu + e",kNuEScat,kBlue+3,"NuEScat"},
+// {"NC N#pi^{0}", kNCPiZero && kTrueFV, kMagenta+2, "NCpi0"},
+// {"Other NC", kNC && !kNCPiZero && kTrueFV, kYellow+2, "NC"},
+// {"CC #nu_{#mu}", kCCNuMu && kTrueFV, kRed+2, "CCNuMu"},
+//{"CC #nu_{e}", kCCNuE && kTrueFV, kTeal+2, "CCNuE"},
+//{"#nu_{e}",kNuEEvent, kTeal,"NuE"}
+// {"Dirt", kDirt, kOrange+3, "Dirt"},
+//{"Cosmic", kCosmicSpill, kRed+1, "Cosmic"},
+//{"Other", kOther, kBlack, "Other"},
+//{"Other FV", kOtherFV, kOrange+2, "OtherFV"},

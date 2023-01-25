@@ -152,7 +152,7 @@ const SpillCut kRazzleCut([](const caf::SRSpillProxy* sp) {
     return true;
   });
 
-std::vector<CutDef> nuescatter_cuts = { { "No Cut", "no_cut", kNoSpillCut },
+std::vector<CutDef> original_cuts = { { "No Cut", "no_cut", kNoSpillCut },
   { "Has Slc", "has_slc", kHasSlc },
   { "Has Nu Slc", "has_nu_slc", kHasNuSlc },
   { "Has Nu FV Slc", "has_nu_fv_slc", kHasNuFVSlc },
@@ -163,6 +163,37 @@ std::vector<CutDef> nuescatter_cuts = { { "No Cut", "no_cut", kNoSpillCut },
   {"Electron Razzle","erazzle",kRazzleCut},
   {"Etheta2 Cut","Etheta2",kEtheta2},
 };
+
+std::vector<CutDef> nuescatter_cuts = { { "No Cut", "no_cut", kNoSpillCut },
+  { "Has Slc", "has_slc", kHasSlc },
+  { "Has Nu Slc", "has_nu_slc", kHasNuSlc },
+  { "Has Nu FV Slc", "has_nu_fv_slc", kHasNuFVSlc },
+  { "Has CRUMBS Slc", "has_crumbs_slc", kHasCRUMBSSlc },
+  { "Is FV", "is_fv", kIsFV },
+  {"Has One Shower","one_shw",kHasOneShw},
+  {"Has No Tracks","no_trks",kHasNoTrks},
+  {"Electron Razzle","erazzle",kRazzleCut},
+  {"Etheta2 Cut","Etheta2",kEtheta2},
+};
+
+std::vector<CutDef> Etheta_cuts = { { "No Cut", "no_cut", kNoSpillCut },
+  { "Has Slc", "has_slc", kHasSlc },
+  { "Has Nu Slc", "has_nu_slc", kHasNuSlc },
+  { "Has Nu FV Slc", "has_nu_fv_slc", kHasNuFVSlc },
+  { "Has CRUMBS Slc", "has_crumbs_slc", kHasCRUMBSSlc },
+  { "Is FV", "is_fv", kIsFV },
+  {"Etheta2 Cut","Etheta2",kEtheta2},
+};
+
+std::vector<CutDef> no_cuts = { { "No Cut", "no_cut", kNoSpillCut }
+};
+
+std::vector<CutDef> preselection_cuts = { { "No Cut", "no_cut", kNoSpillCut },
+  { "Has Slc", "has_slc", kHasSlc },
+  { "Has Nu Slc", "has_nu_slc", kHasNuSlc },
+  { "Has Nu FV Slc", "has_nu_fv_slc", kHasNuFVSlc },
+};
+
 
 const SpillCut kPreSelection = kHasSlc && kHasNuSlc && kHasNuFVSlc;
 const SpillCut kCosmicRej    = kPreSelection && kHasCRUMBSSlc && kIsFV;

@@ -51,6 +51,7 @@ using namespace ana;
 using namespace std;
 
 const string state_fname = "NuEScatter_state_all.root";
+const bool do_systematics = false;
 
 void NuEScatter_ana(bool reload = true)
 {
@@ -69,7 +70,7 @@ void NuEScatter_ana(bool reload = true)
 
   const double gPOT = 10e20;
   const bool save = true;
-  const string surName = "fullsample_originalcuts_wsysts";
+  const string surName = "fullsample_allplots_crumbsslc_nuecc_stride1";
   const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"_"+surName;
   const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
   //const TString date = get_date();
@@ -161,34 +162,34 @@ void NuEScatter_ana(bool reload = true)
   //std::vector<SystEnsemble> systs = setup_systematics(loaderNu,kTrueE,syst_names,syst_cuts,syst_colors,syst_labels,weis,ax);
   std::vector<SystEnsemble> systs;
   //std::vector<SystEnsemble> systs_flux;
-  std::cout<<"Making ensemble"<<endl;
-
-  for (unsigned i=0; i<syst_names.size(); i++){
-    if (syst_names[i] == "GENIE_multisim"){
-      SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
-      new EnsembleSpectrum(loaderNu,ax,kEthetaSelection,kNoCut,weis)};
-      systs.emplace_back(syst);
+  if (do_systematics){
+    for (unsigned i=0; i<syst_names.size(); i++){
+      if (syst_names[i] == "GENIE_multisim"){
+        SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
+        new EnsembleSpectrum(loaderNu,ax,kEthetaSelection,kNoCut,weis)};
+        systs.emplace_back(syst);
+      }
+      else if (syst_names[i] == "Flux_multisim"){
+        SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
+        new EnsembleSpectrum(loaderNu,ax,kEthetaSelection,kNoCut,weis_flux)};
+        systs.emplace_back(syst);
+      }
+      else { //Important to put all of the flux weights in alignment with syst_name indexing
+        SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
+        new EnsembleSpectrum(loaderNu,ax,kEthetaSelection,kNoCut,weis_flux_all[i])};
+        systs.emplace_back(syst);
+      }
     }
-    else if (syst_names[i] == "Flux_multisim"){
-      SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
-      new EnsembleSpectrum(loaderNu,ax,kEthetaSelection,kNoCut,weis_flux)};
-      systs.emplace_back(syst);
-    }
-    else { //Important to put all of the flux weights in alignment with syst_name indexing
-      SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
-      new EnsembleSpectrum(loaderNu,ax,kEthetaSelection,kNoCut,weis_flux_all[i])};
-      systs.emplace_back(syst);
-    }
+  }
 
     // SystEnsemble syst_flux = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
     //   new EnsembleSpectrum(loaderNu,ax,syst_cuts[i],kNoCut,weis_flux)};
     // systs_flux.emplace_back(syst_flux);
     //syst = {};
-  }
   //std::vector<std::vector<SystEnsemble>> systematics = {systs,systs_flux};
 
   //if(reload || TFile(state_fname.c_str()).IsZombie()){
-  std::cout.setstate(std::ios_base::failbit);
+  //std::cout.setstate(std::ios_base::failbit);
   loaderNu.Go();
   std::cout.clear();
   //loaderIntime.Go();

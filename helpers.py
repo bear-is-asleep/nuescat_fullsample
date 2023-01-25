@@ -23,18 +23,18 @@ def get_df(tree,keys,hdrkeys=['run','subrun','evt']):
   If dfs are different sizes, we'll return a list of dfs
   """
   copy_keys = keys.copy() #Avoid modifying input
-  if hdrkeys not in copy_keys:
-    copy_keys.extend(hdrkeys)
+  # if hdrkeys not in copy_keys:
+  #   copy_keys.extend(hdrkeys)
   df = tree.arrays(copy_keys,library='pd')
   if isinstance(df,tuple): #If it's a tuple, we'll rename each df, and return the list of them
     dfs = []
     for tempdf in df:
-      tempdf = tempdf.set_index(hdrkeys)
+      tempdf.set_index(hdrkeys)
       tempdf = tempdf.sort_index()
       dfs.append(tempdf)
     return dfs
   else: #Returns single df
-    df = df.set_index(hdrkeys)
+    df.set_index(hdrkeys)
     df = df.sort_index()
     return df
 

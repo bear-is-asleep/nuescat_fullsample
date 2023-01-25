@@ -113,6 +113,22 @@ void NuEScatter_events()
   vector<double> slshw_len;
   vector<double> slshw_openangle;
 
+  vector <double> ltrk_eng;
+  vector <double> ltrk_len;
+  vector <double> ltrk_npts;
+  vector <double> ltrk_pfptrkscore;
+  vector <double> ltrk_muonscore;
+  vector <double> ltrk_pionscore;
+  vector <double> ltrk_protonscore;
+
+  vector <double> sltrk_eng;
+  vector <double> sltrk_len;
+  vector <double> sltrk_npts;
+  vector <double> sltrk_pfptrkscore;
+  vector <double> sltrk_muonscore;
+  vector <double> sltrk_pionscore;
+  vector <double> sltrk_protonscore;
+
   vector<int> genie_inttype;
   vector<int> genie_mode;
 
@@ -163,8 +179,21 @@ void NuEScatter_events()
   tree->Branch("genie_inttype",&genie_inttype);
   tree->Branch("genie_mode",&genie_mode);
 
+  tree->Branch("ltrk.eng",&ltrk_eng);
+  tree->Branch("ltrk.len",&ltrk_len);
+  tree->Branch("ltrk.npts",&ltrk_npts);
+  tree->Branch("ltrk.pfptrkscore",&ltrk_pfptrkscore);
+  tree->Branch("ltrk.muonscore",&ltrk_muonscore);
+  tree->Branch("ltrk.pionscore",&ltrk_pionscore);
+  tree->Branch("ltrk.protonscore",&ltrk_protonscore);
 
-
+  tree->Branch("sltrk.eng",&sltrk_eng);
+  tree->Branch("sltrk.len",&sltrk_len);
+  tree->Branch("sltrk.npts",&sltrk_npts);
+  tree->Branch("sltrk.pfptrkscore",&sltrk_pfptrkscore);
+  tree->Branch("sltrk.muonscore",&sltrk_muonscore);
+  tree->Branch("sltrk.pionscore",&sltrk_pionscore);
+  tree->Branch("sltrk.protonscore",&sltrk_protonscore);
 
   const double gPOT = 10e20;
   SpectrumLoader loader(inputNameNu);
@@ -216,6 +245,22 @@ void NuEScatter_events()
         slshw_len.push_back(kSubLeadingShwLen(sp));
         slshw_openangle.push_back(kSubLeadingShwOpenAngle(sp));
 
+        ltrk_eng.push_back(kLeadingTrkEnergy(sp));
+        ltrk_len.push_back(kLeadingTrkLen(sp));
+        ltrk_npts.push_back(kLeadingTrkNPts(sp));
+        ltrk_pfptrkscore.push_back(kLeadingTrkPFPTrkScore(sp));
+        ltrk_muonscore.push_back(kLeadingTrkDazzleMuonScore(sp));
+        ltrk_pionscore.push_back(kLeadingTrkDazzlePionScore(sp));
+        ltrk_protonscore.push_back(kLeadingTrkDazzleProtonScore(sp));
+
+        sltrk_eng.push_back(kSubLeadingTrkEnergy(sp));
+        sltrk_len.push_back(kSubLeadingTrkLen(sp));
+        sltrk_npts.push_back(kSubLeadingTrkNPts(sp));
+        sltrk_pfptrkscore.push_back(kSubLeadingTrkPFPTrkScore(sp));
+        sltrk_muonscore.push_back(kSubLeadingTrkDazzleMuonScore(sp));
+        sltrk_pionscore.push_back(kSubLeadingTrkDazzlePionScore(sp));
+        sltrk_protonscore.push_back(kSubLeadingTrkDazzleProtonScore(sp));
+
         genie_inttype.push_back(sp->slc[kBestSlcID(sp)].truth.genie_inttype);
         genie_mode.push_back(sp->slc[kBestSlcID(sp)].truth.genie_mode);
         return 1;
@@ -232,6 +277,6 @@ void NuEScatter_events()
   loader.Go();
   tree->Fill();
   file->Write();
-  gSystem->Exec("mv " + stateDir+"/cut_events.root"+" "+stateDir);
+  //gSystem->Exec("mv " + stateDir+"/cut_events.root"+" "+stateDir);
 
 }

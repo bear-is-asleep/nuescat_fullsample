@@ -11,8 +11,9 @@ sample = ''
 
 day = helpers.day
 
-state_folder = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_1_23_test'
-plot_folder = '/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_1_23_test'
+suffix = '_fullsample_originalcuts_wsysts'
+state_folder = f'/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_1_23{suffix}'
+plot_folder = f'/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_1_23{suffix}'
 
 fnames = os.listdir(state_folder)
 colors = cm.get_cmap('Spectral', len(fnames))
@@ -46,6 +47,7 @@ for i,df in enumerate(syst_dfs):
   y0 = df.loc[:,'y0'].values
 
   avg = np.mean((y0_err+y1_err)/2)
+  lw = 2
   if labels[i] == 'GENIE_multisim':
     lw = 2
     ax2.bar(x,(y0_err+y1_err)/2,width=dx,label=f'{labels[i]} ({avg*100:.1f}%)',linewidth=lw,

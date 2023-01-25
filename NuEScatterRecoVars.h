@@ -1,6 +1,17 @@
 #include <math.h>
 
+const SpillVar kBestSlcID_cheat([](const caf::SRSpillProxy* sp)->unsigned {
+  unsigned i = 0;
+  unsigned returnID = 0;
+  for (auto const& slc : sp->slc){
+    if (slc.truth.genie_inttype == 1098){returnID = i;}
+    ++i;
+  }
+  return returnID;
+});
+
 const SpillVar kBestSlcID_Etheta([](const caf::SRSpillProxy* sp) -> unsigned {
+    std::cout<<"run,subrun,evt : "<<sp->hdr.run<<","<<sp->hdr.subrun<<","<<sp->hdr.evt<<std::endl;
     unsigned i = 0;
     unsigned returnID = 0;
     double Etheta2 = 999;
@@ -13,7 +24,8 @@ const SpillVar kBestSlcID_Etheta([](const caf::SRSpillProxy* sp) -> unsigned {
     for(auto const& slc : sp->slc)
     {
       if(slc.is_clear_cosmic || isnan(slc.crumbs_result.score) || !PtInVolAbsX(slc.vertex, fvndNuEScat)) 
-        { ++i; continue; }
+        { std::cout<<"--(clear no) Etheta2: "<<Etheta2<<" return ID: "<<returnID<<" i: "<<i<<"inttype: "<<slc.truth.genie_inttype<<std::endl;
+        ++i;continue; }
       
       //Showers
       for (auto const& shw : slc.reco.shw){
@@ -27,7 +39,9 @@ const SpillVar kBestSlcID_Etheta([](const caf::SRSpillProxy* sp) -> unsigned {
         m = pdgmass.at(pdg); //mass
         Eng = sqrt(m*m+ke*ke); //Energy
         //std::cout<<pdg<<","<<ke<<std::endl;
+        std::cout<<"---shw eng: "<<Eng<<"---shw angle : "<<theta<<std::endl;
         if (Eng*theta*theta < Etheta2){
+          std::cout<<"---lower etheta2: "<<Eng*theta*theta<<" prev: "<<Etheta2<<std::endl;
           Etheta2 = Eng*theta*theta;
           returnID = i;
         }
@@ -43,28 +57,15 @@ const SpillVar kBestSlcID_Etheta([](const caf::SRSpillProxy* sp) -> unsigned {
         ke = trk.calo[bestplane].ke*1e-3; //ke
         m = pdgmass.at(pdg); //mass
         Eng = sqrt(m*m+ke*ke); //Energy
+        std::cout<<"---trk eng: "<<Eng<<" trk angle : "<<theta<<std::endl;
         //std::cout<<pdg<<","<<ke<<std::endl;
         if (Eng*theta*theta < Etheta2){ 
-          // Second condition is to make sure if we have a shower with lower threshold, we'll keep that one 
+          std::cout<<"---lower etheta2: "<<Eng*theta*theta<<" prev: "<<Etheta2<<std::endl;
           Etheta2 = Eng*theta*theta;
           returnID = i;
         }
       }
-      //std::cout<<Etheta2<<std::endl;
-      //Stubs - not yet implemented
-      // for (int j = 0; j++; j<=slc.reco.nstub){
-      //   theta = acos(slc.reco.stub.dir.z); //Longitudinal angle
-      //   bestplane = slc.reco.trk.bestplane; //Best plane
-      //   pdg = abs(slc.reco.shw.dazzle.pdg); //Use dazzle pdg
-      //   ke = slc.reco.tk.calo[bestplane].ke; //ke
-      //   m = pdgmass.at(pdg); //mass
-      //   Eng = sqrt(m*m+ke*ke); //Energy
-      //   if (Eng*theta*theta < Etheta2 && Etheta2 > Etheta2Cut){ 
-      //     // Second condition is to make sure if we have a shower with lower threshold, we'll keep that one 
-      //     Etheta2 = Eng*theta*theta;
-      //     returnID = i;
-      //   }
-      // }
+      std::cout<<"--Etheta2: "<<Etheta2<<" return ID: "<<returnID<<" i: "<<i<<"inttype: "<<slc.truth.genie_inttype<<std::endl;
 
 	    ++i;
     }
@@ -129,7 +130,7 @@ const SpillVar kNFVSlices([](const caf::SRSpillProxy* sp) -> unsigned {
   });
 
 const SpillVar kCRUMBSScore([](const caf::SRSpillProxy* sp) -> double {
-    if(sp->nslc==0) return -1.5;
+    if(sp->nslc==0) return -999;
     auto const& slc = sp->slc[kBestSlcID(sp)];
 
     if(slc.is_clear_cosmic || isnan(slc.crumbs_result.score)) return -1.5;
@@ -301,184 +302,220 @@ const SpillVar kSubLeadingShwID([](const caf::SRSpillProxy* sp) -> int {
   });
 
 const SpillVar kLeadingShwEnergy([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) == 0) return -1.;
+    if(kNShowers(sp) == 0) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
     
     return shw.bestplane_energy;
   });
 
 const SpillVar kLeadingShwdEdx([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) == 0) return -1.;
+    if(kNShowers(sp) == 0) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
     
     return shw.bestplane_dEdx;
   });
 const SpillVar kLeadingShwCnvGap([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) == 0) return -1.;
+    if(kNShowers(sp) == 0) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
     
     return shw.conversion_gap;
   });
 const SpillVar kLeadingShwDensity([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) == 0) return -1.;
+    if(kNShowers(sp) == 0) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
     
     return shw.density;
   });
 const SpillVar kLeadingShwLen([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) == 0) return -1.;
+    if(kNShowers(sp) == 0) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
     
     return shw.len;
   });
 
 const SpillVar kLeadingShwOpenAngle([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) == 0) return -1.;
+    if(kNShowers(sp) == 0) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
     
     return TMath::RadToDeg() * shw.open_angle;
   });
 
 const SpillVar kLeadingShwDensityGrad([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) == 0) return -1.;
+    if(kNShowers(sp) == 0) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
     
     return shw.selVars.densityGradient;
   });
 
 const SpillVar kLeadingShwDensityGradPower([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) == 0) return -1.;
+    if(kNShowers(sp) == 0) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
     
     return shw.selVars.densityGradientPower;
   });
 
 const SpillVar kLeadingShwTrkLength([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) == 0) return -1.;
+    if(kNShowers(sp) == 0) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
     
     return shw.selVars.trackLength;
   });
 
 const SpillVar kLeadingShwTrkWidth([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) == 0) return -1.;
+    if(kNShowers(sp) == 0) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
     
     return shw.selVars.trackWidth;
   });
 const SpillVar kLeadingShwRazzleElectronScore([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) == 0) return -.5;
+    if(kNShowers(sp) == 0) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
 
     return shw.razzle.electronScore;
   });
 
 const SpillVar kLeadingShwRazzlePhotonScore([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) == 0) return -.5;
+    if(kNShowers(sp) == 0) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
 
     return shw.razzle.photonScore;
   });
 
 const SpillVar kLeadingShwRazzleOtherScore([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) == 0) return -.5;
+    if(kNShowers(sp) == 0) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
 
     return shw.razzle.otherScore;
   });
+const SpillVar kLeadingShwStartX([](const caf::SRSpillProxy* sp) -> double {
+    if(kNShowers(sp) == 0) return -9999.;
+    auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
+    
+    return shw.start.x;
+  });
+const SpillVar kLeadingShwStartY([](const caf::SRSpillProxy* sp) -> double {
+    if(kNShowers(sp) == 0) return -9999.;
+    auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
+    
+    return shw.start.y;
+  });
+const SpillVar kLeadingShwStartZ([](const caf::SRSpillProxy* sp) -> double {
+    if(kNShowers(sp) == 0) return -9999.;
+    auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
+    
+    return shw.start.z;
+  });
 const SpillVar kSubLeadingShwEnergy([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) < 2) return -1.;
+    if(kNShowers(sp) < 2) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
     
     return shw.bestplane_energy;
   });
 
 const SpillVar kSubLeadingShwdEdx([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) < 2) return -1.;
+    if(kNShowers(sp) < 2) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
     
     return shw.bestplane_dEdx;
   });
 
 const SpillVar kSubLeadingShwCnvGap([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) < 2) return -1.;
+    if(kNShowers(sp) < 2) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
     
     return shw.conversion_gap;
   });
 const SpillVar kSubLeadingShwDensity([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) < 2) return -1.;
+    if(kNShowers(sp) < 2) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
     
     return shw.density;
   });
 
 const SpillVar kSubLeadingShwLen([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) < 2) return -1.;
+    if(kNShowers(sp) < 2) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
     
     return shw.len;
   });
 
 const SpillVar kSubLeadingShwOpenAngle([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) < 2) return -1.;
+    if(kNShowers(sp) < 2) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
     
     return TMath::RadToDeg() * shw.open_angle;
   });
 
 const SpillVar kSubLeadingShwCosmicDist([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) < 2) return -1.;
+    if(kNShowers(sp) < 2) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
     
     return shw.cosmicDist;
   });
 
 const SpillVar kSubLeadingShwDensityGrad([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) < 2) return -1.;
+    if(kNShowers(sp) < 2) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
     
     return shw.selVars.densityGradient;
   });
 
 const SpillVar kSubLeadingShwDensityGradPower([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) < 2) return -1.;
+    if(kNShowers(sp) < 2) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
     
     return shw.selVars.densityGradientPower;
   });
 const SpillVar kSubLeadingShwTrkLength([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) < 2) return -1.;
+    if(kNShowers(sp) < 2) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
     
     return shw.selVars.trackLength;
   });
 
 const SpillVar kSubLeadingShwTrkWidth([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) < 2) return -1.;
+    if(kNShowers(sp) < 2) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
     
     return shw.selVars.trackWidth;
   });
 const SpillVar kSubLeadingShwRazzleElectronScore([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) < 2) return -.5;
+    if(kNShowers(sp) < 2) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
 
     return shw.razzle.electronScore;
   });
 
 const SpillVar kSubLeadingShwRazzlePhotonScore([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) < 2) return -.5;
+    if(kNShowers(sp) < 2) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
 
     return shw.razzle.photonScore;
   });
 
 const SpillVar kSubLeadingShwRazzleOtherScore([](const caf::SRSpillProxy* sp) -> double {
-    if(kNShowers(sp) < 2) return -.5;
+    if(kNShowers(sp) < 2) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
 
     return shw.razzle.otherScore;
+  });
+const SpillVar kSubLeadingShwStartX([](const caf::SRSpillProxy* sp) -> double {
+    if(kNShowers(sp) <2) return -9999.;
+    auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
+    
+    return shw.start.x;
+  });
+const SpillVar kSubLeadingShwStartY([](const caf::SRSpillProxy* sp) -> double {
+    if(kNShowers(sp) <2) return -9999.;
+    auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
+    
+    return shw.start.y;
+  });
+const SpillVar kSubLeadingShwStartZ([](const caf::SRSpillProxy* sp) -> double {
+    if(kNShowers(sp) <2) return -9999.;
+    auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
+    
+    return shw.start.z;
   });
 
 const SpillVar kRecoE([](const caf::SRSpillProxy* sp) -> double {
@@ -745,9 +782,168 @@ const SpillVar kLeadingShwPDGPlot([](const caf::SRSpillProxy* sp) -> double {
   });
 
 
+//TRack info
+const SpillVar kLeadingTrkID([](const caf::SRSpillProxy* sp) -> int {
+    if(kNTracks(sp) == 0) return -1;
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+
+    std::vector<std::pair<int, double> > list;
+    unsigned i = 0;
+
+    for(auto const& trk : slc.reco.trk)
+      {
+	list.push_back(std::pair<int, double>(i, trk.calo[trk.bestplane].ke*1e-3));
+	++i;
+      }
+    
+    std::sort(list.begin(), list.end(), [](const std::pair<int, double> &x,
+					   const std::pair<int, double> &y)
+	      { return x.second > y.second; });
+    
+    return list[0].first;
+  });
+
+const SpillVar kSubLeadingTrkID([](const caf::SRSpillProxy* sp) -> int {
+    if(kNTracks(sp) < 2) return -1;
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+
+    std::vector<std::pair<int, double> > list;
+    unsigned i = 0;
+
+    for(auto const& trk : slc.reco.trk)
+      {
+	list.push_back(std::pair<int, double>(i, trk.calo[trk.bestplane].ke*1e-3));
+	++i;
+      }
+    
+    std::sort(list.begin(), list.end(), [](const std::pair<int, double> &x,
+					   const std::pair<int, double> &y)
+	      { return x.second > y.second; });
+    
+    return list[1].first;
+  });
+const SpillVar kLeadingTrkEnergy([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) == 0) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+    return trk.calo[trk.bestplane].ke*1e-3;
+  });
+
+// const SpillVar kLeadingTrkdEdx([](const caf::SRSpillProxy* sp) -> double {
+//     if(kNTracks(sp) == 0) return -9999.;
+//     auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+//     return trk.calo[trk.bestplane].points.dedx;
+//   });
+const SpillVar kLeadingTrkLen([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) == 0) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+    return trk.len;
+  });
+const SpillVar kLeadingTrkNPts([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) == 0) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+    return trk.npts;
+  });
+const SpillVar kLeadingTrkPFPTrkScore([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) == 0) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+    return trk.pfp.trackScore;
+  });
+const SpillVar kLeadingTrkDazzleMuonScore([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) == 0) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+    return trk.dazzle.muonScore;
+  });
+const SpillVar kLeadingTrkDazzlePionScore([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) == 0) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+    return trk.dazzle.pionScore;
+  });
+const SpillVar kLeadingTrkDazzleProtonScore([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) == 0) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+    return trk.dazzle.protonScore;
+  });
+
+const SpillVar kLeadingTrkStartX([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) == 0) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+    return trk.start.x;
+  });
+const SpillVar kLeadingTrkStartY([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) == 0) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+    return trk.start.y;
+  });
+const SpillVar kLeadingTrkStartZ([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) == 0) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+    return trk.start.z;
+  });
+//Sub leading tracks
+const SpillVar kSubLeadingTrkEnergy([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) < 2) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+    return trk.calo[trk.bestplane].ke*1e-3;
+  });
+
+// const SpillVar kSubLeadingTrkdEdx([](const caf::SRSpillProxy* sp) -> double {
+//     if(kNTracks(sp) == 0) return -9999.;
+//     auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+//     return trk.calo[trk.bestplane].points.dedx;
+//   });
+const SpillVar kSubLeadingTrkLen([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) < 2) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+    return trk.len;
+  });
+const SpillVar kSubLeadingTrkNPts([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) < 2) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+    return trk.npts;
+  });
+const SpillVar kSubLeadingTrkPFPTrkScore([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) < 2) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+    return trk.pfp.trackScore;
+  });
+const SpillVar kSubLeadingTrkDazzleMuonScore([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) < 2) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+    return trk.dazzle.muonScore;
+  });
+const SpillVar kSubLeadingTrkDazzlePionScore([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) < 2) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+    return trk.dazzle.pionScore;
+  });
+const SpillVar kSubLeadingTrkDazzleProtonScore([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) < 2) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+    return trk.dazzle.protonScore;
+  });
+const SpillVar kSubLeadingTrkStartX([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) <2) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+    return trk.start.x;
+  });
+const SpillVar kSubLeadingTrkStartY([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) <2) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+    return trk.start.y;
+  });
+const SpillVar kSubLeadingTrkStartZ([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) <2) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+    return trk.start.z;
+  });
+
+
+
+
+
 const Binning binsPDGShw = Binning::Simple(10,-1,9, {"No Shw", "e^{-}", "e^{+}", "#mu^{-}", "#mu^{+}", "#pi^{+}", "#pi^{-}", "p", "#gamma", "Other"});
 
-std::vector<Plot<SpillVar>> recoPlots = {//{ "E#theta^{2}", kEtheta2Var, Binning::Simple(15,-10,10),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
+std::vector<Plot<SpillVar>> recoPlots_all = {//{ "E#theta^{2}", kEtheta2Var, Binning::Simple(15,-10,10),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
             { "E#theta^{2}", kEtheta2Var, Binning::Simple(10,0.,5.),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
             { "#theta_{#nu}", kNuAngle, Binning::Simple(10,0.,2.),";#theta_{#nu};Events", "theta_nu",{.59,.57,.89,.85}},
             { "#theta_{#nu} (Zoom)", kNuAngle, Binning::Simple(10,0.,0.2),";#theta_{#nu};Events", "theta_nu_zoom",{.59,.57,.89,.85}},
@@ -787,7 +983,10 @@ std::vector<Plot<SpillVar>> recoPlots = {//{ "E#theta^{2}", kEtheta2Var, Binning
 					  { "Leading Shower Razzle Electron Score", kLeadingShwRazzleElectronScore, Binning::Simple(40,0,1), ";Leading Shower Razzle Electron Score;Events", "leading_shw_razzle_electron_score",  {.42,.57,.72,.85} },
 					  { "Leading Shower Razzle Photon Score", kLeadingShwRazzlePhotonScore, Binning::Simple(40,0,1), ";Leading Shower Razzle Photon Score;Events", "leading_shw_razzle_photon_score",  {.42,.57,.72,.85} },
 					  { "Leading Shower Razzle Other Score", kLeadingShwRazzleOtherScore, Binning::Simple(40,0,1), ";Leading Shower Razzle Other Score;Events", "leading_shw_razzle_other_score",  {.42,.57,.72,.85} },
-					  { "SubLeading Shower Energy", kSubLeadingShwEnergy, Binning::Simple(40,0,1), ";SubLeading Shower Energy (GeV);Events", "subleading_shw_energy", {.59,.57,.89,.85} },
+					  { "Leading Shower Start X", kLeadingShwStartX, Binning::Simple(40,-400,400), ";Leading Shower Reco X (cm);Events", "leading_shw_startx", {.59,.57,.89,.85} },
+            { "Leading Shower Start Y", kLeadingShwStartY, Binning::Simple(40,-400,400), ";Leading Shower Reco Y (cm);Events", "leading_shw_starty", {.59,.57,.89,.85} },
+            { "Leading Shower Start Z", kLeadingShwStartZ, Binning::Simple(60,-200,700), ";Leading Shower Reco Z (cm);Events", "leading_shw_startz", {.59,.57,.89,.85} },
+            { "SubLeading Shower Energy", kSubLeadingShwEnergy, Binning::Simple(40,0,1), ";SubLeading Shower Energy (GeV);Events", "subleading_shw_energy", {.59,.57,.89,.85} },
 					  { "SubLeading Shower dEdx", kSubLeadingShwdEdx, Binning::Simple(40,0,10), ";SubLeading Shower dE/dx (MeV/cm);Events", "subleading_shw_dedx", {.59,.57,.89,.85} },
 					  { "SubLeading Shower Conversion Gap", kSubLeadingShwCnvGap, Binning::Simple(40,0,20), ";SubLeading Shower Conversion Gap (cm);Events", "subleading_shw_cnv_gap", {.59,.57,.89,.85} },
 					  { "SubLeading Shower Density", kSubLeadingShwDensity, Binning::Simple(40,0,20), ";SubLeading Shower Density (MeV/cm);Events", "subleading_shw_density", {.59,.57,.89,.85} },
@@ -802,6 +1001,42 @@ std::vector<Plot<SpillVar>> recoPlots = {//{ "E#theta^{2}", kEtheta2Var, Binning
 					  { "SubLeading Shower Razzle Electron Score", kSubLeadingShwRazzleElectronScore, Binning::Simple(40,0,1), ";SubLeading Shower Razzle Electron Score;Events", "subleading_shw_razzle_electron_score",  {.42,.57,.72,.85} },
 					  { "SubLeading Shower Razzle Photon Score", kSubLeadingShwRazzlePhotonScore, Binning::Simple(40,0,1), ";SubLeading Shower Razzle Photon Score;Events", "subleading_shw_razzle_photon_score",  {.42,.57,.72,.85} },
 					  { "SubLeading Shower Razzle Other Score", kSubLeadingShwRazzleOtherScore, Binning::Simple(40,0,1), ";SubLeading Shower Razzle Other Score;Events", "subleading_shw_razzle_other_score",  {.42,.57,.72,.85} },
+            { "SubLeading Shower Start X", kSubLeadingShwStartX, Binning::Simple(40,-400,400), ";SubLeading Shower Reco X (cm);Events", "subleading_shw_startx", {.59,.57,.89,.85} },
+            { "SubLeading Shower Start Y", kSubLeadingShwStartY, Binning::Simple(40,-400,400), ";SubLeading Shower Reco Y (cm);Events", "subleading_shw_starty", {.59,.57,.89,.85} },
+            { "SubLeading Shower Start Z", kSubLeadingShwStartZ, Binning::Simple(60,-200,700), ";SubLeading Shower Reco Z (cm);Events", "subleading_shw_startz", {.59,.57,.89,.85} },
+            { "Neutrino vtx x",kNuX,Binning::Simple(40,-400,400),";#nu_{x};Events","nu_vtx_x",{.59,.57,.89,.85}},
+            { "Neutrino vtx y",kNuY,Binning::Simple(40,-400,400),";#nu_{y};Events","nu_vtx_y",{.59,.57,.89,.85}},
+            { "Neutrino vtx z",kNuZ,Binning::Simple(60,-200,700),";#nu_{z};Events","nu_vtx_z",{.59,.57,.89,.85}},
+            { "Leading Track Energy", kLeadingTrkEnergy, Binning::Simple(40,0,2), ";Leading Track Energy (GeV);Events", "leading_trk_energy", {.59,.57,.89,.85} },
+            { "Leading Track Length", kLeadingTrkLen, Binning::Simple(40,0,500), ";Leading Track Length (cm);Events", "leading_trk_len", {.59,.57,.89,.85} },
+            { "Leading Track NPoints", kLeadingTrkNPts, Binning::Simple(40,0,1000), ";Leading Track NPts;Events", "leading_trk_npts", {.59,.57,.89,.85} },
+            { "Leading Track Dazzle Muon Score", kLeadingTrkDazzleMuonScore, Binning::Simple(40,0,1), ";Leading Dazzle Muon Score;Events", "leading_trk_dazzle_muon_score", {.59,.57,.89,.85} },
+            { "Leading Track Dazzle Pion Score", kLeadingTrkDazzlePionScore, Binning::Simple(40,0,1), ";Leading Dazzle Pion Score;Events", "leading_trk_dazzle_pion_score", {.59,.57,.89,.85} },
+            { "Leading Track Dazzle Proton Score", kLeadingTrkDazzleProtonScore, Binning::Simple(40,0,1), ";Leading Dazzle Proton Score;Events", "leading_trk_dazzle_proton_score", {.59,.57,.89,.85} },
+            { "Leading Track Start X", kLeadingTrkStartX, Binning::Simple(40,-400,400), ";Leading Track Reco X (cm);Events", "leading_trk_startx", {.59,.57,.89,.85} },
+            { "Leading Track Start Y", kLeadingTrkStartY, Binning::Simple(40,-400,400), ";Leading Track Reco Y (cm);Events", "leading_trk_starty", {.59,.57,.89,.85} },
+            { "Leading Track Start Z", kLeadingTrkStartZ, Binning::Simple(60,-200,700), ";Leading Track Reco Z (cm);Events", "leading_trk_startz", {.59,.57,.89,.85} },
+            { "SubLeading Track Energy", kSubLeadingTrkEnergy, Binning::Simple(40,0,2), ";Sub Leading Track Energy (GeV);Events", "subleading_trk_energy", {.59,.57,.89,.85} },
+            { "SubLeading Track Length", kSubLeadingTrkLen, Binning::Simple(40,0,500), ";Sub Leading Track Length (cm);Events", "subleading_trk_len", {.59,.57,.89,.85} },
+            { "SubLeading Track NPoints", kSubLeadingTrkNPts, Binning::Simple(40,0,1000), ";Sub Leading Track NPts;Events", "subleading_trk_npts", {.59,.57,.89,.85} },
+            { "SubLeading Track Dazzle Muon Score", kSubLeadingTrkDazzleMuonScore, Binning::Simple(40,0,1), ";SubLeading Dazzle Muon Score;Events", "subleading_trk_dazzle_muon_score", {.59,.57,.89,.85} },
+            { "SubLeading Track Dazzle Pion Score", kSubLeadingTrkDazzlePionScore, Binning::Simple(40,0,1), ";SubLeading Dazzle Pion Score;Events", "subleading_trk_dazzle_pion_score", {.59,.57,.89,.85} },
+            { "SubLeading Track Dazzle Proton Score", kSubLeadingTrkDazzleProtonScore, Binning::Simple(40,0,1), ";SubLeading Dazzle Proton Score;Events", "subleading_trk_dazzle_proton_score", {.59,.57,.89,.85} },
+            { "SubLeading Track Start X", kSubLeadingTrkStartX, Binning::Simple(40,-400,400), ";SubLeading Track Reco X (cm);Events", "subleading_trk_startx", {.59,.57,.89,.85} },
+            { "SubLeading Track Start Y", kSubLeadingTrkStartY, Binning::Simple(40,-400,400), ";SubLeading Track Reco Y (cm);Events", "subleading_trk_starty", {.59,.57,.89,.85} },
+            { "SubLeading Track Start Z", kSubLeadingTrkStartZ, Binning::Simple(60,-200,700), ";SubLeading Track Reco Z (cm);Events", "subleading_trk_startz", {.59,.57,.89,.85} },
+};
+
+std::vector<Plot<SpillVar>> recoPlots_eng = {//{ "E#theta^{2}", kEtheta2Var, Binning::Simple(15,-10,10),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
+            { "Reco E", kRecoE, Binning::Simple(30,0,3),";Reco E [GeV];Events", "reco_E",{.59,.57,.89,.85}},
+            { "True E_{#nu}", kTrueNuE, Binning::Simple(30,0,3),";True E_{#nu}[GeV];Events", "true_Enu",{.59,.57,.89,.85}},
+            { "True E", kTrueSliceE, Binning::Simple(30,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
+};
+
+std::vector<Plot<SpillVar>> recoPlots_bestSlc = {//{ "E#theta^{2}", kEtheta2Var, Binning::Simple(15,-10,10),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
+            { "Best Slice", kBestSlcID, Binning::Simple(10,0,10),";Best Slc ID;Events", "best_slc",{.59,.57,.89,.85}},
+            { "Best Slice Etheta", kBestSlcID_Etheta, Binning::Simple(10,0,10),";Best Slc ID Etheta;Events", "best_slc_etheta",{.59,.57,.89,.85}},
+            { "Best Slice Cheat", kBestSlcID_cheat, Binning::Simple(10,0,10),";Best Slc ID Cheat;Events", "best_slc_cheat",{.59,.57,.89,.85}},
 };
 
 // std::vector<Plot2D<SpillVar>> recoPlots2d = {
