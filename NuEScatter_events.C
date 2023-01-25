@@ -105,6 +105,12 @@ void NuEScatter_events()
   vector<double> lshw_dens;
   vector<double> lshw_len;
   vector<double> lshw_openangle;
+  vector<double> lshw_razzle_electron;
+  vector<double> lshw_razzle_photon;
+  vector<double> lshw_razzle_other;
+  vector<double> lshw_start_x;
+  vector<double> lshw_start_y;
+  vector<double> lshw_start_z;
 
   vector<double> slshw_eng;
   vector<double> slshw_dedx;
@@ -112,6 +118,12 @@ void NuEScatter_events()
   vector<double> slshw_dens;
   vector<double> slshw_len;
   vector<double> slshw_openangle;
+  vector<double> slshw_razzle_electron;
+  vector<double> slshw_razzle_photon;
+  vector<double> slshw_razzle_other;
+  vector<double> slshw_start_x;
+  vector<double> slshw_start_y;
+  vector<double> slshw_start_z;
 
   vector <double> ltrk_eng;
   vector <double> ltrk_len;
@@ -120,6 +132,9 @@ void NuEScatter_events()
   vector <double> ltrk_muonscore;
   vector <double> ltrk_pionscore;
   vector <double> ltrk_protonscore;
+  vector<double> ltrk_start_x;
+  vector<double> ltrk_start_y;
+  vector<double> ltrk_start_z;
 
   vector <double> sltrk_eng;
   vector <double> sltrk_len;
@@ -128,6 +143,9 @@ void NuEScatter_events()
   vector <double> sltrk_muonscore;
   vector <double> sltrk_pionscore;
   vector <double> sltrk_protonscore;
+  vector<double> sltrk_start_x;
+  vector<double> sltrk_start_y;
+  vector<double> sltrk_start_z;
 
   vector<int> genie_inttype;
   vector<int> genie_mode;
@@ -168,6 +186,12 @@ void NuEScatter_events()
   tree->Branch("lshw.dens",&lshw_dens);
   tree->Branch("lshw.len",&lshw_len);
   tree->Branch("lshw.openangle",&lshw_openangle);
+  tree->Branch("lshw.electron",&lshw_razzle_electron);
+  tree->Branch("lshw.photon",&lshw_razzle_photon);
+  tree->Branch("lshw.other",&lshw_razzle_other);
+  tree->Branch("lshw.start.x",&lshw_start_x);
+  tree->Branch("lshw.start.y",&lshw_start_y);
+  tree->Branch("lshw.start.z",&lshw_start_z);
 
   tree->Branch("slshw.eng",&slshw_eng);
   tree->Branch("slshw.dedx",&slshw_dedx);
@@ -175,6 +199,13 @@ void NuEScatter_events()
   tree->Branch("slshw.dens",&slshw_dens);
   tree->Branch("slshw.len",&slshw_len);
   tree->Branch("slshw.openangle",&slshw_openangle);
+  tree->Branch("slshw.electron",&slshw_razzle_electron);
+  tree->Branch("slshw.photon",&slshw_razzle_photon);
+  tree->Branch("slshw.other",&slshw_razzle_other);
+  tree->Branch("slshw.start.x",&slshw_start_x);
+  tree->Branch("slshw.start.y",&slshw_start_y);
+  tree->Branch("slshw.start.z",&slshw_start_z);
+  
 
   tree->Branch("genie_inttype",&genie_inttype);
   tree->Branch("genie_mode",&genie_mode);
@@ -186,6 +217,9 @@ void NuEScatter_events()
   tree->Branch("ltrk.muonscore",&ltrk_muonscore);
   tree->Branch("ltrk.pionscore",&ltrk_pionscore);
   tree->Branch("ltrk.protonscore",&ltrk_protonscore);
+  tree->Branch("ltrk.start.x",&ltrk_start_x);
+  tree->Branch("ltrk.start.y",&ltrk_start_y);
+  tree->Branch("ltrk.start.z",&ltrk_start_z);
 
   tree->Branch("sltrk.eng",&sltrk_eng);
   tree->Branch("sltrk.len",&sltrk_len);
@@ -194,6 +228,9 @@ void NuEScatter_events()
   tree->Branch("sltrk.muonscore",&sltrk_muonscore);
   tree->Branch("sltrk.pionscore",&sltrk_pionscore);
   tree->Branch("sltrk.protonscore",&sltrk_protonscore);
+  tree->Branch("sltrk.start.x",&ltrk_start_x);
+  tree->Branch("sltrk.start.y",&ltrk_start_y);
+  tree->Branch("sltrk.start.z",&ltrk_start_z);
 
   const double gPOT = 10e20;
   SpectrumLoader loader(inputNameNu);
@@ -237,6 +274,12 @@ void NuEScatter_events()
         lshw_dens.push_back(kLeadingShwDensity(sp));
         lshw_len.push_back(kLeadingShwLen(sp));
         lshw_openangle.push_back(kLeadingShwOpenAngle(sp));
+        lshw_razzle_electron.push_back(kLeadingShwRazzleElectronScore(sp));
+        lshw_razzle_photon.push_back(kLeadingShwRazzlePhotonScore(sp));
+        lshw_razzle_other.push_back(kLeadingShwRazzleOtherScore(sp));
+        lshw_start_x.push_back(kLeadingShwStartX(sp));
+        lshw_start_y.push_back(kLeadingShwStartY(sp));
+        lshw_start_z.push_back(kLeadingShwStartZ(sp));
 
         slshw_eng.push_back(kSubLeadingShwEnergy(sp));
         slshw_dedx.push_back(kSubLeadingShwdEdx(sp));
@@ -244,6 +287,12 @@ void NuEScatter_events()
         slshw_dens.push_back(kSubLeadingShwDensity(sp));
         slshw_len.push_back(kSubLeadingShwLen(sp));
         slshw_openangle.push_back(kSubLeadingShwOpenAngle(sp));
+        slshw_razzle_electron.push_back(kSubLeadingShwRazzleElectronScore(sp));
+        slshw_razzle_photon.push_back(kSubLeadingShwRazzlePhotonScore(sp));
+        slshw_razzle_other.push_back(kSubLeadingShwRazzleOtherScore(sp));
+        slshw_start_x.push_back(kSubLeadingShwStartX(sp));
+        slshw_start_y.push_back(kSubLeadingShwStartY(sp));
+        slshw_start_z.push_back(kSubLeadingShwStartZ(sp));
 
         ltrk_eng.push_back(kLeadingTrkEnergy(sp));
         ltrk_len.push_back(kLeadingTrkLen(sp));
@@ -252,6 +301,9 @@ void NuEScatter_events()
         ltrk_muonscore.push_back(kLeadingTrkDazzleMuonScore(sp));
         ltrk_pionscore.push_back(kLeadingTrkDazzlePionScore(sp));
         ltrk_protonscore.push_back(kLeadingTrkDazzleProtonScore(sp));
+        ltrk_start_x.push_back(kLeadingTrkStartX(sp));
+        ltrk_start_y.push_back(kLeadingTrkStartY(sp));
+        ltrk_start_z.push_back(kLeadingTrkStartZ(sp));
 
         sltrk_eng.push_back(kSubLeadingTrkEnergy(sp));
         sltrk_len.push_back(kSubLeadingTrkLen(sp));
@@ -260,6 +312,9 @@ void NuEScatter_events()
         sltrk_muonscore.push_back(kSubLeadingTrkDazzleMuonScore(sp));
         sltrk_pionscore.push_back(kSubLeadingTrkDazzlePionScore(sp));
         sltrk_protonscore.push_back(kSubLeadingTrkDazzleProtonScore(sp));
+        sltrk_start_x.push_back(kSubLeadingTrkStartX(sp));
+        sltrk_start_y.push_back(kSubLeadingTrkStartY(sp));
+        sltrk_start_z.push_back(kSubLeadingTrkStartZ(sp));
 
         genie_inttype.push_back(sp->slc[kBestSlcID(sp)].truth.genie_inttype);
         genie_mode.push_back(sp->slc[kBestSlcID(sp)].truth.genie_mode);

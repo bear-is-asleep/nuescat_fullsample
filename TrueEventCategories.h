@@ -274,7 +274,7 @@ const SpillCut kOtherFV([](const caf::SRSpillProxy* sp) {
 std::vector<TrueCategory> full_sel_categories = {
   {"#nu + e",kNuEScat && kTrueFV,kBlue,"NuEScat"},
   {"NC N#pi^{0}", kNCPiZero && kTrueFV, kMagenta+2, "NCpi0"},
-  {"Other NC", kNC && !kNCPiZero && kTrueFV, kYellow+2, "NC"},
+  {"Other NC", kNC && !kNCPiZero && !kNuEScat && kTrueFV, kYellow+2, "NC"},
   {"CC #nu_{#mu}", kCCNuMu && kTrueFV, kRed+2, "CCNuMu"},
   {"CC #nu_{e}", kCCNuE && kTrueFV, kTeal+2, "CCNuE"},
   {"Dirt", kDirt, kOrange+3, "Dirt"},
@@ -297,11 +297,10 @@ std::vector<TrueCategory> nuecc_nue_sel = {
 std::vector<TrueCategory> no_cosmic_sel = {
   {"#nu + e",kNuEScat && kTrueFV,kBlue,"NuEScat"},
   {"NC N#pi^{0}", kNCPiZero && kTrueFV, kMagenta+2, "NCpi0"},
-  {"Other NC", kNC && !kNCPiZero && kTrueFV, kYellow+2, "NC"},
+  {"Other NC", kNC && !kNCPiZero && !kNuEScat && kTrueFV, kYellow+2, "NC"},
   {"CC #nu_{#mu}", kCCNuMu && kTrueFV, kRed+2, "CCNuMu"},
   {"CC #nu_{e}", kCCNuE && kTrueFV, kTeal+2, "CCNuE"},
   {"Dirt", kDirt, kOrange+3, "Dirt"},
-  {"Cosmic", kCosmicSpill, kRed+1, "Cosmic"},
 };
 
 

@@ -57,7 +57,7 @@ const bool do_systematics = false;
 const std::vector<CutDef> cuts = original_cuts;
 const std::vector<Plot<SpillVar>> plots = recoPlots_all;
 const std::vector<TrueCategory> categories = nuecc_nue_sel;
-const string surName = "fullsample_mre3";
+const string surName = "mre3";
 
 void NuEScatter_mre3(bool reload = true)
 {

@@ -152,6 +152,19 @@ const SpillCut kRazzleCut([](const caf::SRSpillProxy* sp) {
     return true;
   });
 
+const SpillCut kTruthIDNuEScat([](const caf::SRSpillProxy* sp) {
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+    return slc.truth.genie_inttype == 1098;
+});
+
+std::vector<CutDef> truth_cuts = { { "No Cut", "no_cut", kNoSpillCut },
+  { "Has Slc", "has_slc", kHasSlc },
+  { "Has Nu Slc", "has_nu_slc", kHasNuSlc },
+  { "Has Nu FV Slc", "has_nu_fv_slc", kHasNuFVSlc },
+  { "Is FV", "is_fv", kIsFV },
+  { "Is NuEScat", "is_nue_scat", kTruthIDNuEScat }
+};
+
 std::vector<CutDef> original_cuts = { { "No Cut", "no_cut", kNoSpillCut },
   { "Has Slc", "has_slc", kHasSlc },
   { "Has Nu Slc", "has_nu_slc", kHasNuSlc },

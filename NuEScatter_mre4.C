@@ -1,3 +1,11 @@
+/*
+MRE4 is the minimum reproducible example when running the original cuts on the MCP2022A sample. v09_37
+The numbers between MRE4,MRE5,MRE6 should be the exact same for their respective samples within their
+statistical uncertainty. They're all normalized to the same POT = 10e20. This selection looks at all 
+true categories. Compare this to MRE1 since they're the same sample and should yield
+the same event rate.
+*/
+
 #include "sbnana/CAFAna/Core/Spectrum.h"
 #include "sbnana/CAFAna/Core/SpectrumLoader.h"
 #include "sbnanaobj/StandardRecord/Proxy/SRProxy.h"
@@ -56,10 +64,10 @@ const bool do_systematics = false;
 //Set cuts plots and selection
 const std::vector<CutDef> cuts = original_cuts;
 const std::vector<Plot<SpillVar>> plots = recoPlots_all;
-const std::vector<TrueCategory> categories = nuecc_nue_sel;
-const string surName = "mre2";
+const std::vector<TrueCategory> categories = no_cosmic_sel;
+const string surName = "mre4";
 
-void NuEScatter_mre2(bool reload = true)
+void NuEScatter_mre4(bool reload = true)
 {
 
   selectionstyle();
@@ -79,7 +87,7 @@ void NuEScatter_mre2(bool reload = true)
   const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"_"+surName;
   const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 
-  SpectrumLoader loaderNu(inputNameNuE);
+  SpectrumLoader loaderNu(inputNameNu);
 
   std::vector<Spectrum*> sNu;
 
@@ -204,5 +212,5 @@ void NuEScatter_mre2(bool reload = true)
 	}
       ++j;
     }
-gSystem->Exec("cp NuEScatterCuts.h NuEScatterRecoVars.h TrueEventCategories.h " + saveDir);
+gSystem->Exec("cp NuEScatterCuts.h NuEScatterRecoVars.h TrueEventCategories.h NuEScatter_mre4.C " + saveDir);
 }

@@ -1,3 +1,12 @@
+/*
+MRE5 is the minimum reproducible example when running the original cuts on the pure nue sample. v09_58
+The numbers between MRE4,MRE5,MRE6 should be the exact same for their respective samples within their
+statistical uncertainty. They're all normalized to the same POT = 10e20. This selection looks at all 
+true categories. Compare this to MRE2 since they're the same sample and should yield
+the same event rate.
+*/
+
+
 #include "sbnana/CAFAna/Core/Spectrum.h"
 #include "sbnana/CAFAna/Core/SpectrumLoader.h"
 #include "sbnanaobj/StandardRecord/Proxy/SRProxy.h"
@@ -56,10 +65,10 @@ const bool do_systematics = false;
 //Set cuts plots and selection
 const std::vector<CutDef> cuts = original_cuts;
 const std::vector<Plot<SpillVar>> plots = recoPlots_all;
-const std::vector<TrueCategory> categories = nuecc_nue_sel;
-const string surName = "mre2";
+const std::vector<TrueCategory> categories = no_cosmic_sel;
+const string surName = "mre5";
 
-void NuEScatter_mre2(bool reload = true)
+void NuEScatter_mre5(bool reload = true)
 {
 
   selectionstyle();
@@ -204,5 +213,5 @@ void NuEScatter_mre2(bool reload = true)
 	}
       ++j;
     }
-gSystem->Exec("cp NuEScatterCuts.h NuEScatterRecoVars.h TrueEventCategories.h " + saveDir);
+gSystem->Exec("cp NuEScatterCuts.h NuEScatterRecoVars.h TrueEventCategories.h NuEScatter_mre5.C " + saveDir);
 }
