@@ -1175,7 +1175,7 @@ std::vector<Plot<SpillVar>> recoPlots_basic = {
   { "Neutrino vtx y",kNuY,Binning::Simple(40,-400,400),";#nu_{y};Events","nu_vtx_y",{.59,.57,.89,.85}},
   { "Neutrino vtx z",kNuZ,Binning::Simple(60,-200,700),";#nu_{z};Events","nu_vtx_z",{.59,.57,.89,.85}},
   { "Leading Shower PDG", kLeadingShwPDGPlot, binsPDGShw, ";Leading Shower PDG;Events", "leading_shw_pdg",  {.22,.57,.52,.85} },
-}
+};
 
 std::vector<Plot<SpillVar>> recoPlots_eng = {//{ "E#theta^{2}", kEtheta2Var, Binning::Simple(15,-10,10),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
             { "Reco E", kRecoE, Binning::Simple(30,0,3),";Reco E [GeV];Events", "reco_E",{.59,.57,.89,.85}},
