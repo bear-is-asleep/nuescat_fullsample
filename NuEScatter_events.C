@@ -24,6 +24,7 @@ using namespace ana;
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "TVector.h"
 #include "TTree.h"
 #include "TCanvas.h"
 #include "TLegend.h"
@@ -67,6 +68,8 @@ int kEventType(const caf::SRSpillProxy* sp){
   }
 }
 
+int kReserveSpace = 10000;
+
 void NuEScatter_events()
 {
   vector<int> run;
@@ -80,8 +83,6 @@ void NuEScatter_events()
   vector<int> nele;
   vector<int> nrele;
   vector<int> nrph;
-
-  //vector<double> shw_conversion_gap;
 
   vector<int> evt_type;
 
@@ -151,13 +152,109 @@ void NuEScatter_events()
   vector<int> genie_mode;
 
 
+  //REserve space
+  run.reserve(kReserveSpace);
+  subrun.reserve(kReserveSpace);
+  evt.reserve(kReserveSpace);
+
+  nshw.reserve(kReserveSpace);
+  ntrk.reserve(kReserveSpace);
+  nstub.reserve(kReserveSpace);
+  nslc.reserve(kReserveSpace);
+  nele.reserve(kReserveSpace);
+  nrele.reserve(kReserveSpace);
+  nrph.reserve(kReserveSpace);
+
+  evt_type.reserve(kReserveSpace);
+
+  Etheta.reserve(kReserveSpace);
+
+  truenshw.reserve(kReserveSpace);
+  truentrk.reserve(kReserveSpace);
+
+  vtxx.reserve(kReserveSpace);
+  vtxy.reserve(kReserveSpace);
+  vtxz.reserve(kReserveSpace);
+
+  true_spill_eng.reserve(kReserveSpace);
+  reco_eng.reserve(kReserveSpace);
+   reco_theta.reserve(kReserveSpace);
+  true_theta.reserve(kReserveSpace);
+
+  lshw_eng.reserve(kReserveSpace);
+  lshw_dedx.reserve(kReserveSpace);
+  lshw_cnvgap.reserve(kReserveSpace);
+  lshw_dens.reserve(kReserveSpace);
+  lshw_len.reserve(kReserveSpace);
+  lshw_openangle.reserve(kReserveSpace);
+  lshw_razzle_electron.reserve(kReserveSpace);
+  lshw_razzle_photon.reserve(kReserveSpace);
+  lshw_razzle_other.reserve(kReserveSpace);
+  lshw_start_x.reserve(kReserveSpace);
+  lshw_start_y.reserve(kReserveSpace);
+  lshw_start_z.reserve(kReserveSpace);
+
+  slshw_eng.reserve(kReserveSpace);
+  slshw_dedx.reserve(kReserveSpace);
+  slshw_cnvgap.reserve(kReserveSpace);
+  slshw_dens.reserve(kReserveSpace);
+  slshw_len.reserve(kReserveSpace);
+  slshw_openangle.reserve(kReserveSpace);
+  slshw_razzle_electron.reserve(kReserveSpace);
+  slshw_razzle_photon.reserve(kReserveSpace);
+  slshw_razzle_other.reserve(kReserveSpace);
+  slshw_start_x.reserve(kReserveSpace);
+  slshw_start_y.reserve(kReserveSpace);
+  slshw_start_z.reserve(kReserveSpace);
+
+  ltrk_eng.reserve(kReserveSpace);
+  ltrk_len.reserve(kReserveSpace);
+  ltrk_npts.reserve(kReserveSpace);
+  ltrk_pfptrkscore.reserve(kReserveSpace);
+  ltrk_muonscore.reserve(kReserveSpace);
+  ltrk_pionscore.reserve(kReserveSpace);
+  ltrk_protonscore.reserve(kReserveSpace);
+  ltrk_start_x.reserve(kReserveSpace);
+  ltrk_start_y.reserve(kReserveSpace);
+  ltrk_start_z.reserve(kReserveSpace);
+
+  sltrk_eng.reserve(kReserveSpace);
+  sltrk_len.reserve(kReserveSpace);
+  sltrk_npts.reserve(kReserveSpace);
+  sltrk_pfptrkscore.reserve(kReserveSpace);
+  sltrk_muonscore.reserve(kReserveSpace);
+  sltrk_pionscore.reserve(kReserveSpace);
+  sltrk_protonscore.reserve(kReserveSpace);
+  sltrk_start_x.reserve(kReserveSpace);
+  sltrk_start_y.reserve(kReserveSpace);
+  sltrk_start_z.reserve(kReserveSpace);
+
+  genie_inttype.reserve(kReserveSpace);
+  genie_mode.reserve(kReserveSpace);
+
+
   //Make TTree
-  TFile* file = new TFile(stateDir+"/cut_events.root", "RECREATE");
+  TFile* file = new TFile(stateDir+"/cut_events_basic.root", "RECREATE");
   TTree *tree = new TTree("rectree","CAF Tree");
+
+  TFile* file2 = new TFile(stateDir+"/cut_events_shw.root", "RECREATE");
+  TTree *tree2 = new TTree("rectree","CAF Tree");
+
+  TFile* file3 = new TFile(stateDir+"/cut_events_trk.root", "RECREATE");
+  TTree *tree3 = new TTree("rectree","CAF Tree");
 
   tree->Branch("run",&run);
   tree->Branch("subrun",&subrun);
   tree->Branch("evt",&evt);
+
+  tree2->Branch("run",&run);
+  tree2->Branch("subrun",&subrun);
+  tree2->Branch("evt",&evt);
+
+  tree3->Branch("run",&run);
+  tree3->Branch("subrun",&subrun);
+  tree3->Branch("evt",&evt);
+
   tree->Branch("nshw",&nshw);
   tree->Branch("ntrk",&ntrk);
   tree->Branch("truenshw",&nshw);
@@ -165,8 +262,8 @@ void NuEScatter_events()
   tree->Branch("nstub",&nstub);
   tree->Branch("nslc",&nslc);
   tree->Branch("nele",&nele);
-  tree->Branch("razzle.electrons",&nrele);
-  tree->Branch("razzle.photons",&nrph);
+  //tree->Branch("razzle.electrons",&nrele);
+  //tree->Branch("razzle.photons",&nrph);
   tree->Branch("Etheta",&Etheta);
   tree->Branch("evt_type",&evt_type);
   //tree->Branch("shw.conversion_gap",&shw_conversion_gap);
@@ -180,57 +277,57 @@ void NuEScatter_events()
   tree->Branch("reco_theta",&reco_theta);
   tree->Branch("true_theta",&true_theta);
 
-  tree->Branch("lshw.eng",&lshw_eng);
-  tree->Branch("lshw.dedx",&lshw_dedx);
-  tree->Branch("lshw.cnvgap",&lshw_cnvgap);
-  tree->Branch("lshw.dens",&lshw_dens);
-  tree->Branch("lshw.len",&lshw_len);
-  tree->Branch("lshw.openangle",&lshw_openangle);
-  tree->Branch("lshw.electron",&lshw_razzle_electron);
-  tree->Branch("lshw.photon",&lshw_razzle_photon);
-  tree->Branch("lshw.other",&lshw_razzle_other);
-  tree->Branch("lshw.start.x",&lshw_start_x);
-  tree->Branch("lshw.start.y",&lshw_start_y);
-  tree->Branch("lshw.start.z",&lshw_start_z);
+  tree2->Branch("lshw.eng",&lshw_eng);
+  tree2->Branch("lshw.dedx",&lshw_dedx);
+  tree2->Branch("lshw.cnvgap",&lshw_cnvgap);
+  tree2->Branch("lshw.dens",&lshw_dens);
+  tree2->Branch("lshw.len",&lshw_len);
+  tree2->Branch("lshw.openangle",&lshw_openangle);
+  tree2->Branch("lshw.electron",&lshw_razzle_electron);
+  tree2->Branch("lshw.photon",&lshw_razzle_photon);
+  tree2->Branch("lshw.other",&lshw_razzle_other);
+  tree2->Branch("lshw.start.x",&lshw_start_x);
+  tree2->Branch("lshw.start.y",&lshw_start_y);
+  tree2->Branch("lshw.start.z",&lshw_start_z);
 
-  tree->Branch("slshw.eng",&slshw_eng);
-  tree->Branch("slshw.dedx",&slshw_dedx);
-  tree->Branch("slshw.cnvgap",&slshw_cnvgap);
-  tree->Branch("slshw.dens",&slshw_dens);
-  tree->Branch("slshw.len",&slshw_len);
-  tree->Branch("slshw.openangle",&slshw_openangle);
-  tree->Branch("slshw.electron",&slshw_razzle_electron);
-  tree->Branch("slshw.photon",&slshw_razzle_photon);
-  tree->Branch("slshw.other",&slshw_razzle_other);
-  tree->Branch("slshw.start.x",&slshw_start_x);
-  tree->Branch("slshw.start.y",&slshw_start_y);
-  tree->Branch("slshw.start.z",&slshw_start_z);
+  tree2->Branch("slshw.eng",&slshw_eng);
+  tree2->Branch("slshw.dedx",&slshw_dedx);
+  tree2->Branch("slshw.cnvgap",&slshw_cnvgap);
+  tree2->Branch("slshw.dens",&slshw_dens);
+  tree2->Branch("slshw.len",&slshw_len);
+  tree2->Branch("slshw.openangle",&slshw_openangle);
+  tree2->Branch("slshw.electron",&slshw_razzle_electron);
+  tree2->Branch("slshw.photon",&slshw_razzle_photon);
+  tree2->Branch("slshw.other",&slshw_razzle_other);
+  tree2->Branch("slshw.start.x",&slshw_start_x);
+  tree2->Branch("slshw.start.y",&slshw_start_y);
+  tree2->Branch("slshw.start.z",&slshw_start_z);
   
 
   tree->Branch("genie_inttype",&genie_inttype);
   tree->Branch("genie_mode",&genie_mode);
 
-  tree->Branch("ltrk.eng",&ltrk_eng);
-  tree->Branch("ltrk.len",&ltrk_len);
-  tree->Branch("ltrk.npts",&ltrk_npts);
-  tree->Branch("ltrk.pfptrkscore",&ltrk_pfptrkscore);
-  tree->Branch("ltrk.muonscore",&ltrk_muonscore);
-  tree->Branch("ltrk.pionscore",&ltrk_pionscore);
-  tree->Branch("ltrk.protonscore",&ltrk_protonscore);
-  tree->Branch("ltrk.start.x",&ltrk_start_x);
-  tree->Branch("ltrk.start.y",&ltrk_start_y);
-  tree->Branch("ltrk.start.z",&ltrk_start_z);
+  tree3->Branch("ltrk.eng",&ltrk_eng);
+  tree3->Branch("ltrk.len",&ltrk_len);
+  tree3->Branch("ltrk.npts",&ltrk_npts);
+  tree3->Branch("ltrk.pfptrkscore",&ltrk_pfptrkscore);
+  tree3->Branch("ltrk.muonscore",&ltrk_muonscore);
+  tree3->Branch("ltrk.pionscore",&ltrk_pionscore);
+  tree3->Branch("ltrk.protonscore",&ltrk_protonscore);
+  tree3->Branch("ltrk.start.x",&ltrk_start_x);
+  tree3->Branch("ltrk.start.y",&ltrk_start_y);
+  tree3->Branch("ltrk.start.z",&ltrk_start_z);
 
-  tree->Branch("sltrk.eng",&sltrk_eng);
-  tree->Branch("sltrk.len",&sltrk_len);
-  tree->Branch("sltrk.npts",&sltrk_npts);
-  tree->Branch("sltrk.pfptrkscore",&sltrk_pfptrkscore);
-  tree->Branch("sltrk.muonscore",&sltrk_muonscore);
-  tree->Branch("sltrk.pionscore",&sltrk_pionscore);
-  tree->Branch("sltrk.protonscore",&sltrk_protonscore);
-  tree->Branch("sltrk.start.x",&ltrk_start_x);
-  tree->Branch("sltrk.start.y",&ltrk_start_y);
-  tree->Branch("sltrk.start.z",&ltrk_start_z);
+  tree3->Branch("sltrk.eng",&sltrk_eng);
+  tree3->Branch("sltrk.len",&sltrk_len);
+  tree3->Branch("sltrk.npts",&sltrk_npts);
+  tree3->Branch("sltrk.pfptrkscore",&sltrk_pfptrkscore);
+  tree3->Branch("sltrk.muonscore",&sltrk_muonscore);
+  tree3->Branch("sltrk.pionscore",&sltrk_pionscore);
+  tree3->Branch("sltrk.protonscore",&sltrk_protonscore);
+  tree3->Branch("sltrk.start.x",&ltrk_start_x);
+  tree3->Branch("sltrk.start.y",&ltrk_start_y);
+  tree3->Branch("sltrk.start.z",&ltrk_start_z);
 
   const double gPOT = 10e20;
   SpectrumLoader loader(inputNameNu);
@@ -328,10 +425,20 @@ void NuEScatter_events()
   Spectrum dummy_spec("Dummy Label", dummy_bins, loader, dummy_var, kNoSpillCut);
   //Spectrum dummy_spec_univ("Dummy weighted",binsEnergy,loader,kTrueE,kNoCut,weis[0]);
   //EnsembleSpectrum dummy_spec_univ(loader,ax,kPreSelection,kNoCut,weis);
-
+  //std::cout.setstate(std::ios_base::failbit);
   loader.Go();
+  std::cout.clear();
+  
   tree->Fill();
   file->Write();
+
+  tree2->Fill();
+  file2->Write();
+
+  tree3->Fill();
+  file3->Write();
+
+  
   //gSystem->Exec("mv " + stateDir+"/cut_events.root"+" "+stateDir);
 
 }

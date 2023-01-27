@@ -2,7 +2,7 @@
 
 const FidVol fvndNuEScat{  +1.5, +190.,  // x
                       -190., +190.,  // y
-                       +10., +485.}; // z
+                       +20., +485.}; // z
 
 template <typename T>
 struct Plot {

@@ -3,10 +3,6 @@
 #include "sbnanaobj/StandardRecord/Proxy/SRProxy.h"
 #include "sbnana/SBNAna/Cuts/VolumeDefinitions.h"
 
-//Cov mat
-#include "sbnana/CAFAna/Core/Utilities.h"
-//#include "/sbnd/app/users/brindenc/mysbn/srcs/sbnana/sbnana/CAFAna/Core/Utilities.h"
-
 //Systs
 #include "sbnana/CAFAna/Systs/SBNWeightSysts.h"
 #include "sbnana/CAFAna/Core/EnsembleRatio.h"
@@ -48,7 +44,9 @@ using namespace ana;
 using namespace std;
 
 const string state_fname = "NuEScatter_state_all.root";
-const bool do_systematics = false;
+const std::vector<CutDef> cuts = original_cuts;
+const std::vector<Plot<SpillVar>> plots = recoPlots_basic;
+const std::vector<TrueCategory> categories = no_cosmic_sel;
 
 void NuEScatter_ana(bool reload = true)
 {
@@ -65,7 +63,7 @@ void NuEScatter_ana(bool reload = true)
 
   const double gPOT = 10e20;
   const bool save = true;
-  const string surName = "fullsample_allplots_crumbsslc_nuecc_stride1";
+  const string surName = "ana_fullsample";
   const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"_"+surName;
   const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 
@@ -76,9 +74,9 @@ void NuEScatter_ana(bool reload = true)
 
   SpillCut previousCuts = kNoSpillCut;
 
-  for (auto const& cut : nuescatter_cuts){
-    for(auto const& plot : recoPlots){
-      for(auto const& category : nuescat_sel_categories){
+  for (auto const& cut : cuts){
+    for(auto const& plot : plots){
+      for(auto const& category : categories){
         string name = *category.label.Data() + "_" + *plot.name.Data();
 	      sNu.emplace_back(new Spectrum("nu_" + name, plot.binning, loaderNu, 
 					    plot.variable, 
@@ -113,11 +111,11 @@ void NuEScatter_ana(bool reload = true)
 
   double initialSignal = 0.;
 
-  for(auto const& cut : nuescatter_cuts)
+  for(auto const& cut : cuts)
     {
 
     gSystem->Exec("mkdir -p " + saveDir + "/" + cut.label);
-    for(auto const& plot : recoPlots)
+    for(auto const& plot : plots)
 	    {
 
         TCanvas *canvas = new TCanvas("c " + plot.name + " " + cut.name, 
@@ -128,7 +126,7 @@ void NuEScatter_ana(bool reload = true)
 	  
 	      double selectedSig = 0., selected = 0.;
 
-        for(auto const& category : nuescat_sel_categories)
+        for(auto const& category : categories)
           {
             TH1D *hist = sNu[i]->ToTH1(gPOT);
             //hist->Add(sIntime[i]->ToTH1(intimeScaledLive, kLivetime));

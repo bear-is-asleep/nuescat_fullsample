@@ -405,6 +405,24 @@ const SpillVar kLeadingShwStartZ([](const caf::SRSpillProxy* sp) -> double {
     
     return shw.start.z;
   });
+const SpillVar kLeadingShwEndX([](const caf::SRSpillProxy* sp) -> double {
+    if(kNShowers(sp) == 0) return -9999.;
+    auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
+    
+    return shw.end.x;
+  });
+const SpillVar kLeadingShwEndY([](const caf::SRSpillProxy* sp) -> double {
+    if(kNShowers(sp) == 0) return -9999.;
+    auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
+    
+    return shw.end.y;
+  });
+const SpillVar kLeadingShwEndZ([](const caf::SRSpillProxy* sp) -> double {
+    if(kNShowers(sp) == 0) return -9999.;
+    auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
+    
+    return shw.end.z;
+  });
 const SpillVar kSubLeadingShwEnergy([](const caf::SRSpillProxy* sp) -> double {
     if(kNShowers(sp) < 2) return -9999.;
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
@@ -516,6 +534,24 @@ const SpillVar kSubLeadingShwStartZ([](const caf::SRSpillProxy* sp) -> double {
     auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
     
     return shw.start.z;
+  });
+const SpillVar kSubLeadingShwEndX([](const caf::SRSpillProxy* sp) -> double {
+    if(kNShowers(sp) < 2) return -9999.;
+    auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
+    
+    return shw.end.x;
+  });
+const SpillVar kSubLeadingShwEndY([](const caf::SRSpillProxy* sp) -> double {
+    if(kNShowers(sp) < 2) return -9999.;
+    auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
+    
+    return shw.end.y;
+  });
+const SpillVar kSubLeadingShwEndZ([](const caf::SRSpillProxy* sp) -> double {
+    if(kNShowers(sp) < 2) return -9999.;
+    auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
+    
+    return shw.end.z;
   });
 
 const SpillVar kRecoE([](const caf::SRSpillProxy* sp) -> double {
@@ -879,6 +915,21 @@ const SpillVar kLeadingTrkStartZ([](const caf::SRSpillProxy* sp) -> double {
     auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
     return trk.start.z;
   });
+const SpillVar kLeadingTrkEndX([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) ==0) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+    return trk.end.x;
+  });
+const SpillVar kLeadingTrkEndY([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) ==0) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+    return trk.end.y;
+  });
+const SpillVar kLeadingTrkEndZ([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) ==0) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+    return trk.end.z;
+  });
 //Sub leading tracks
 const SpillVar kSubLeadingTrkEnergy([](const caf::SRSpillProxy* sp) -> double {
     if(kNTracks(sp) < 2) return -9999.;
@@ -937,14 +988,70 @@ const SpillVar kSubLeadingTrkStartZ([](const caf::SRSpillProxy* sp) -> double {
     return trk.start.z;
   });
 
+const SpillVar kSubLeadingTrkEndX([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) <2) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+    return trk.end.x;
+  });
+const SpillVar kSubLeadingTrkEndY([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) <2) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+    return trk.end.y;
+  });
+const SpillVar kSubLeadingTrkEndZ([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) <2) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+    return trk.end.z;
+  });
+
+const SpillVar kLeadingTrkPDGPlot([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) == 0) return -.5;
+
+    const int pdg = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)].truth.p.pdg;
+
+    switch(pdg) {
+    case 11:
+      return 0.5;
+    case -11:
+      return 1.5;
+    case 13:
+      return 2.5;
+    case -13:
+      return 3.5;
+    case 211:
+      return 4.5;
+    case -211:
+      return 5.5;
+    case 2212:
+      return 6.5;
+    case 22:
+      return 7.5;
+    default:
+      return 8.5;
+    }
+  });
+// const SpillVar kInvariantMass([](const caf::SRSpillProxy* sp) -> double {
+//     if(kNShowers(sp) < 2) return 0.;
+
+//     auto const& lead = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
+//     auto const& sublead = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
+
+//     TVector3 leadDir(lead.dir.x, lead.dir.y, lead.dir.z);
+//     TVector3 subleadDir(sublead.dir.x, sublead.dir.y, sublead.dir.z);
+
+//     const double cosine = leadDir.Dot(subleadDir) / (leadDir.Mag() * subleadDir.Mag());
+
+//     return sqrt(2 * lead.bestplane_energy * sublead.bestplane_energy * (1. - cosine));
+//   });
 
 
 
 
 const Binning binsPDGShw = Binning::Simple(10,-1,9, {"No Shw", "e^{-}", "e^{+}", "#mu^{-}", "#mu^{+}", "#pi^{+}", "#pi^{-}", "p", "#gamma", "Other"});
+const Binning binsPDGTrk = Binning::Simple(10,-1,9, {"No Trk", "e^{-}", "e^{+}", "#mu^{-}", "#mu^{+}", "#pi^{+}", "#pi^{-}", "p", "#gamma", "Other"});
 
 std::vector<Plot<SpillVar>> recoPlots_all = {//{ "E#theta^{2}", kEtheta2Var, Binning::Simple(15,-10,10),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
-            { "E#theta^{2}", kEtheta2Var, Binning::Simple(10,0.,5.),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
+            { "E#theta^{2}", kEtheta2Var, Binning::Simple(10,0.,2.),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
             { "#theta_{#nu}", kNuAngle, Binning::Simple(10,0.,2.),";#theta_{#nu};Events", "theta_nu",{.59,.57,.89,.85}},
             { "#theta_{#nu} (Zoom)", kNuAngle, Binning::Simple(10,0.,0.2),";#theta_{#nu};Events", "theta_nu_zoom",{.59,.57,.89,.85}},
             { "E#theta^{2} (Zoom)", kEtheta2Var, Binning::Simple(15,0.,0.05),";E#theta^{2};Events", "E_theta_zoom",{.59,.57,.89,.85}},
@@ -986,6 +1093,9 @@ std::vector<Plot<SpillVar>> recoPlots_all = {//{ "E#theta^{2}", kEtheta2Var, Bin
 					  { "Leading Shower Start X", kLeadingShwStartX, Binning::Simple(40,-400,400), ";Leading Shower Reco X (cm);Events", "leading_shw_startx", {.59,.57,.89,.85} },
             { "Leading Shower Start Y", kLeadingShwStartY, Binning::Simple(40,-400,400), ";Leading Shower Reco Y (cm);Events", "leading_shw_starty", {.59,.57,.89,.85} },
             { "Leading Shower Start Z", kLeadingShwStartZ, Binning::Simple(60,-200,700), ";Leading Shower Reco Z (cm);Events", "leading_shw_startz", {.59,.57,.89,.85} },
+            { "Leading Shower End X", kLeadingShwEndX, Binning::Simple(40,-400,400), ";Leading Shower Reco X (cm);Events", "leading_shw_endx", {.59,.57,.89,.85} },
+            { "Leading Shower End Y", kLeadingShwEndY, Binning::Simple(40,-400,400), ";Leading Shower Reco Y (cm);Events", "leading_shw_endy", {.59,.57,.89,.85} },
+            { "Leading Shower End Z", kLeadingShwEndZ, Binning::Simple(60,-200,700), ";Leading Shower Reco Z (cm);Events", "leading_shw_endz", {.59,.57,.89,.85} },
             { "SubLeading Shower Energy", kSubLeadingShwEnergy, Binning::Simple(40,0,1), ";SubLeading Shower Energy (GeV);Events", "subleading_shw_energy", {.59,.57,.89,.85} },
 					  { "SubLeading Shower dEdx", kSubLeadingShwdEdx, Binning::Simple(40,0,10), ";SubLeading Shower dE/dx (MeV/cm);Events", "subleading_shw_dedx", {.59,.57,.89,.85} },
 					  { "SubLeading Shower Conversion Gap", kSubLeadingShwCnvGap, Binning::Simple(40,0,20), ";SubLeading Shower Conversion Gap (cm);Events", "subleading_shw_cnv_gap", {.59,.57,.89,.85} },
@@ -1004,6 +1114,9 @@ std::vector<Plot<SpillVar>> recoPlots_all = {//{ "E#theta^{2}", kEtheta2Var, Bin
             { "SubLeading Shower Start X", kSubLeadingShwStartX, Binning::Simple(40,-400,400), ";SubLeading Shower Reco X (cm);Events", "subleading_shw_startx", {.59,.57,.89,.85} },
             { "SubLeading Shower Start Y", kSubLeadingShwStartY, Binning::Simple(40,-400,400), ";SubLeading Shower Reco Y (cm);Events", "subleading_shw_starty", {.59,.57,.89,.85} },
             { "SubLeading Shower Start Z", kSubLeadingShwStartZ, Binning::Simple(60,-200,700), ";SubLeading Shower Reco Z (cm);Events", "subleading_shw_startz", {.59,.57,.89,.85} },
+            { "SubLeading Shower End X", kSubLeadingShwEndX, Binning::Simple(40,-400,400), ";SubLeading Shower Reco X (cm);Events", "subleading_shw_endx", {.59,.57,.89,.85} },
+            { "SubLeading Shower End Y", kSubLeadingShwEndY, Binning::Simple(40,-400,400), ";SubLeading Shower Reco Y (cm);Events", "subleading_shw_endy", {.59,.57,.89,.85} },
+            { "SubLeading Shower End Z", kSubLeadingShwEndZ, Binning::Simple(60,-200,700), ";SubLeading Shower Reco Z (cm);Events", "subleading_shw_endz", {.59,.57,.89,.85} },
             { "Neutrino vtx x",kNuX,Binning::Simple(40,-400,400),";#nu_{x};Events","nu_vtx_x",{.59,.57,.89,.85}},
             { "Neutrino vtx y",kNuY,Binning::Simple(40,-400,400),";#nu_{y};Events","nu_vtx_y",{.59,.57,.89,.85}},
             { "Neutrino vtx z",kNuZ,Binning::Simple(60,-200,700),";#nu_{z};Events","nu_vtx_z",{.59,.57,.89,.85}},
@@ -1016,6 +1129,10 @@ std::vector<Plot<SpillVar>> recoPlots_all = {//{ "E#theta^{2}", kEtheta2Var, Bin
             { "Leading Track Start X", kLeadingTrkStartX, Binning::Simple(40,-400,400), ";Leading Track Reco X (cm);Events", "leading_trk_startx", {.59,.57,.89,.85} },
             { "Leading Track Start Y", kLeadingTrkStartY, Binning::Simple(40,-400,400), ";Leading Track Reco Y (cm);Events", "leading_trk_starty", {.59,.57,.89,.85} },
             { "Leading Track Start Z", kLeadingTrkStartZ, Binning::Simple(60,-200,700), ";Leading Track Reco Z (cm);Events", "leading_trk_startz", {.59,.57,.89,.85} },
+            { "Leading Track End X", kLeadingTrkEndX, Binning::Simple(40,-400,400), ";Leading Track Reco X (cm);Events", "leading_trk_endx", {.59,.57,.89,.85} },
+            { "Leading Track End Y", kLeadingTrkEndY, Binning::Simple(40,-400,400), ";Leading Track Reco Y (cm);Events", "leading_trk_endy", {.59,.57,.89,.85} },
+            { "Leading Track End Z", kLeadingTrkEndZ, Binning::Simple(60,-200,700), ";Leading Track Reco Z (cm);Events", "leading_trk_endz", {.59,.57,.89,.85} },
+            { "Leading Track PDG", kLeadingTrkPDGPlot, binsPDGTrk, ";Leading Track PDG;Events", "leading_trk_pdg",  {.22,.57,.52,.85} },
             { "SubLeading Track Energy", kSubLeadingTrkEnergy, Binning::Simple(40,0,2), ";Sub Leading Track Energy (GeV);Events", "subleading_trk_energy", {.59,.57,.89,.85} },
             { "SubLeading Track Length", kSubLeadingTrkLen, Binning::Simple(40,0,500), ";Sub Leading Track Length (cm);Events", "subleading_trk_len", {.59,.57,.89,.85} },
             { "SubLeading Track NPoints", kSubLeadingTrkNPts, Binning::Simple(40,0,1000), ";Sub Leading Track NPts;Events", "subleading_trk_npts", {.59,.57,.89,.85} },
@@ -1025,12 +1142,34 @@ std::vector<Plot<SpillVar>> recoPlots_all = {//{ "E#theta^{2}", kEtheta2Var, Bin
             { "SubLeading Track Start X", kSubLeadingTrkStartX, Binning::Simple(40,-400,400), ";SubLeading Track Reco X (cm);Events", "subleading_trk_startx", {.59,.57,.89,.85} },
             { "SubLeading Track Start Y", kSubLeadingTrkStartY, Binning::Simple(40,-400,400), ";SubLeading Track Reco Y (cm);Events", "subleading_trk_starty", {.59,.57,.89,.85} },
             { "SubLeading Track Start Z", kSubLeadingTrkStartZ, Binning::Simple(60,-200,700), ";SubLeading Track Reco Z (cm);Events", "subleading_trk_startz", {.59,.57,.89,.85} },
+            { "SubLeading Track End X", kSubLeadingTrkEndX, Binning::Simple(40,-400,400), ";SubLeading Track Reco X (cm);Events", "subleading_trk_endx", {.59,.57,.89,.85} },
+            { "SubLeading Track End Y", kSubLeadingTrkEndY, Binning::Simple(40,-400,400), ";SubLeading Track Reco Y (cm);Events", "subleading_trk_endy", {.59,.57,.89,.85} },
+            { "SubLeading Track End Z", kSubLeadingTrkEndZ, Binning::Simple(60,-200,700), ";SubLeading Track Reco Z (cm);Events", "subleading_trk_endz", {.59,.57,.89,.85} },
+            //{ "Invariant Mass", kInvariantMass, Binning::Simple(30,0,1), ";Invariant Mass (GeV);Events", "invariant_mass", {.59,.57,.89,.85} },
 };
+
+std::vector<Plot<SpillVar>> recoPlots_basic = {
+  { "E#theta^{2}", kEtheta2Var, Binning::Simple(10,0.,2.),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
+  { "E#theta^{2} (Zoom)", kEtheta2Var, Binning::Simple(15,0.,0.05),";E#theta^{2};Events", "E_theta_zoom",{.59,.57,.89,.85}},
+  { "E#theta^{2} (Zoom x 2)", kEtheta2Var, Binning::Simple(15,0.,0.005),";E#theta^{2};Events", "E_theta_zoom_zoom",{.59,.57,.89,.85}},
+  { "N Slices", kNSlices, Binning::Simple(30,0,30), ";nSlices;Events", "n_slices", {.59,.57,.89,.85} },
+  { "N Nu Slices", kNNuSlices, Binning::Simple(10,0,10), ";nNuSlices;Events", "n_nu_slices", {.59,.57,.89,.85} },
+  { "N FV Slices", kNFVSlices, Binning::Simple(10,0,10), ";nFVSlices;Events", "n_fv_slices", {.59,.57,.89,.85} },
+  { "Reco E", kRecoE, Binning::Simple(30,0,3),";Reco E [GeV];Events", "reco_E",{.59,.57,.89,.85}},
+  { "True E_{#nu}", kTrueNuE, Binning::Simple(30,0,3),";True E_{#nu}[GeV];Events", "true_Enu",{.59,.57,.89,.85}},
+  { "True E", kTrueSliceE, Binning::Simple(30,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
+  { "N Prim", kNPrims, Binning::Simple(20,0,20), ";nPrim;Events", "n_prims", {.59,.57,.89,.85} }, 
+  { "N Ele", kNElectrons, Binning::Simple(5,0,5), ";nEle;Events", "n_eles", {.59,.57,.89,.85} }, 
+  { "Neutrino vtx x",kNuX,Binning::Simple(40,-400,400),";#nu_{x};Events","nu_vtx_x",{.59,.57,.89,.85}},
+  { "Neutrino vtx y",kNuY,Binning::Simple(40,-400,400),";#nu_{y};Events","nu_vtx_y",{.59,.57,.89,.85}},
+  { "Neutrino vtx z",kNuZ,Binning::Simple(60,-200,700),";#nu_{z};Events","nu_vtx_z",{.59,.57,.89,.85}},
+  { "Leading Shower PDG", kLeadingShwPDGPlot, binsPDGShw, ";Leading Shower PDG;Events", "leading_shw_pdg",  {.22,.57,.52,.85} },
+}
 
 std::vector<Plot<SpillVar>> recoPlots_eng = {//{ "E#theta^{2}", kEtheta2Var, Binning::Simple(15,-10,10),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
             { "Reco E", kRecoE, Binning::Simple(30,0,3),";Reco E [GeV];Events", "reco_E",{.59,.57,.89,.85}},
-            { "True E_{#nu}", kTrueNuE, Binning::Simple(30,0,3),";True E_{#nu}[GeV];Events", "true_Enu",{.59,.57,.89,.85}},
-            { "True E", kTrueSliceE, Binning::Simple(30,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
+            //{ "True E_{#nu}", kTrueNuE, Binning::Simple(30,0,3),";True E_{#nu}[GeV];Events", "true_Enu",{.59,.57,.89,.85}},
+            //{ "True E", kTrueSliceE, Binning::Simple(30,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
 };
 
 std::vector<Plot<SpillVar>> recoPlots_bestSlc = {//{ "E#theta^{2}", kEtheta2Var, Binning::Simple(15,-10,10),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},

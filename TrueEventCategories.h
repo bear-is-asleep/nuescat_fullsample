@@ -93,6 +93,11 @@ const SpillCut kDirt([](const caf::SRSpillProxy *sp) {
     return !kCosmicSpill(sp) && !PtInVolAbsX(sp->mc.nu[kBestNuID(sp)].position, avnd);
   });
 
+const SpillCut kDirtNuEScat([](const caf::SRSpillProxy *sp) {
+    return !kCosmicSpill(sp) && !PtInVolAbsX(sp->mc.nu[kBestNuID(sp)].position, avnd) && 
+    sp->mc.nu[kBestNuID(sp)].genie_inttype == 1098;
+  });
+
 const SpillCut kNuEScat([](const caf::SRSpillProxy* sp) {
     return sp->mc.nu[kBestNuID(sp)].genie_inttype == 1098; //Interaction number for nu e scat
   });

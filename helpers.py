@@ -5,9 +5,13 @@ import random
 
 day = date.today().strftime("%Y_%m_%d")
 
-def set_style(ax):
-  ax.tick_params(axis='x', labelsize=16)
-  ax.tick_params(axis='y', labelsize=16)
+def set_style(ax,legend_size=16,axis_size=16,title_size=20,tick_size=16):
+  ax.tick_params(axis='x', labelsize=tick_size)
+  ax.tick_params(axis='y', labelsize=tick_size)
+  ax.xaxis.label.set_size(axis_size)
+  ax.yaxis.label.set_size(axis_size)
+  ax.title.set_size(title_size)
+  ax.legend(fontsize=legend_size)
 
 def save_plot(fname,fig=None,ftype='.png',dpi=400,folder_name=f'Plots_{day}'):
     os.system(f'mkdir -p {folder_name}')

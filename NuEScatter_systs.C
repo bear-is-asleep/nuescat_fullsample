@@ -52,8 +52,9 @@ using namespace std;
 
 const string state_fname = "NuEScatter_state_all.root";
 const bool do_systematics = true;
+const SpillCut kSystematicSelection = kEthetaSelection;// && kNuEScat;
 
-void NuEScatter_ana(bool reload = true)
+void NuEScatter_systs(bool save = true)
 {
 
   selectionstyle();
@@ -63,8 +64,7 @@ void NuEScatter_ana(bool reload = true)
 
 
   const double gPOT = 10e20;
-  const bool save = true;
-  const string surName = "systs";
+  const string surName = "systs_stride10000";
   const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"_"+surName;
   const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 
@@ -89,12 +89,15 @@ void NuEScatter_ana(bool reload = true)
 
   //Flux syst
   vector<Var> weis_flux(1000,kUnweighted); //Initialize weights
+  vector<Var> weis_tot(1000,kUnweighted); //Initialize weights
   vector<vector<Var>> weis_flux_all(flux_systs.size(),weis_flux); 
-  for (unsigned i =0; i<flux_systs.size(); i++){
-    for (unsigned j=0; j<1000; j++){
+  for (unsigned j=0; j<1000; j++){
+    weis_tot[j] = weis_tot[j]*GetUniverseWeight("multisim_Genie", j); //Get weight from genie
+    for (unsigned i =0; i<flux_systs.size(); i++){
       weis_flux[j] = weis_flux[j]*GetUniverseWeight(flux_systs[i], j); //Get weight from 
       weis_flux_all[i][j] = weis_flux_all[i][j]*GetUniverseWeight(flux_systs[i], j);
     }
+    weis_tot[j] = weis_tot[j]*weis_flux[j]; //Get total flux weight and evenly weight it with the genie weight
   }
   std::vector<TString> syst_names;// = {"GENIE_multisim"};
   std::vector<TString> syst_labels;// = {"GENIE"};
@@ -107,26 +110,32 @@ void NuEScatter_ana(bool reload = true)
     syst_colors.push_back(colors[counter]);
     counter+=1;
   }
-  syst_names.insert(syst_names.end(),{"Flux_multisim","GENIE_multisim"});
-  syst_labels.insert(syst_labels.end(),{"Flux","GENIE"});
-  syst_colors.insert(syst_colors.end(),{colors[counter],kCyan});
+  syst_names.insert(syst_names.end(),{"Flux_multisim","GENIE_multisim","total_multisim"});
+  syst_labels.insert(syst_labels.end(),{"Flux","GENIE","Total"});
+  syst_colors.insert(syst_colors.end(),{colors[counter],kCyan,kBlack});
 
   std::vector<SystEnsemble> systs;
   if (do_systematics){
     for (unsigned i=0; i<syst_names.size(); i++){
+      //Assign different weights to each
       if (syst_names[i] == "GENIE_multisim"){
         SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
-        new EnsembleSpectrum(loaderNu,ax,kEthetaSelection,kNoCut,weis)};
+        new EnsembleSpectrum(loaderNu,ax,kSystematicSelection,kNoCut,weis)};
         systs.emplace_back(syst);
       }
       else if (syst_names[i] == "Flux_multisim"){
         SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
-        new EnsembleSpectrum(loaderNu,ax,kEthetaSelection,kNoCut,weis_flux)};
+        new EnsembleSpectrum(loaderNu,ax,kSystematicSelection,kNoCut,weis_flux)};
+        systs.emplace_back(syst);
+      }
+      else if (syst_names[i] == "total_multisim"){
+        SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
+        new EnsembleSpectrum(loaderNu,ax,kSystematicSelection,kNoCut,weis_tot)};
         systs.emplace_back(syst);
       }
       else { //Important to put all of the flux weights in alignment with syst_name indexing
         SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
-        new EnsembleSpectrum(loaderNu,ax,kEthetaSelection,kNoCut,weis_flux_all[i])};
+        new EnsembleSpectrum(loaderNu,ax,kSystematicSelection,kNoCut,weis_flux_all[i])};
         systs.emplace_back(syst);
       }
     }
@@ -169,5 +178,34 @@ void NuEScatter_ana(bool reload = true)
     DrawErrorBand(syst.syst->Nominal().ToTH1(gPOT, syst.color), band);
     gPad->Print(saveDir + "/systs/error_band_"+syst.name+".png");
   }
+
+  //This is to save the universe sample values to construct the covariance matrix
+  if (save){
+
+    // Fill hist with all systs.
+    for (auto const& syst: systs){
+      if (syst.label == "Total"){
+        // Create a new TFile to write to
+        TFile *file_nominal = new TFile(stateDir+"/state_nominal.root", "RECREATE");
+        file_nominal->cd();
+
+        //Save to nominal file
+        TH1D *hist_nominal = syst.syst->Nominal().ToTH1(gPOT, syst.color);
+        hist_nominal->Write();
+        file_nominal->Close();
+
+        TFile *file_all = new TFile(stateDir+"/state_all.root", "RECREATE");
+        file_all->cd();
+        //Save to all file
+        TH1D *hist_all = syst.syst->Nominal().ToTH1(gPOT, syst.color);
+        hist_all->Write();
+        for (unsigned iUni = 0; iUni < syst.syst->NUniverses(); ++iUni){
+          syst.syst->Universe(iUni).ToTH1(gPOT, syst.color)->Write();
+        }
+        file_all->Close();
+      }
+    }
+  }
+  
 
 }

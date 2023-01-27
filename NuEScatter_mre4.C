@@ -110,7 +110,7 @@ void NuEScatter_mre4(bool reload = true)
     }
     previousCuts = previousCuts && cut.cut;
   }
-  //std::cout.setstate(std::ios_base::failbit);
+  std::cout.setstate(std::ios_base::failbit);
   loaderNu.Go();
   std::cout.clear();
 
