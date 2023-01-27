@@ -183,10 +183,10 @@ std::vector<CutDef> nuescatter_cuts = { { "No Cut", "no_cut", kNoSpillCut },
   { "Has Nu FV Slc", "has_nu_fv_slc", kHasNuFVSlc },
   { "Has CRUMBS Slc", "has_crumbs_slc", kHasCRUMBSSlc },
   { "Is FV", "is_fv", kIsFV },
+  {"Etheta2 Cut","Etheta2",kEtheta2},
   {"Has One Shower","one_shw",kHasOneShw},
   {"Has No Tracks","no_trks",kHasNoTrks},
   {"Electron Razzle","erazzle",kRazzleCut},
-  {"Etheta2 Cut","Etheta2",kEtheta2},
 };
 
 std::vector<CutDef> Etheta_cuts = { { "No Cut", "no_cut", kNoSpillCut },

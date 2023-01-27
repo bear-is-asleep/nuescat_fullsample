@@ -91,9 +91,13 @@ void NuEScatter_events()
   vector<int> truenshw;
   vector<int> truentrk;
 
-  vector<double> vtxx;
-  vector<double> vtxy;
-  vector<double> vtxz;
+  vector<double> true_vtxx;
+  vector<double> true_vtxy;
+  vector<double> true_vtxz;
+
+  vector<double> reco_vtxx;
+  vector<double> reco_vtxy;
+  vector<double> reco_vtxz;
 
   vector<double> true_spill_eng;
   vector<double> reco_eng;
@@ -172,9 +176,13 @@ void NuEScatter_events()
   truenshw.reserve(kReserveSpace);
   truentrk.reserve(kReserveSpace);
 
-  vtxx.reserve(kReserveSpace);
-  vtxy.reserve(kReserveSpace);
-  vtxz.reserve(kReserveSpace);
+  true_vtxx.reserve(kReserveSpace);
+  true_vtxy.reserve(kReserveSpace);
+  true_vtxz.reserve(kReserveSpace);
+
+  reco_vtxx.reserve(kReserveSpace);
+  reco_vtxy.reserve(kReserveSpace);
+  reco_vtxz.reserve(kReserveSpace);
 
   true_spill_eng.reserve(kReserveSpace);
   reco_eng.reserve(kReserveSpace);
@@ -268,9 +276,13 @@ void NuEScatter_events()
   tree->Branch("evt_type",&evt_type);
   //tree->Branch("shw.conversion_gap",&shw_conversion_gap);
 
-  tree->Branch("vtx.x",&vtxx);
-  tree->Branch("vtx.y",&vtxy);
-  tree->Branch("vtx.z",&vtxz);
+  tree->Branch("true_vtx.x",&true_vtxx);
+  tree->Branch("true_vtx.y",&true_vtxy);
+  tree->Branch("true_vtx.z",&true_vtxz);
+
+  tree->Branch("reco_vtx.x",&reco_vtxx);
+  tree->Branch("reco_vtx.y",&reco_vtxy);
+  tree->Branch("reco_vtx.z",&reco_vtxz);
 
   tree->Branch("true_spill_eng",&true_spill_eng);
   tree->Branch("reco_eng",&reco_eng);
@@ -356,9 +368,13 @@ void NuEScatter_events()
         evt_type.push_back(kEventType(sp));
         truenshw.push_back(kTruthShw(sp));
         truentrk.push_back(kTruthTrk(sp));
-        vtxx.push_back(kNuX(sp));
-        vtxy.push_back(kNuY(sp));
-        vtxz.push_back(kNuZ(sp));
+        true_vtxx.push_back(kNuX(sp));
+        true_vtxy.push_back(kNuY(sp));
+        true_vtxz.push_back(kNuZ(sp));
+
+        reco_vtxx.push_back(kRecoVtxX(sp));
+        reco_vtxy.push_back(kRecoVtxY(sp));
+        reco_vtxz.push_back(kRecoVtxZ(sp));
 
         true_spill_eng.push_back(kTrueSliceE(sp));
         reco_eng.push_back(kRecoE(sp));

@@ -1,3 +1,7 @@
+/*
+Study nu e events that are marked as dirt events. Can we use these?
+*/
+
 #include "sbnana/CAFAna/Core/Spectrum.h"
 #include "sbnana/CAFAna/Core/SpectrumLoader.h"
 #include "sbnanaobj/StandardRecord/Proxy/SRProxy.h"
@@ -63,7 +67,7 @@ void NuEScatter_ana(bool reload = true)
 
   const double gPOT = 10e20;
   const bool save = true;
-  const string surName = "ana_fullsample";
+  const string surName = "nue_dirt";
   const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"_"+surName;
   const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 

@@ -294,6 +294,11 @@ std::vector<TrueCategory> nue_sel = {
   {"#nu + e",kNuEScat && kTrueFV,kBlue,"NuEScat"},
 };
 
+std::vector<TrueCategory> nue_nuedirt_sel = {
+  {"#nu + e (FV)",kNuEScat && kTrueFV,kBlue,"NuEScat"},
+  {"#nu + e",kNuEScat && !kTrueFV,kBrown,"NuEScat_dirt"},
+};
+
 std::vector<TrueCategory> nuecc_nue_sel = {
   {"#nu + e",kNuEScat && kTrueFV,kBlue,"NuEScat"},
   {"CC #nu_{e}", kCCNuE && kTrueFV, kTeal+2, "CCNuE"},

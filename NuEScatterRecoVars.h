@@ -1044,7 +1044,18 @@ const SpillVar kLeadingTrkPDGPlot([](const caf::SRSpillProxy* sp) -> double {
 //     return sqrt(2 * lead.bestplane_energy * sublead.bestplane_energy * (1. - cosine));
 //   });
 
-
+const SpillVar kRecoVtxX([](const caf::SRSpillProxy* sp) -> double {
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+    return slc.vertex.x;
+  });
+const SpillVar kRecoVtxY([](const caf::SRSpillProxy* sp) -> double {
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+    return slc.vertex.x;
+  });
+const SpillVar kRecoVtxZ([](const caf::SRSpillProxy* sp) -> double {
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+    return slc.vertex.x;
+  });
 
 
 const Binning binsPDGShw = Binning::Simple(10,-1,9, {"No Shw", "e^{-}", "e^{+}", "#mu^{-}", "#mu^{+}", "#pi^{+}", "#pi^{-}", "p", "#gamma", "Other"});
