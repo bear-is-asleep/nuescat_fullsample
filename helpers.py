@@ -19,7 +19,7 @@ def save_plot(fname,fig=None,ftype='.png',dpi=400,folder_name=f'Plots_{day}'):
       plt.savefig(f'{fname}{ftype}',bbox_inches = "tight",dpi=dpi)
     else:
       fig.savefig(f'{fname}{ftype}',bbox_inches = "tight",dpi=dpi)
-    os.system("mv " + fname + f"* {folder_name}/")
+    os.system("mv " + fname + ftype + f' {folder_name}/')
 
 #Return dataframe from set of keys with run info as index
 def get_df(tree,keys,hdrkeys=['run','subrun','evt']):

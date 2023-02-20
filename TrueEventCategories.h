@@ -99,7 +99,7 @@ const SpillCut kDirtNuEScat([](const caf::SRSpillProxy *sp) {
   });
 
 const SpillCut kNuEScat([](const caf::SRSpillProxy* sp) {
-    return sp->mc.nu[kBestNuID(sp)].genie_inttype == 1098; //Interaction number for nu e scat
+    return !kDirt(sp) && sp->mc.nu[kBestNuID(sp)].genie_inttype == 1098; //Interaction number for nu e scat
   });
 
 const SpillCut kNC([](const caf::SRSpillProxy* sp) {

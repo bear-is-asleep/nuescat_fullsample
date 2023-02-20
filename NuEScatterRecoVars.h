@@ -11,7 +11,7 @@ const SpillVar kBestSlcID_cheat([](const caf::SRSpillProxy* sp)->unsigned {
 });
 
 const SpillVar kBestSlcID_Etheta([](const caf::SRSpillProxy* sp) -> unsigned {
-    std::cout<<"run,subrun,evt : "<<sp->hdr.run<<","<<sp->hdr.subrun<<","<<sp->hdr.evt<<std::endl;
+    //std::cout<<"run,subrun,evt : "<<sp->hdr.run<<","<<sp->hdr.subrun<<","<<sp->hdr.evt<<std::endl;
     unsigned i = 0;
     unsigned returnID = 0;
     double Etheta2 = 999;
@@ -24,24 +24,21 @@ const SpillVar kBestSlcID_Etheta([](const caf::SRSpillProxy* sp) -> unsigned {
     for(auto const& slc : sp->slc)
     {
       if(slc.is_clear_cosmic || isnan(slc.crumbs_result.score) || !PtInVolAbsX(slc.vertex, fvndNuEScat)) 
-        { std::cout<<"--(clear no) Etheta2: "<<Etheta2<<" return ID: "<<returnID<<" i: "<<i<<"inttype: "<<slc.truth.genie_inttype<<std::endl;
+        { //std::cout<<"--(clear no) Etheta2: "<<Etheta2<<" return ID: "<<returnID<<" i: "<<i<<"inttype: "<<slc.truth.genie_inttype<<std::endl;
         ++i;continue; }
       
       //Showers
       for (auto const& shw : slc.reco.shw){
         pdg = abs(shw.razzle.pdg); //Use razzle pdg
-        if (pdg == 5 || pdg == 0){ //Why is this sometimes -5? - default value in rzzle id
-          {continue; }
-        }
+        m = pdgmass.at(pdg); //mass
         theta = acos(shw.dir.z); //Longitudinal angle
         bestplane = shw.bestplane; //Best plane
         ke = shw.bestplane_energy; //ke
-        m = pdgmass.at(pdg); //mass
         Eng = sqrt(m*m+ke*ke); //Energy
         //std::cout<<pdg<<","<<ke<<std::endl;
-        std::cout<<"---shw eng: "<<Eng<<"---shw angle : "<<theta<<std::endl;
+        //std::cout<<"---shw eng: "<<Eng<<"---shw angle : "<<theta<<std::endl;
         if (Eng*theta*theta < Etheta2){
-          std::cout<<"---lower etheta2: "<<Eng*theta*theta<<" prev: "<<Etheta2<<std::endl;
+          //std::cout<<"---lower etheta2: "<<Eng*theta*theta<<" prev: "<<Etheta2<<std::endl;
           Etheta2 = Eng*theta*theta;
           returnID = i;
         }
@@ -49,26 +46,24 @@ const SpillVar kBestSlcID_Etheta([](const caf::SRSpillProxy* sp) -> unsigned {
       //Tracks
       for (auto const& trk : slc.reco.trk){
         pdg = abs(trk.dazzle.pdg); //Use dazzle pdg
-        if (pdg == 5 || pdg == 0){ //Why is this sometimes -5?
-          {continue; }
-        }
+        m = pdgmass.at(pdg); //mass
         theta = acos(trk.dir.z); //Longitudinal angle
         bestplane = trk.bestplane; //Best plane
         ke = trk.calo[bestplane].ke*1e-3; //ke
-        m = pdgmass.at(pdg); //mass
         Eng = sqrt(m*m+ke*ke); //Energy
-        std::cout<<"---trk eng: "<<Eng<<" trk angle : "<<theta<<std::endl;
+        //std::cout<<"---trk eng: "<<Eng<<" trk angle : "<<theta<<std::endl;
         //std::cout<<pdg<<","<<ke<<std::endl;
         if (Eng*theta*theta < Etheta2){ 
-          std::cout<<"---lower etheta2: "<<Eng*theta*theta<<" prev: "<<Etheta2<<std::endl;
+          //std::cout<<"---lower etheta2: "<<Eng*theta*theta<<" prev: "<<Etheta2<<std::endl;
           Etheta2 = Eng*theta*theta;
           returnID = i;
         }
       }
-      std::cout<<"--Etheta2: "<<Etheta2<<" return ID: "<<returnID<<" i: "<<i<<"inttype: "<<slc.truth.genie_inttype<<std::endl;
+      //std::cout<<"--Etheta2: "<<Etheta2<<" return ID: "<<returnID<<" i: "<<i<<"inttype: "<<slc.truth.genie_inttype<<std::endl;
 
 	    ++i;
     }
+    //std::cout<<"ret: "<<returnID<<std::endl;
     return returnID;
   });
 
@@ -106,6 +101,7 @@ const SpillVar kNSlices([](const caf::SRSpillProxy* sp) -> unsigned {
   });
 
 const SpillVar kNNuSlices([](const caf::SRSpillProxy* sp) -> unsigned {
+    if (kNSlices(sp) ==0 ) {return 0;}
     unsigned i = 0;
 
     for(auto const& slc : sp->slc)
@@ -117,6 +113,7 @@ const SpillVar kNNuSlices([](const caf::SRSpillProxy* sp) -> unsigned {
   });
 
 const SpillVar kNFVSlices([](const caf::SRSpillProxy* sp) -> unsigned {
+    if(sp->nslc==0) return 0;
     unsigned i = 0;
 
     for(auto const& slc : sp->slc)
@@ -213,7 +210,7 @@ const SpillVar kNElectrons([](const caf::SRSpillProxy* sp) -> unsigned {
 
 const SpillVar kEtheta2Var([](const caf::SRSpillProxy* sp) -> double {
 
-    if(sp->nslc==0) return 999;
+    if(sp->nslc==0) return 9999.;
     auto const& slc = sp->slc[kBestSlcID(sp)];
 
     double Etheta2 = 999.;
@@ -229,14 +226,21 @@ const SpillVar kEtheta2Var([](const caf::SRSpillProxy* sp) -> double {
       theta = acos(shw.dir.z); //Longitudinal angle
       bestplane = shw.bestplane; //Best plane
       pdg = abs(shw.razzle.pdg); //Use razzle pdg
-      if (pdg == 5 || pdg == 0){ //Why is this sometimes -5?
-          {continue; }
-      }
+      m=pdgmass.at(pdg);//mass using table
       ke = shw.bestplane_energy; //ke
-      m = pdgmass.at(pdg); //mass
       Eng = sqrt(m*m+ke*ke); //Energy
       if (Eng*theta*theta < Etheta2 && Eng != 0){
         Etheta2 = Eng*theta*theta;
+        // if (kNuEScat(sp) && kTrueFV(sp) && false){
+        //   std::cout<<"run,subrun,evt : "<<sp->hdr.run<<","<<sp->hdr.subrun<<","<<sp->hdr.evt<<std::endl;
+        //   std::cout<<"nshw: "<<kNShowers(sp)<<std::endl;
+        //   std::cout<<"ntrk: "<<kNTracks(sp)<<std::endl;
+        //   std::cout<<"ntub: "<<kNStubs(sp)<<std::endl;
+        //   std::cout<<"Eng: "<<Eng<<std::endl;
+        //   std::cout<<"Theta: "<<theta<<std::endl;
+        //   std::cout<<"Dir.z: "<<shw.dir.z<<std::endl;
+        //   std::cout<<"Etheta2: "<<Etheta2<<std::endl;
+        // }
       }
     }
     //Tracks
@@ -244,15 +248,22 @@ const SpillVar kEtheta2Var([](const caf::SRSpillProxy* sp) -> double {
       theta = acos(trk.dir.z); //Longitudinal angle
       bestplane = trk.bestplane; //Best plane
       pdg = abs(trk.dazzle.pdg); //Use dazzle pdg
-      if (pdg == 5 || pdg == 0){ //Why is this sometimes -5?
-          {continue; }
-      }
+      m=pdgmass.at(pdg);//mass using table
       ke = trk.calo[bestplane].ke*1e-3; //ke
-      m = pdgmass.at(pdg); //mass
       Eng = sqrt(m*m+ke*ke); //Energy
       if (Eng*theta*theta < Etheta2 && Eng != 0){ 
         // Second condition is to make sure if we have a shower with lower threshold, we'll keep that one 
         Etheta2 = Eng*theta*theta;
+        // if (kNuEScat(sp) && kTrueFV(sp) && false){
+        //   std::cout<<"run,subrun,evt : "<<sp->hdr.run<<","<<sp->hdr.subrun<<","<<sp->hdr.evt<<std::endl;
+        //   std::cout<<"nshw: "<<kNShowers(sp)<<std::endl;
+        //   std::cout<<"ntrk: "<<kNTracks(sp)<<std::endl;
+        //   std::cout<<"ntub: "<<kNStubs(sp)<<std::endl;
+        //   std::cout<<"Eng: "<<Eng<<std::endl;
+        //   std::cout<<"Theta: "<<theta<<std::endl;
+        //   std::cout<<"Dir.z: "<<trk.dir.z<<std::endl;
+        //   std::cout<<"Etheta2: "<<Etheta2<<std::endl;
+        // }
       }
     }
     //std::cout<<theta<<","<<Eng<<","<<Etheta2<<std::endl;
@@ -558,56 +569,51 @@ const SpillVar kRecoE([](const caf::SRSpillProxy* sp) -> double {
     if(sp->nslc==0) return -1;
     auto const& slc = sp->slc[kBestSlcID(sp)];
     double Eng = 0;
+    double m = 0;
 
     //Showers
     for (auto const& shw : slc.reco.shw){
       int bestplane = shw.bestplane; //Best plane
       int pdg = abs(shw.razzle.pdg); //Use razzle pdg
-      if (pdg == 5 || pdg == 0){ //Why is this sometimes -5?
-          {continue; }
-      }
+      m=pdgmass.at(pdg);//mass using table
       double ke = shw.bestplane_energy; //ke
-      double m = pdgmass.at(pdg); //mass
       Eng += sqrt(m*m+ke*ke); //Energy
     }
     //Tracks
     for (auto const& trk : slc.reco.trk){
       int bestplane = trk.bestplane; //Best plane
       int pdg = abs(trk.dazzle.pdg); //Use dazzle pdg
-      if (pdg == 5 || pdg == 0){ //Why is this sometimes -5?
-          {continue; }
-      }
+      m=pdgmass.at(pdg);//mass using table
       double ke = trk.calo[bestplane].ke*1e-3; //ke
-      double m = pdgmass.at(pdg); //mass
+      
       Eng += sqrt(m*m+ke*ke); //Energy
     }
     //Implement stubs in future
     return Eng;
   });
 
-const SpillVar kTrueSliceE([](const caf::SRSpillProxy* sp) -> double {
-  if(sp->nslc==0) return -1;
-  auto const& slc = sp->slc[kBestSlcID(sp)];
-    double Eng = 0;
+// const SpillVar kTrueSliceE([](const caf::SRSpillProxy* sp) -> double {
+//   if(sp->nslc==0) return -9999.;
+//   auto const& slc = sp->slc[kBestSlcID(sp)];
+//     double Eng = 0;
+//     double m =0;
 
-    //Showers
-    for (auto const& shw : slc.reco.shw){
-      int pdg = abs(shw.truth.p.pdg); //Use razzle pdg
-      if (pdg == 5 || pdg == 0){ //Why is this sometimes -5?
-          {continue; }
-      }
-      Eng += shw.truth.p.genE;
-    }
-    //Tracks
-    for (auto const& trk : slc.reco.trk){
-      int pdg = abs(trk.dazzle.pdg); //Use dazzle pdg
-      if (pdg == 5 || pdg == 0){ //Why is this sometimes -5?
-          {continue; }
-      }
-      Eng += trk.truth.p.genE;
-    }
-  return Eng;
-});
+//     //Showers
+//     for (auto const& shw : slc.reco.shw){
+//       int pdg = abs(shw.truth.p.pdg); //Use razzle pdg
+//       m=pdgmass.at(pdg);//mass using table
+//       double ke = shw.bestplane_energy; //ke
+//       Eng += sqrt(m*m+ke*ke); //Energy
+//     }
+//     //Tracks
+//     for (auto const& trk : slc.reco.trk){
+//       int pdg = abs(trk.dazzle.pdg); //Use dazzle pdg
+//       m=pdgmass.at(pdg);//mass using table
+//       double ke = trk.calo[trk.bestplane].ke*1e-3; //ke
+//       Eng += sqrt(m*m+ke*ke); //Energy
+//     }
+//   return Eng;
+// });
 
 const SpillVar kTrueNuE([](const caf::SRSpillProxy* sp) -> double {
   if(sp->nslc==0) return -1;
@@ -616,7 +622,7 @@ const SpillVar kTrueNuE([](const caf::SRSpillProxy* sp) -> double {
 });
 
 const SpillVar kRecoSmallestTheta([](const caf::SRSpillProxy* sp) -> double {
-  if(sp->nslc==0) return 999;
+  if(sp->nslc==0) return 9999.;
   auto const& slc = sp->slc[kBestSlcID(sp)];
   double E = kRecoE(sp);
   double theta = 999;
@@ -624,9 +630,6 @@ const SpillVar kRecoSmallestTheta([](const caf::SRSpillProxy* sp) -> double {
   //Showers
   for (auto const& shw : slc.reco.shw){
     int pdg = abs(shw.razzle.pdg); //Use razzle pdg
-    if (pdg == 5 || pdg == 0){ //Why is this sometimes -5?
-        {continue;}
-    }
     theta = acos(shw.dir.z); //Longitudinal angle
     if (acos(shw.dir.z) < theta){
       theta = acos(shw.dir.z);
@@ -635,9 +638,6 @@ const SpillVar kRecoSmallestTheta([](const caf::SRSpillProxy* sp) -> double {
   //Tracks
   for (auto const& trk : slc.reco.trk){
     int pdg = abs(trk.dazzle.pdg); //Use dazzle pdg
-    if (pdg == 5 || pdg == 0){ //Why is this sometimes -5?
-        {continue; }
-    }
     if (acos(trk.dir.z)<theta){ 
       theta = acos(trk.dir.z);
     }
@@ -646,7 +646,7 @@ const SpillVar kRecoSmallestTheta([](const caf::SRSpillProxy* sp) -> double {
 });
 
 const SpillVar kTrueSmallestTheta([](const caf::SRSpillProxy* sp) -> double {
-  if(sp->nslc==0) return 999;
+  if(sp->nslc==0) return 9999.;
   auto const& slc = sp->slc[kBestSlcID(sp)];
   double theta = 999;
   for (auto const& prim : slc.truth.prim){
@@ -704,7 +704,7 @@ const SpillVar kTruthShw([](const caf::SRSpillProxy *sp) {
   for (auto const& prim : slc.truth.prim){
     int pdg = prim.pdg;
     if (abs(pdg) == 11 || pdg == 22){++nshw;}
-    if (pdg == 111){++nshw;}  
+    if (pdg == 111){nshw+=2;}  
   }
   return nshw;
 });
@@ -1045,16 +1045,19 @@ const SpillVar kLeadingTrkPDGPlot([](const caf::SRSpillProxy* sp) -> double {
 //   });
 
 const SpillVar kRecoVtxX([](const caf::SRSpillProxy* sp) -> double {
+    if(sp->nslc==0) return 0;
     auto const& slc = sp->slc[kBestSlcID(sp)];
     return slc.vertex.x;
   });
 const SpillVar kRecoVtxY([](const caf::SRSpillProxy* sp) -> double {
+    if(sp->nslc==0) return 0;
     auto const& slc = sp->slc[kBestSlcID(sp)];
-    return slc.vertex.x;
+    return slc.vertex.y;
   });
 const SpillVar kRecoVtxZ([](const caf::SRSpillProxy* sp) -> double {
+    if(sp->nslc==0) return 0;
     auto const& slc = sp->slc[kBestSlcID(sp)];
-    return slc.vertex.x;
+    return slc.vertex.z;
   });
 
 
@@ -1079,7 +1082,7 @@ std::vector<Plot<SpillVar>> recoPlots_all = {//{ "E#theta^{2}", kEtheta2Var, Bin
             { "ph Razzle", kNRazzlePhotons, Binning::Simple(5,0,5),";Razzle Photons;Events", "ph_razzle",{.59,.57,.89,.85}},
             { "Reco E", kRecoE, Binning::Simple(30,0,3),";Reco E [GeV];Events", "reco_E",{.59,.57,.89,.85}},
             { "True E_{#nu}", kTrueNuE, Binning::Simple(30,0,3),";True E_{#nu}[GeV];Events", "true_Enu",{.59,.57,.89,.85}},
-            { "True E", kTrueSliceE, Binning::Simple(30,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
+            //{ "True E", kTrueSliceE, Binning::Simple(30,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
             { "Reco #theta", kRecoSmallestTheta, Binning::Simple(15,0,1),";Reco #theta ;Events", "reco_theta",{.59,.57,.89,.85}},
             { "Reco #theta (Zoom)", kRecoSmallestTheta, Binning::Simple(15,0,0.1),";Reco #theta;Events", "reco_theta_zoom",{.59,.57,.89,.85}},
             { "True #theta", kTrueSmallestTheta, Binning::Simple(15,0,1),";True #theta ;Events", "true_theta",{.59,.57,.89,.85}},
@@ -1157,6 +1160,9 @@ std::vector<Plot<SpillVar>> recoPlots_all = {//{ "E#theta^{2}", kEtheta2Var, Bin
             { "SubLeading Track End Y", kSubLeadingTrkEndY, Binning::Simple(40,-400,400), ";SubLeading Track Reco Y (cm);Events", "subleading_trk_endy", {.59,.57,.89,.85} },
             { "SubLeading Track End Z", kSubLeadingTrkEndZ, Binning::Simple(60,-200,700), ";SubLeading Track Reco Z (cm);Events", "subleading_trk_endz", {.59,.57,.89,.85} },
             //{ "Invariant Mass", kInvariantMass, Binning::Simple(30,0,1), ";Invariant Mass (GeV);Events", "invariant_mass", {.59,.57,.89,.85} },
+            { "Reco vtx x",kRecoVtxX,Binning::Simple(40,-400,400),";Reco vtx x;Events","reco_vtx_x",{.59,.57,.89,.85}},
+            { "Reco vtx y",kRecoVtxY,Binning::Simple(40,-400,400),";Reco vtx y;Events","reco_vtx_y",{.59,.57,.89,.85}},
+            { "Reco vtx z",kRecoVtxZ,Binning::Simple(60,-200,700),";Reco vtx z;Events","reco_vtx_z",{.59,.57,.89,.85}},
 };
 
 std::vector<Plot<SpillVar>> recoPlots_basic = {
@@ -1168,13 +1174,16 @@ std::vector<Plot<SpillVar>> recoPlots_basic = {
   { "N FV Slices", kNFVSlices, Binning::Simple(10,0,10), ";nFVSlices;Events", "n_fv_slices", {.59,.57,.89,.85} },
   { "Reco E", kRecoE, Binning::Simple(30,0,3),";Reco E [GeV];Events", "reco_E",{.59,.57,.89,.85}},
   { "True E_{#nu}", kTrueNuE, Binning::Simple(30,0,3),";True E_{#nu}[GeV];Events", "true_Enu",{.59,.57,.89,.85}},
-  { "True E", kTrueSliceE, Binning::Simple(30,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
+  //{ "True E", kTrueSliceE, Binning::Simple(30,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
   { "N Prim", kNPrims, Binning::Simple(20,0,20), ";nPrim;Events", "n_prims", {.59,.57,.89,.85} }, 
   { "N Ele", kNElectrons, Binning::Simple(5,0,5), ";nEle;Events", "n_eles", {.59,.57,.89,.85} }, 
   { "Neutrino vtx x",kNuX,Binning::Simple(40,-400,400),";#nu_{x};Events","nu_vtx_x",{.59,.57,.89,.85}},
   { "Neutrino vtx y",kNuY,Binning::Simple(40,-400,400),";#nu_{y};Events","nu_vtx_y",{.59,.57,.89,.85}},
   { "Neutrino vtx z",kNuZ,Binning::Simple(60,-200,700),";#nu_{z};Events","nu_vtx_z",{.59,.57,.89,.85}},
   { "Leading Shower PDG", kLeadingShwPDGPlot, binsPDGShw, ";Leading Shower PDG;Events", "leading_shw_pdg",  {.22,.57,.52,.85} },
+  { "Reco vtx x",kRecoVtxX,Binning::Simple(40,-400,400),";Reco vtx x;Events","reco_vtx_x",{.59,.57,.89,.85}},
+  { "Reco vtx y",kRecoVtxY,Binning::Simple(40,-400,400),";Reco vtx y;Events","reco_vtx_y",{.59,.57,.89,.85}},
+  { "Reco vtx z",kRecoVtxZ,Binning::Simple(60,-200,700),";Reco vtx z;Events","reco_vtx_z",{.59,.57,.89,.85}},
 };
 
 std::vector<Plot<SpillVar>> recoPlots_eng = {//{ "E#theta^{2}", kEtheta2Var, Binning::Simple(15,-10,10),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
@@ -1185,7 +1194,7 @@ std::vector<Plot<SpillVar>> recoPlots_eng = {//{ "E#theta^{2}", kEtheta2Var, Bin
 
 std::vector<Plot<SpillVar>> recoPlots_bestSlc = {//{ "E#theta^{2}", kEtheta2Var, Binning::Simple(15,-10,10),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
             { "Best Slice", kBestSlcID, Binning::Simple(10,0,10),";Best Slc ID;Events", "best_slc",{.59,.57,.89,.85}},
-            { "Best Slice Etheta", kBestSlcID_Etheta, Binning::Simple(10,0,10),";Best Slc ID Etheta;Events", "best_slc_etheta",{.59,.57,.89,.85}},
+            //{ "Best Slice Etheta", kBestSlcID_Etheta, Binning::Simple(10,0,10),";Best Slc ID Etheta;Events", "best_slc_etheta",{.59,.57,.89,.85}},
             { "Best Slice Cheat", kBestSlcID_cheat, Binning::Simple(10,0,10),";Best Slc ID Cheat;Events", "best_slc_cheat",{.59,.57,.89,.85}},
 };
 

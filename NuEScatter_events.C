@@ -42,7 +42,7 @@ const string inputNameNuECC = "/sbnd/data/users/brindenc/analyze_sbnd/nue/v09_58
 const string inputNameNu = "defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd";
 const string inputNameNu_noflat = "defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_caf_sbnd";
 
-const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date();
+const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_events";
 
 int kEventType(const caf::SRSpillProxy* sp){
   if (kNuEScat(sp)){
@@ -68,7 +68,7 @@ int kEventType(const caf::SRSpillProxy* sp){
   }
 }
 
-int kReserveSpace = 10000;
+int kReserveSpace = 100000;
 
 void NuEScatter_events()
 {
@@ -349,7 +349,7 @@ void NuEScatter_events()
   out <<"Run\t Subrun\t Event\t SpillID\n";
   const SpillVar dummy_var([&](const caf::SRSpillProxy* sp){
     //for(const auto& slc: sp->slc) {
-      if(kEthetaSelection(sp)) {
+      if(kLimitRecoObjects(sp)) {
         out << sp->hdr.run << "\t" << sp->hdr.subrun
             << "\t" << sp->hdr.evt << "\t" << kBestSlcID(sp) <<"\n";
             //<< "\tVertex: (" 
@@ -376,7 +376,7 @@ void NuEScatter_events()
         reco_vtxy.push_back(kRecoVtxY(sp));
         reco_vtxz.push_back(kRecoVtxZ(sp));
 
-        true_spill_eng.push_back(kTrueSliceE(sp));
+        //true_spill_eng.push_back(kTrueSliceE(sp));
         reco_eng.push_back(kRecoE(sp));
         reco_theta.push_back(kRecoSmallestTheta(sp));
         true_theta.push_back(kTrueSmallestTheta(sp));
@@ -447,6 +447,7 @@ void NuEScatter_events()
   
   tree->Fill();
   file->Write();
+  file->Close();
 
   tree2->Fill();
   file2->Write();
@@ -456,5 +457,5 @@ void NuEScatter_events()
 
   
   //gSystem->Exec("mv " + stateDir+"/cut_events.root"+" "+stateDir);
-
+  gSystem->Exec("cp NuEScatter_events.C NuEScatterRecoVars.h NuEScatterCuts.h TrueEventCategories.h Constants.h Structs.h " + stateDir);
 }

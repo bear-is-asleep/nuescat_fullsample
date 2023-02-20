@@ -24,7 +24,11 @@ map<int,double> pdgmass{
   {111,kPi0Mass},
   {2212,kProtonMass},
   {2112,kNeutronMass},
-  {22,kPhotonMass}};
+  {22,kPhotonMass},
+  {0,0}, //No id, set mass to 0
+  {5,0}, //No id, set mass to 0
+  {-5,0} //No id, set mass to 0
+};
 
 const std::vector<int> colors = {kRed,kGreen,kBlue,kYellow,kMagenta,kCyan,kOrange,kSpring,kTeal,kAzure,kViolet,kPink};
 

@@ -1,3 +1,8 @@
+/*
+Use Etheta best slice
+Can we use these?
+*/
+
 #include "sbnana/CAFAna/Core/Spectrum.h"
 #include "sbnana/CAFAna/Core/SpectrumLoader.h"
 #include "sbnanaobj/StandardRecord/Proxy/SRProxy.h"
@@ -44,11 +49,11 @@ using namespace ana;
 using namespace std;
 
 const string state_fname = "NuEScatter_state_all.root";
-const std::vector<CutDef> cuts = nuescatter_cuts;
-const std::vector<Plot<SpillVar>> plots = recoPlots_all;
-const std::vector<TrueCategory> categories = no_cosmic_sel;
+const std::vector<CutDef> cuts = original_cuts;
+const std::vector<Plot<SpillVar>> plots = recoPlots_basic;
+const std::vector<TrueCategory> categories = nuecc_nue_sel;
 
-void NuEScatter_ana(bool reload = true)
+void NuEScatter_nue_nuecc(bool reload = true)
 {
 
   selectionstyle();
@@ -63,7 +68,7 @@ void NuEScatter_ana(bool reload = true)
 
   const double gPOT = 10e20;
   const bool save = true;
-  const string surName = "fullsample_crumbsslc";
+  const string surName = "nue_nuecc_ethetabestslc";
   const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"_"+surName;
   const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 
@@ -94,7 +99,7 @@ void NuEScatter_ana(bool reload = true)
   std::cout.clear();
   //loaderIntime.Go();
 
-  TFile fout(state_fname.c_str(),"RECREATE");
+  //TFile fout(state_fname.c_str(),"RECREATE");
 
   gSystem->Exec("mkdir -p " + stateDir);
 
@@ -196,5 +201,7 @@ void NuEScatter_ana(bool reload = true)
 	}
       ++j;
     }
-  gSystem->Exec("cp NuEScatter_events.C NuEScatterRecoVars.h NuEScatterCuts.h TrueEventCategories.h Constants.h Structs.h " + saveDir);
+
+  gSystem->Exec("cp NuEScatter_nue_nuecc.C NuEScatterRecoVars.h NuEScatterCuts.h TrueEventCategories.h Constants.h Structs.h " + saveDir);
+
 }

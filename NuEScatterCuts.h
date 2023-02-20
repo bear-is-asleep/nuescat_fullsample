@@ -55,10 +55,12 @@ const SpillCut kEtheta2([](const caf::SRSpillProxy* sp) {
     bestplane = shw.bestplane; //Best plane
     pdg = abs(shw.razzle.pdg); //Use razzle pdg
     if (pdg == 5 || pdg == 0){ //Why is this sometimes -5?
-          {continue; }
+          m=0;
         }
+    else{
+      m = pdgmass.at(pdg); //mass
+    }
     ke = shw.bestplane_energy; //ke
-    m = pdgmass.at(pdg); //mass
     Eng = sqrt(m*m+ke*ke); //Energy
     Etheta2 = Eng*theta*theta;
     if (Etheta2 < kEtheta2Cut && Eng != 0){ 
@@ -91,9 +93,6 @@ const SpillCut kEtheta2([](const caf::SRSpillProxy* sp) {
     theta = acos(trk.dir.z); //Longitudinal angle
     bestplane = trk.bestplane; //Best plane
     pdg = abs(trk.dazzle.pdg); //Use dazzle pdg
-    if (pdg == 5 || pdg == 0){ //Why is this sometimes -5?
-          {continue; }
-        }
     ke = trk.calo[bestplane].ke*1e-3; //ke
     m = pdgmass.at(pdg); //mass
     Eng = sqrt(m*m+ke*ke); //Energy
@@ -139,6 +138,12 @@ const SpillCut kHasOneShw([](const caf::SRSpillProxy* sp) {
     auto const& slc = sp->slc[kBestSlcID(sp)];
 
     return slc.reco.nshw == 1;
+  });
+
+const SpillCut kTooFewRecoObjects([](const caf::SRSpillProxy* sp) {
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+
+    return slc.reco.nshw + slc.reco.ntrk + slc.reco.nstub < 3;
   });
 
 const SpillCut kRazzleCut([](const caf::SRSpillProxy* sp) {
@@ -211,6 +216,6 @@ std::vector<CutDef> preselection_cuts = { { "No Cut", "no_cut", kNoSpillCut },
 const SpillCut kPreSelection = kHasSlc && kHasNuSlc && kHasNuFVSlc;
 const SpillCut kCosmicRej    = kPreSelection && kHasCRUMBSSlc && kIsFV;
 const SpillCut kEthetaSelection = kPreSelection && kCosmicRej && kEtheta2;
-const SpillCut kFullSelection = kPreSelection && kCosmicRej && kEtheta2 && kHasNoTrks && kHasOneShw && kRazzleCut;
-
+const SpillCut kLimitRecoObjects = kEthetaSelection && kTooFewRecoObjects;
+const SpillCut kFullSelection = kEthetaSelection && kHasNoTrks && kHasOneShw && kRazzleCut;
 
