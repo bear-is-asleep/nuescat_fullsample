@@ -44,7 +44,7 @@ using namespace ana;
 using namespace std;
 
 const string state_fname = "NuEScatter_state_all.root";
-const std::vector<CutDef> cuts = nuescatter_cuts;
+const std::vector<CutDef> cuts = truth_cuts;
 const std::vector<Plot<SpillVar>> plots = recoPlots_all;
 const std::vector<TrueCategory> categories = no_cosmic_sel;
 
@@ -56,6 +56,7 @@ void NuEScatter_ana(bool reload = true)
   
   //Use my sample with nu e scat
   const std::string inputNameNuE = "/sbnd/data/users/brindenc/analyze_sbnd/nue/v09_58_02/CAFnue1_full.root";
+  const std::string inputNameNuE_new = "/sbnd/data/users/brindenc/analyze_sbnd/nue/v09_54_00/CAFnue_full.root";
   const std::string inputNameNuECC = "/sbnd/data/users/brindenc/analyze_sbnd/nue/v09_58_02/CAFnuecc1_full.root";
   const std::string inputNameNu = "defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd";
   const std::string inputNameNu_noflat = "defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_caf_sbnd";
@@ -63,11 +64,11 @@ void NuEScatter_ana(bool reload = true)
 
   const double gPOT = 10e20;
   const bool save = true;
-  const string surName = "fullsample_crumbsslc";
+  const string surName = "pure_nue_truth_cuts";
   const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"_"+surName;
   const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 
-  SpectrumLoader loaderNu(inputNameNu);
+  SpectrumLoader loaderNu(inputNameNuE_new);
   //SpectrumLoader loaderIntime(inputNameIntime);
 
   std::vector<Spectrum*> sNu;
@@ -190,7 +191,9 @@ void NuEScatter_ana(bool reload = true)
 	  if(save)
 	    {
 	      canvas->SaveAs(saveDir + "/" + cut.label + "/" + plot.label + "_" + cut.label + ".png");
-	      //canvas->SaveAs(saveDir + "/" + cut.label + "/" + plot.label + "_" + cut.label + ".pdf");
+	      stack->SetMinimum(1);
+        gPad->SetLogy(1); 
+        canvas->SaveAs(saveDir + "/" + cut.label + "/" + plot.label + "_" + cut.label + "_logy.png");
 	    }
 	  delete canvas, legend, stack, pvt;
 	}

@@ -2,12 +2,15 @@
 #include "sbnana/CAFAna/Core/SpectrumLoader.h"
 #include "sbnanaobj/StandardRecord/Proxy/SRProxy.h"
 #include "sbnana/SBNAna/Cuts/VolumeDefinitions.h"
-
+#include "sbnana/CAFAna/Cuts/TruthCuts.h"
+#include "sbnana/CAFAna/Core/Var.h"
 
 //Systs
 #include "sbnana/CAFAna/Systs/SBNWeightSysts.h"
 #include "sbnana/CAFAna/Core/EnsembleRatio.h"
 #include "sbnana/CAFAna/Core/EnsembleSpectrum.h"
+
+#include "sbnanaobj/StandardRecord/SRTrueInteraction.h"
 
 using namespace ana;
 
@@ -41,8 +44,10 @@ const string inputNameNuE = "/sbnd/data/users/brindenc/analyze_sbnd/nue/v09_58_0
 const string inputNameNuECC = "/sbnd/data/users/brindenc/analyze_sbnd/nue/v09_58_02/CAFnuecc1_full.root";
 const string inputNameNu = "defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd";
 const string inputNameNu_noflat = "defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_caf_sbnd";
+const std::string inputNameNuE_new = "/sbnd/data/users/brindenc/analyze_sbnd/nue/v09_54_00/CAFnue_full.root";
 
-const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_events";
+const string surName = "pure_nue_truth_cuts";
+const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 
 int kEventType(const caf::SRSpillProxy* sp){
   if (kNuEScat(sp)){
@@ -68,7 +73,7 @@ int kEventType(const caf::SRSpillProxy* sp){
   }
 }
 
-int kReserveSpace = 100000;
+int kReserveSpace = 2000;
 
 void NuEScatter_events()
 {
@@ -87,6 +92,7 @@ void NuEScatter_events()
   vector<int> evt_type;
 
   vector<double> Etheta;
+  vector<double> true_Etheta;
 
   vector<int> truenshw;
   vector<int> truentrk;
@@ -99,7 +105,7 @@ void NuEScatter_events()
   vector<double> reco_vtxy;
   vector<double> reco_vtxz;
 
-  vector<double> true_spill_eng;
+  vector<double> true_slice_eng;
   vector<double> reco_eng;
   vector<double>  reco_theta;
   vector<double> true_theta;
@@ -172,6 +178,7 @@ void NuEScatter_events()
   evt_type.reserve(kReserveSpace);
 
   Etheta.reserve(kReserveSpace);
+  true_Etheta.reserve(kReserveSpace);
 
   truenshw.reserve(kReserveSpace);
   truentrk.reserve(kReserveSpace);
@@ -184,7 +191,7 @@ void NuEScatter_events()
   reco_vtxy.reserve(kReserveSpace);
   reco_vtxz.reserve(kReserveSpace);
 
-  true_spill_eng.reserve(kReserveSpace);
+  true_slice_eng.reserve(kReserveSpace);
   reco_eng.reserve(kReserveSpace);
    reco_theta.reserve(kReserveSpace);
   true_theta.reserve(kReserveSpace);
@@ -265,14 +272,15 @@ void NuEScatter_events()
 
   tree->Branch("nshw",&nshw);
   tree->Branch("ntrk",&ntrk);
-  tree->Branch("truenshw",&nshw);
-  tree->Branch("truentrk",&ntrk);
+  tree->Branch("truenshw",&truenshw);
+  tree->Branch("truentrk",&truentrk);
   tree->Branch("nstub",&nstub);
   tree->Branch("nslc",&nslc);
   tree->Branch("nele",&nele);
   //tree->Branch("razzle.electrons",&nrele);
   //tree->Branch("razzle.photons",&nrph);
   tree->Branch("Etheta",&Etheta);
+  tree->Branch("true_Etheta",&true_Etheta);
   tree->Branch("evt_type",&evt_type);
   //tree->Branch("shw.conversion_gap",&shw_conversion_gap);
 
@@ -284,7 +292,7 @@ void NuEScatter_events()
   tree->Branch("reco_vtx.y",&reco_vtxy);
   tree->Branch("reco_vtx.z",&reco_vtxz);
 
-  tree->Branch("true_spill_eng",&true_spill_eng);
+  tree->Branch("true_slice_eng",&true_slice_eng);
   tree->Branch("reco_eng",&reco_eng);
   tree->Branch("reco_theta",&reco_theta);
   tree->Branch("true_theta",&true_theta);
@@ -341,15 +349,14 @@ void NuEScatter_events()
   tree3->Branch("sltrk.start.y",&ltrk_start_y);
   tree3->Branch("sltrk.start.z",&ltrk_start_z);
 
-  const double gPOT = 10e20;
-  SpectrumLoader loader(inputNameNu);
+  SpectrumLoader loader(inputNameNuE_new);
 
   gSystem->Exec("mkdir -p " + stateDir);
   ofstream out(stateDir+"/selected_events.txt");
   out <<"Run\t Subrun\t Event\t SpillID\n";
   const SpillVar dummy_var([&](const caf::SRSpillProxy* sp){
     //for(const auto& slc: sp->slc) {
-      if(kLimitRecoObjects(sp)) {
+      if(kHasSlc(sp) && kNuEScat(sp)) {
         out << sp->hdr.run << "\t" << sp->hdr.subrun
             << "\t" << sp->hdr.evt << "\t" << kBestSlcID(sp) <<"\n";
             //<< "\tVertex: (" 
@@ -365,6 +372,7 @@ void NuEScatter_events()
         nrele.push_back(kNRazzleElectrons(sp));
         nrph.push_back(kNRazzlePhotons(sp));
         Etheta.push_back(kEtheta2Var(sp));
+        true_Etheta.push_back(kTruthEtheta2Var(sp));
         evt_type.push_back(kEventType(sp));
         truenshw.push_back(kTruthShw(sp));
         truentrk.push_back(kTruthTrk(sp));
@@ -376,7 +384,7 @@ void NuEScatter_events()
         reco_vtxy.push_back(kRecoVtxY(sp));
         reco_vtxz.push_back(kRecoVtxZ(sp));
 
-        //true_spill_eng.push_back(kTrueSliceE(sp));
+        true_slice_eng.push_back(kTrueSliceEnergy(sp));
         reco_eng.push_back(kRecoE(sp));
         reco_theta.push_back(kRecoSmallestTheta(sp));
         true_theta.push_back(kTrueSmallestTheta(sp));

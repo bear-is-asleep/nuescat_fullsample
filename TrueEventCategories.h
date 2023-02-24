@@ -89,6 +89,10 @@ const SpillCut kTrueFV([](const caf::SRSpillProxy *sp) {
     return !kCosmicSpill(sp) && PtInVolAbsX(sp->mc.nu[kBestNuID(sp)].position, fvndNuEScat);
   });
 
+const SpillCut kTrueAV([](const caf::SRSpillProxy *sp) {
+    return !kCosmicSpill(sp) && PtInVolAbsX(sp->mc.nu[kBestNuID(sp)].position, avnd);
+  });
+
 const SpillCut kDirt([](const caf::SRSpillProxy *sp) {
     return !kCosmicSpill(sp) && !PtInVolAbsX(sp->mc.nu[kBestNuID(sp)].position, avnd);
   });
@@ -277,39 +281,45 @@ const SpillCut kOtherFV([](const caf::SRSpillProxy* sp) {
 });
 
 std::vector<TrueCategory> full_sel_categories = {
-  {"#nu + e",kNuEScat && kTrueFV,kBlue,"NuEScat"},
-  {"NC N#pi^{0}", kNCPiZero && kTrueFV, kMagenta+2, "NCpi0"},
-  {"Other NC", kNC && !kNCPiZero && !kNuEScat && kTrueFV, kYellow+2, "NC"},
-  {"CC #nu_{#mu}", kCCNuMu && kTrueFV, kRed+2, "CCNuMu"},
-  {"CC #nu_{e}", kCCNuE && kTrueFV, kTeal+2, "CCNuE"},
+  {"#nu + e",kNuEScat && kTrueAV,kBlue,"NuEScat"},
+  {"NC N#pi^{0}", kNCPiZero && kTrueAV, kMagenta+2, "NCpi0"},
+  {"Other NC", kNC && !kNCPiZero && !kNuEScat && kTrueAV, kYellow+2, "NC"},
+  {"CC #nu_{#mu}", kCCNuMu && kTrueAV, kRed+2, "CCNuMu"},
+  {"CC #nu_{e}", kCCNuE && kTrueAV, kTeal+2, "CCNuE"},
   {"Dirt", kDirt, kOrange+3, "Dirt"},
   {"Cosmic", kCosmicSpill, kRed+1, "Cosmic"},
 };
 
 std::vector<TrueCategory> nuecc_sel = {
-  {"CC #nu_{e}", kCCNuE && kTrueFV, kTeal+2, "CCNuE"},
+  {"CC #nu_{e}", kCCNuE && kTrueAV, kTeal+2, "CCNuE"},
 };
 
 std::vector<TrueCategory> nue_sel = {
-  {"#nu + e",kNuEScat && kTrueFV,kBlue,"NuEScat"},
+  {"#nu + e",kNuEScat && kTrueAV,kBlue,"NuEScat"},
 };
 
 std::vector<TrueCategory> nue_nuedirt_sel = {
-  {"#nu + e (FV)",kNuEScat && kTrueFV,kBlue,"NuEScat"},
-  {"#nu + e",kNuEScat && !kTrueFV,kOrange+3,"NuEScat_dirt"},
+  {"#nu + e (FV)",kNuEScat && kTrueAV,kBlue,"NuEScat"},
+  {"#nu + e",kNuEScat && !kTrueAV,kOrange+3,"NuEScat_dirt"},
 };
 
 std::vector<TrueCategory> nuecc_nue_sel = {
-  {"#nu + e",kNuEScat && kTrueFV,kBlue,"NuEScat"},
-  {"CC #nu_{e}", kCCNuE && kTrueFV, kTeal+2, "CCNuE"},
+  {"#nu + e",kNuEScat && kTrueAV,kBlue,"NuEScat"},
+  {"CC #nu_{e}", kCCNuE && kTrueAV, kTeal+2, "CCNuE"},
+};
+
+std::vector<TrueCategory> nuecc_nue_dirt_sel = {
+  {"#nu + e",kNuEScat && kTrueAV,kBlue,"NuEScat"},
+  {"CC #nu_{e}", kCCNuE && kTrueAV, kTeal+2, "CCNuE"},
+  {"Dirt", kDirt, kOrange+3, "Dirt"},
 };
 
 std::vector<TrueCategory> no_cosmic_sel = {
-  {"#nu + e",kNuEScat && kTrueFV,kBlue,"NuEScat"},
-  {"NC N#pi^{0}", kNCPiZero && kTrueFV, kMagenta+2, "NCpi0"},
-  {"Other NC", kNC && !kNCPiZero && !kNuEScat && kTrueFV, kYellow+2, "NC"},
-  {"CC #nu_{#mu}", kCCNuMu && kTrueFV, kRed+2, "CCNuMu"},
-  {"CC #nu_{e}", kCCNuE && kTrueFV, kTeal+2, "CCNuE"},
+  {"#nu + e",kNuEScat && kTrueAV,kBlue,"NuEScat"},
+  {"NC N#pi^{0}", kNCPiZero && kTrueAV, kMagenta+2, "NCpi0"},
+  {"Other NC", kNC && !kNCPiZero && !kNuEScat && kTrueAV, kYellow+2, "NC"},
+  {"CC #nu_{#mu}", kCCNuMu && kTrueAV, kRed+2, "CCNuMu"},
+  {"CC #nu_{e}", kCCNuE && kTrueAV, kTeal+2, "CCNuE"},
   {"Dirt", kDirt, kOrange+3, "Dirt"},
 };
 

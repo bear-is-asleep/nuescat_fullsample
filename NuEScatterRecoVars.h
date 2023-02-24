@@ -1,10 +1,29 @@
 #include <math.h>
 
-const SpillVar kBestSlcID_cheat([](const caf::SRSpillProxy* sp)->unsigned {
+const SpillVar kBestSlcID([](const caf::SRSpillProxy* sp)->unsigned {
   unsigned i = 0;
   unsigned returnID = 0;
+  double theta = std::numeric_limits<double>::max();
+  double most_en = -std::numeric_limits<double>::max();
   for (auto const& slc : sp->slc){
-    if (slc.truth.genie_inttype == 1098){returnID = i;}
+    if (!PtInVolAbsX(slc.truth.position, fvndNuEScat)){++i; continue;}
+    //if (slc.truth.genie_inttype == 1098){return i;}
+    // for (auto const& prim : slc.truth.prim){
+    //   TVector3 p(prim.genp.x,prim.genp.y,prim.genp.z);
+    //   if (acos(prim.genp.z/p.Mag()) < theta){
+    //     returnID = i;
+    //     theta = acos(prim.genp.z/p.Mag());
+    //   } 
+    // }
+    double visE = 0;
+    for(auto const& prim : slc.truth.prim)
+    {
+      visE += prim.plane[0][0].visE + prim.plane[0][1].visE + prim.plane[0][2].visE;
+    }
+    if(visE > most_en){
+    most_en = visE;
+    returnID = i;
+    }
     ++i;
   }
   return returnID;
@@ -67,14 +86,14 @@ const SpillVar kBestSlcID_Etheta([](const caf::SRSpillProxy* sp) -> unsigned {
     return returnID;
   });
 
-const SpillVar kBestSlcID([](const caf::SRSpillProxy* sp) -> unsigned {
+const SpillVar kBestSlcID_crumbs([](const caf::SRSpillProxy* sp) -> unsigned {
     unsigned i = 0;
     double bestCrumbsScore = -std::numeric_limits<double>::max();
     unsigned returnID = 0;
 
     for(auto const& slc : sp->slc)
       {
-	if(slc.is_clear_cosmic || isnan(slc.crumbs_result.score) || !PtInVolAbsX(slc.vertex, fvndAbs)) 
+	if(slc.is_clear_cosmic || isnan(slc.crumbs_result.score) || !PtInVolAbsX(slc.vertex, fvndNuEScat)) 
 	  { ++i; continue; }
 
 	if(slc.crumbs_result.score > bestCrumbsScore)
@@ -87,6 +106,32 @@ const SpillVar kBestSlcID([](const caf::SRSpillProxy* sp) -> unsigned {
       }
     return returnID;
   });
+
+const SpillVar kBestSlcID_theta([](const caf::SRSpillProxy* sp) -> unsigned {
+  unsigned i = 0;
+  double theta = std::numeric_limits<double>::max();
+  unsigned returnID = 0;
+
+  //Showers
+  for(auto const& slc : sp->slc){
+    if(!PtInVolAbsX(slc.vertex, fvndNuEScat)){ ++i; continue; }
+    for (auto const& shw : slc.reco.shw){
+      if (acos(shw.dir.z) < theta){
+        theta = acos(shw.dir.z);
+        returnID = i;
+      }
+    }
+    //Tracks
+    for (auto const& trk : slc.reco.trk){
+      if (acos(trk.dir.z)<theta){ 
+        theta = acos(trk.dir.z);
+        returnID = i;
+      }
+    }
+    ++i;
+  }
+  return returnID;
+});
 
 // const SpillVar kTrueE([](const caf::SRSpillProxy *sp) ->double {
 //     return sp->slc[kBestSlcID(sp)].truth.E;
@@ -577,7 +622,8 @@ const SpillVar kRecoE([](const caf::SRSpillProxy* sp) -> double {
       int pdg = abs(shw.razzle.pdg); //Use razzle pdg
       m=pdgmass.at(pdg);//mass using table
       double ke = shw.bestplane_energy; //ke
-      Eng += sqrt(m*m+ke*ke); //Energy
+      //Eng += sqrt(m*m+ke*ke); //Energy
+      Eng+=ke; //Use ke for now for a correct comparison to true E
     }
     //Tracks
     for (auto const& trk : slc.reco.trk){
@@ -586,34 +632,29 @@ const SpillVar kRecoE([](const caf::SRSpillProxy* sp) -> double {
       m=pdgmass.at(pdg);//mass using table
       double ke = trk.calo[bestplane].ke*1e-3; //ke
       
-      Eng += sqrt(m*m+ke*ke); //Energy
+      //Eng += sqrt(m*m+ke*ke); //Energy
+      Eng+= ke;
     }
     //Implement stubs in future
     return Eng;
   });
 
-// const SpillVar kTrueSliceE([](const caf::SRSpillProxy* sp) -> double {
-//   if(sp->nslc==0) return -9999.;
-//   auto const& slc = sp->slc[kBestSlcID(sp)];
-//     double Eng = 0;
-//     double m =0;
+const SpillVar kTrueSliceEnergy([](const caf::SRSpillProxy* sp) -> double {
+  if(sp->nslc==0) return -1;
+  auto const& slc = sp->slc[kBestSlcID(sp)];
+  double visE = 0;
+  for(auto const& prim : slc.truth.prim)
+  {
+    visE += (prim.plane[0][0].visE + prim.plane[0][1].visE + prim.plane[0][2].visE)/3; //Divide by 3 since we're taking the average energy
+  }
+  return visE;
+  });
 
-//     //Showers
-//     for (auto const& shw : slc.reco.shw){
-//       int pdg = abs(shw.truth.p.pdg); //Use razzle pdg
-//       m=pdgmass.at(pdg);//mass using table
-//       double ke = shw.bestplane_energy; //ke
-//       Eng += sqrt(m*m+ke*ke); //Energy
-//     }
-//     //Tracks
-//     for (auto const& trk : slc.reco.trk){
-//       int pdg = abs(trk.dazzle.pdg); //Use dazzle pdg
-//       m=pdgmass.at(pdg);//mass using table
-//       double ke = trk.calo[trk.bestplane].ke*1e-3; //ke
-//       Eng += sqrt(m*m+ke*ke); //Energy
-//     }
-//   return Eng;
-// });
+const SpillVar kTrueSliceQ2([](const caf::SRSpillProxy* sp) ->double {
+  if(sp->nslc==0) return -1;
+  auto const& slc = sp->slc[kBestSlcID(sp)];
+  return slc.truth.Q2;
+  });
 
 const SpillVar kTrueNuE([](const caf::SRSpillProxy* sp) -> double {
   if(sp->nslc==0) return -1;
@@ -630,7 +671,6 @@ const SpillVar kRecoSmallestTheta([](const caf::SRSpillProxy* sp) -> double {
   //Showers
   for (auto const& shw : slc.reco.shw){
     int pdg = abs(shw.razzle.pdg); //Use razzle pdg
-    theta = acos(shw.dir.z); //Longitudinal angle
     if (acos(shw.dir.z) < theta){
       theta = acos(shw.dir.z);
     }
@@ -697,7 +737,6 @@ const SpillVar kNuZ([](const caf::SRSpillProxy* sp) -> double {
 });
 
 const SpillVar kTruthShw([](const caf::SRSpillProxy *sp) {
-  //if(!kSignal(sp)) return 999999;
   if(sp->nslc==0) return 9999;
   int nshw = 0;
   auto const& slc = sp->slc[kBestSlcID(sp)];
@@ -706,11 +745,11 @@ const SpillVar kTruthShw([](const caf::SRSpillProxy *sp) {
     if (abs(pdg) == 11 || pdg == 22){++nshw;}
     if (pdg == 111){nshw+=2;}  
   }
+  //std::cout<<"nshw: "<<nshw<<std::endl;
   return nshw;
 });
 
 const SpillVar kTruthTrk([](const caf::SRSpillProxy *sp) {
-  //if(!kSignal(sp)) return 999999;
   if(sp->nslc==0) return 9999;
   int ntrk = 0;
   auto const& slc = sp->slc[kBestSlcID(sp)];
@@ -720,6 +759,7 @@ const SpillVar kTruthTrk([](const caf::SRSpillProxy *sp) {
     else if (abs(pdg) == 13){++ntrk;}
     else if (abs(pdg) == 211){++ntrk;}   
   }
+  //std::cout<<"ntrk: "<<ntrk<<std::endl;
   return ntrk;
 });
 
@@ -1060,12 +1100,35 @@ const SpillVar kRecoVtxZ([](const caf::SRSpillProxy* sp) -> double {
     return slc.vertex.z;
   });
 
+const SpillVar kTruthEtheta2Var([](const caf::SRSpillProxy* sp) -> double{
+  // --Return true if a single object has Etheta < Ethetacut
+  if(sp->nslc==0) return -1;
+  double theta = 0;
+  double Eng = 0;
+  double Etheta2 = 999;
+  auto const& slc = sp->slc[kBestSlcID(sp)];
+  for (auto const& prim : slc.truth.prim){
+    if (abs(prim.pdg) == 12 || abs(prim.pdg) == 14){continue;} //skip neutrino events
+    TVector3 pvec(prim.genp.x,prim.genp.y,prim.genp.z);
+    double p = pvec.Mag();
+    theta = acos(prim.genp.z/p); //Longitudinal angle
+    Eng = prim.genE; //Energy
+    if (Eng*theta*theta < Etheta2 && Eng != 0){ 
+      Etheta2 = Eng*theta*theta;
+    }
+  }
+  return Etheta2;
+});
+
 
 const Binning binsPDGShw = Binning::Simple(10,-1,9, {"No Shw", "e^{-}", "e^{+}", "#mu^{-}", "#mu^{+}", "#pi^{+}", "#pi^{-}", "p", "#gamma", "Other"});
 const Binning binsPDGTrk = Binning::Simple(10,-1,9, {"No Trk", "e^{-}", "e^{+}", "#mu^{-}", "#mu^{+}", "#pi^{+}", "#pi^{-}", "p", "#gamma", "Other"});
 
 std::vector<Plot<SpillVar>> recoPlots_all = {//{ "E#theta^{2}", kEtheta2Var, Binning::Simple(15,-10,10),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
             { "E#theta^{2}", kEtheta2Var, Binning::Simple(10,0.,2.),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
+            { "True E#theta^{2}", kTruthEtheta2Var, Binning::Simple(10,0.,2.),";True E#theta^{2};Events", "true_E_theta",{.59,.57,.89,.85}},
+            { "True E#theta^{2} (Zoom)", kTruthEtheta2Var, Binning::Simple(10,0.,.05),";True E#theta^{2};Events", "true_E_theta_zoom",{.59,.57,.89,.85}},
+            { "True E#theta^{2} (Zoom x 2)", kTruthEtheta2Var, Binning::Simple(10,0.,.005),";True E#theta^{2};Events", "true_E_theta_zoom_zoom",{.59,.57,.89,.85}},
             { "#theta_{#nu}", kNuAngle, Binning::Simple(10,0.,2.),";#theta_{#nu};Events", "theta_nu",{.59,.57,.89,.85}},
             { "#theta_{#nu} (Zoom)", kNuAngle, Binning::Simple(10,0.,0.2),";#theta_{#nu};Events", "theta_nu_zoom",{.59,.57,.89,.85}},
             { "E#theta^{2} (Zoom)", kEtheta2Var, Binning::Simple(15,0.,0.05),";E#theta^{2};Events", "E_theta_zoom",{.59,.57,.89,.85}},
@@ -1081,8 +1144,9 @@ std::vector<Plot<SpillVar>> recoPlots_all = {//{ "E#theta^{2}", kEtheta2Var, Bin
             { "e Razzle", kNRazzleElectrons, Binning::Simple(5,0,5),";Razzle Electrons;Events", "e_razzle",{.59,.57,.89,.85}},
             { "ph Razzle", kNRazzlePhotons, Binning::Simple(5,0,5),";Razzle Photons;Events", "ph_razzle",{.59,.57,.89,.85}},
             { "Reco E", kRecoE, Binning::Simple(30,0,3),";Reco E [GeV];Events", "reco_E",{.59,.57,.89,.85}},
-            { "True E_{#nu}", kTrueNuE, Binning::Simple(30,0,3),";True E_{#nu}[GeV];Events", "true_Enu",{.59,.57,.89,.85}},
-            //{ "True E", kTrueSliceE, Binning::Simple(30,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
+            { "True E_{#nu}", kTrueNuE, Binning::Simple(15,0,3),";True E_{#nu}[GeV];Events", "true_Enu",{.59,.57,.89,.85}},
+            { "True E", kTrueSliceEnergy, Binning::Simple(15,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
+            { "True Q2", kTrueSliceQ2, Binning::Simple(15,0,3),";True Q^{2};Events", "true_E",{.59,.57,.89,.85}},
             { "Reco #theta", kRecoSmallestTheta, Binning::Simple(15,0,1),";Reco #theta ;Events", "reco_theta",{.59,.57,.89,.85}},
             { "Reco #theta (Zoom)", kRecoSmallestTheta, Binning::Simple(15,0,0.1),";Reco #theta;Events", "reco_theta_zoom",{.59,.57,.89,.85}},
             { "True #theta", kTrueSmallestTheta, Binning::Simple(15,0,1),";True #theta ;Events", "true_theta",{.59,.57,.89,.85}},
@@ -1101,20 +1165,20 @@ std::vector<Plot<SpillVar>> recoPlots_all = {//{ "E#theta^{2}", kEtheta2Var, Bin
 					  { "Leading Shower Track Stub Length", kLeadingShwTrkLength, Binning::Simple(24,0,24), ";Leading Shower Track Stub Length (cm);Events", "leading_shw_trk_stub_length", {.59,.57,.89,.85} },
 					  { "Leading Shower Track Stub Width", kLeadingShwTrkWidth, Binning::Simple(24,0,24), ";Leading Shower Track Stub Width (cm);Events", "leading_shw_trk_stub_width", {.59,.57,.89,.85} },
 					  { "Leading Shower PDG", kLeadingShwPDGPlot, binsPDGShw, ";Leading Shower PDG;Events", "leading_shw_pdg",  {.22,.57,.52,.85} },
-					  { "Leading Shower Razzle Electron Score", kLeadingShwRazzleElectronScore, Binning::Simple(40,0,1), ";Leading Shower Razzle Electron Score;Events", "leading_shw_razzle_electron_score",  {.42,.57,.72,.85} },
-					  { "Leading Shower Razzle Photon Score", kLeadingShwRazzlePhotonScore, Binning::Simple(40,0,1), ";Leading Shower Razzle Photon Score;Events", "leading_shw_razzle_photon_score",  {.42,.57,.72,.85} },
-					  { "Leading Shower Razzle Other Score", kLeadingShwRazzleOtherScore, Binning::Simple(40,0,1), ";Leading Shower Razzle Other Score;Events", "leading_shw_razzle_other_score",  {.42,.57,.72,.85} },
+					  { "Leading Shower Razzle Electron Score", kLeadingShwRazzleElectronScore, Binning::Simple(20,0,1), ";Leading Shower Razzle Electron Score;Events", "leading_shw_razzle_electron_score",  {.42,.57,.72,.85} },
+					  { "Leading Shower Razzle Photon Score", kLeadingShwRazzlePhotonScore, Binning::Simple(20,0,1), ";Leading Shower Razzle Photon Score;Events", "leading_shw_razzle_photon_score",  {.42,.57,.72,.85} },
+					  { "Leading Shower Razzle Other Score", kLeadingShwRazzleOtherScore, Binning::Simple(20,0,1), ";Leading Shower Razzle Other Score;Events", "leading_shw_razzle_other_score",  {.42,.57,.72,.85} },
 					  { "Leading Shower Start X", kLeadingShwStartX, Binning::Simple(40,-400,400), ";Leading Shower Reco X (cm);Events", "leading_shw_startx", {.59,.57,.89,.85} },
             { "Leading Shower Start Y", kLeadingShwStartY, Binning::Simple(40,-400,400), ";Leading Shower Reco Y (cm);Events", "leading_shw_starty", {.59,.57,.89,.85} },
             { "Leading Shower Start Z", kLeadingShwStartZ, Binning::Simple(60,-200,700), ";Leading Shower Reco Z (cm);Events", "leading_shw_startz", {.59,.57,.89,.85} },
             { "Leading Shower End X", kLeadingShwEndX, Binning::Simple(40,-400,400), ";Leading Shower Reco X (cm);Events", "leading_shw_endx", {.59,.57,.89,.85} },
             { "Leading Shower End Y", kLeadingShwEndY, Binning::Simple(40,-400,400), ";Leading Shower Reco Y (cm);Events", "leading_shw_endy", {.59,.57,.89,.85} },
             { "Leading Shower End Z", kLeadingShwEndZ, Binning::Simple(60,-200,700), ";Leading Shower Reco Z (cm);Events", "leading_shw_endz", {.59,.57,.89,.85} },
-            { "SubLeading Shower Energy", kSubLeadingShwEnergy, Binning::Simple(40,0,1), ";SubLeading Shower Energy (GeV);Events", "subleading_shw_energy", {.59,.57,.89,.85} },
-					  { "SubLeading Shower dEdx", kSubLeadingShwdEdx, Binning::Simple(40,0,10), ";SubLeading Shower dE/dx (MeV/cm);Events", "subleading_shw_dedx", {.59,.57,.89,.85} },
-					  { "SubLeading Shower Conversion Gap", kSubLeadingShwCnvGap, Binning::Simple(40,0,20), ";SubLeading Shower Conversion Gap (cm);Events", "subleading_shw_cnv_gap", {.59,.57,.89,.85} },
-					  { "SubLeading Shower Density", kSubLeadingShwDensity, Binning::Simple(40,0,20), ";SubLeading Shower Density (MeV/cm);Events", "subleading_shw_density", {.59,.57,.89,.85} },
-					  { "SubLeading Shower Length", kSubLeadingShwLen, Binning::Simple(40,0,200), ";SubLeading Shower Length (cm);Events", "subleading_shw_len", {.59,.57,.89,.85} },
+            { "SubLeading Shower Energy", kSubLeadingShwEnergy, Binning::Simple(20,0,1), ";SubLeading Shower Energy (GeV);Events", "subleading_shw_energy", {.59,.57,.89,.85} },
+					  { "SubLeading Shower dEdx", kSubLeadingShwdEdx, Binning::Simple(20,0,10), ";SubLeading Shower dE/dx (MeV/cm);Events", "subleading_shw_dedx", {.59,.57,.89,.85} },
+					  { "SubLeading Shower Conversion Gap", kSubLeadingShwCnvGap, Binning::Simple(20,0,20), ";SubLeading Shower Conversion Gap (cm);Events", "subleading_shw_cnv_gap", {.59,.57,.89,.85} },
+					  { "SubLeading Shower Density", kSubLeadingShwDensity, Binning::Simple(20,0,20), ";SubLeading Shower Density (MeV/cm);Events", "subleading_shw_density", {.59,.57,.89,.85} },
+					  { "SubLeading Shower Length", kSubLeadingShwLen, Binning::Simple(20,0,200), ";SubLeading Shower Length (cm);Events", "subleading_shw_len", {.59,.57,.89,.85} },
 					  { "SubLeading Shower Opening Angle", kSubLeadingShwOpenAngle, Binning::Simple(36,0,90), ";SubLeading Shower Opening Angle (#circ);Events", "subleading_shw_open_angle", {.59,.57,.89,.85} },
 					  { "SubLeading Shower Cosmic Dist", kSubLeadingShwCosmicDist, Binning::Simple(40,0,400), ";SubLeading Shower Cosmic Dist (cm);Events", "subleading_shw_cosmic_dist", {.59,.57,.89,.85} },
 					  { "SubLeading Shower Density Gradient", kSubLeadingShwDensityGrad, Binning::Simple(40,0,4), ";SubLeading Shower Density Gradient (MeV/cm);Events", "subleading_shw_density_grad", {.59,.57,.89,.85} },
@@ -1174,7 +1238,7 @@ std::vector<Plot<SpillVar>> recoPlots_basic = {
   { "N FV Slices", kNFVSlices, Binning::Simple(10,0,10), ";nFVSlices;Events", "n_fv_slices", {.59,.57,.89,.85} },
   { "Reco E", kRecoE, Binning::Simple(30,0,3),";Reco E [GeV];Events", "reco_E",{.59,.57,.89,.85}},
   { "True E_{#nu}", kTrueNuE, Binning::Simple(30,0,3),";True E_{#nu}[GeV];Events", "true_Enu",{.59,.57,.89,.85}},
-  //{ "True E", kTrueSliceE, Binning::Simple(30,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
+  { "True E", kTrueSliceEnergy, Binning::Simple(15,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
   { "N Prim", kNPrims, Binning::Simple(20,0,20), ";nPrim;Events", "n_prims", {.59,.57,.89,.85} }, 
   { "N Ele", kNElectrons, Binning::Simple(5,0,5), ";nEle;Events", "n_eles", {.59,.57,.89,.85} }, 
   { "Neutrino vtx x",kNuX,Binning::Simple(40,-400,400),";#nu_{x};Events","nu_vtx_x",{.59,.57,.89,.85}},
@@ -1195,7 +1259,7 @@ std::vector<Plot<SpillVar>> recoPlots_eng = {//{ "E#theta^{2}", kEtheta2Var, Bin
 std::vector<Plot<SpillVar>> recoPlots_bestSlc = {//{ "E#theta^{2}", kEtheta2Var, Binning::Simple(15,-10,10),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
             { "Best Slice", kBestSlcID, Binning::Simple(10,0,10),";Best Slc ID;Events", "best_slc",{.59,.57,.89,.85}},
             //{ "Best Slice Etheta", kBestSlcID_Etheta, Binning::Simple(10,0,10),";Best Slc ID Etheta;Events", "best_slc_etheta",{.59,.57,.89,.85}},
-            { "Best Slice Cheat", kBestSlcID_cheat, Binning::Simple(10,0,10),";Best Slc ID Cheat;Events", "best_slc_cheat",{.59,.57,.89,.85}},
+            //{ "Best Slice Cheat", kBestSlcID_cheat, Binning::Simple(10,0,10),";Best Slc ID Cheat;Events", "best_slc_cheat",{.59,.57,.89,.85}},
 };
 
 // std::vector<Plot2D<SpillVar>> recoPlots2d = {

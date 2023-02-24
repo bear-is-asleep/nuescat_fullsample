@@ -1,6 +1,10 @@
 #include "TVector3.h"
 
 const SpillCut kHasSlc([](const caf::SRSpillProxy* sp) {
+    // if (sp->nslc == 0){
+    //   std::cout<<sp->hdr.run<<","<<sp->hdr.subrun<<","<<sp->hdr.evt<<std::endl;
+    //   std::cout<<sp->mc.nu.position.x<<","<<sp->mc.nu.position.y<<","<<sp->mc.nu.position.z<<","<<std::endl;
+    // }
     return sp->nslc != 0;
   });
 
@@ -33,6 +37,12 @@ const SpillCut kIsFV([](const caf::SRSpillProxy* sp) {
     auto const& slc = sp->slc[kBestSlcID(sp)];
     
     return PtInVolAbsX(slc.vertex, fvndNuEScat);
+  });
+
+const SpillCut kIsTrueFV([](const caf::SRSpillProxy* sp) {
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+    
+    return PtInVolAbsX(slc.truth.position, fvndNuEScat);
   });
 
 const SpillCut kEtheta2([](const caf::SRSpillProxy* sp) {
@@ -140,11 +150,17 @@ const SpillCut kHasOneShw([](const caf::SRSpillProxy* sp) {
     return slc.reco.nshw == 1;
   });
 
-const SpillCut kTooFewRecoObjects([](const caf::SRSpillProxy* sp) {
-    auto const& slc = sp->slc[kBestSlcID(sp)];
+const SpillCut kTooManyRecoObjects([](const caf::SRSpillProxy* sp) {
+  auto const& slc = sp->slc[kBestSlcID(sp)];
 
-    return slc.reco.nshw + slc.reco.ntrk + slc.reco.nstub < 3;
-  });
+  if (slc.reco.nshw + slc.reco.ntrk < 3){
+    if (slc.reco.ntrk < 2){ //additional condition on track cut
+      return true;
+    }
+  }
+  return false;
+
+});
 
 const SpillCut kRazzleCut([](const caf::SRSpillProxy* sp) {
     auto const& slc = sp->slc[kBestSlcID(sp)];
@@ -162,12 +178,72 @@ const SpillCut kTruthIDNuEScat([](const caf::SRSpillProxy* sp) {
     return slc.truth.genie_inttype == 1098;
 });
 
+const SpillCut kTruthEleCut([](const caf::SRSpillProxy* sp) {
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+    int ne = 0;
+    for (auto const& prim : slc.truth.prim){
+      if (abs(prim.pdg) == 12 || abs(prim.pdg) == 14) continue; //Don't count these
+      if (abs(prim.pdg) == 11) {ne++;}
+    }
+    return ne==1;
+  });
+
+const SpillCut kTruthShwCut([](const caf::SRSpillProxy *sp) {
+  int nshw = 0;
+  auto const& slc = sp->slc[kBestSlcID(sp)];
+  for (auto const& prim : slc.truth.prim){
+    int pdg = prim.pdg;
+    if (abs(pdg) == 11 || pdg == 22){++nshw;}
+    if (pdg == 111){nshw+=2;}  
+  }
+  return nshw==1;
+});
+
+const SpillCut kTruthTrkCut([](const caf::SRSpillProxy *sp) {
+  int ntrk = 0;
+  auto const& slc = sp->slc[kBestSlcID(sp)];
+  for (auto const& prim : slc.truth.prim){
+    int pdg = prim.pdg;
+    if (abs(pdg) == 2212){++ntrk;}
+    else if (abs(pdg) == 13){++ntrk;}
+    else if (abs(pdg) == 211){++ntrk;}   
+  }
+  return ntrk==0;
+});
+
+const SpillCut kTruthEtheta2([](const caf::SRSpillProxy* sp) {
+  // --Return true if a single object has Etheta < Ethetacut
+
+  double theta = 0;
+  double ke = 0;
+  double m = 0;
+  double Eng = 0;
+  int pdg = 0;
+  int bestplane = -1;
+  double Etheta2 = 999;
+  auto const& slc = sp->slc[kBestSlcID(sp)];
+  for (auto const& prim : slc.truth.prim){
+    TVector3 pvec(prim.genp.x,prim.genp.y,prim.genp.z);
+    double p = pvec.Mag();
+    theta = acos(prim.genp.z/p); //Longitudinal angle
+    pdg = abs(prim.pdg); //Use razzle pdg
+    Eng = prim.genE; //Energy
+    Etheta2 = Eng*theta*theta;
+    if (Etheta2 < kEtheta2Cut && Eng != 0){ 
+      return true;
+    }
+  }
+  return false;
+});
+
 std::vector<CutDef> truth_cuts = { { "No Cut", "no_cut", kNoSpillCut },
   { "Has Slc", "has_slc", kHasSlc },
-  { "Has Nu Slc", "has_nu_slc", kHasNuSlc },
-  { "Has Nu FV Slc", "has_nu_fv_slc", kHasNuFVSlc },
-  { "Is FV", "is_fv", kIsFV },
-  { "Is NuEScat", "is_nue_scat", kTruthIDNuEScat }
+  { "Is FV", "is_fv", kIsTrueFV },
+  {"No Tracks","no_trk",kTruthTrkCut},
+  {"One Shower","one_shw",kTruthShwCut},
+  {"Etheta2 Truth Cut","Etheta2",kTruthEtheta2},
+  {"One Electron","one_ele",kTruthEleCut},
+  //{ "Is NuEScat", "is_nue_scat", kTruthIDNuEScat}
 };
 
 std::vector<CutDef> original_cuts = { { "No Cut", "no_cut", kNoSpillCut },
@@ -216,6 +292,6 @@ std::vector<CutDef> preselection_cuts = { { "No Cut", "no_cut", kNoSpillCut },
 const SpillCut kPreSelection = kHasSlc && kHasNuSlc && kHasNuFVSlc;
 const SpillCut kCosmicRej    = kPreSelection && kHasCRUMBSSlc && kIsFV;
 const SpillCut kEthetaSelection = kPreSelection && kCosmicRej && kEtheta2;
-const SpillCut kLimitRecoObjects = kEthetaSelection && kTooFewRecoObjects;
+const SpillCut kLimitRecoObjects = kPreSelection && kIsFV && kTooManyRecoObjects;
 const SpillCut kFullSelection = kEthetaSelection && kHasNoTrks && kHasOneShw && kRazzleCut;
-
+const SpillCut kTrueSelection = kHasSlc && kIsTrueFV && kTruthTrkCut && kTruthShwCut && kTruthEleCut && kTruthEtheta2;
