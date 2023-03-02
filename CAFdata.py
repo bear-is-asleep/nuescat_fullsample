@@ -4,6 +4,7 @@ import os
 DATA_DIR = '/pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/'
 FILES = os.listdir(f'{DATA_DIR}')
 FLAT_FILES = [file for file in FILES if 'flat' in file]
+DEFNAME = ''
 
 #Key labels
 hdrkeys = ['rec.hdr.run','rec.hdr.subrun','rec.hdr.evt'] #Header keys

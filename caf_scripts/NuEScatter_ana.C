@@ -29,7 +29,6 @@ using namespace ana;
 #include "NuEScatterRecoVars.h"
 #include "NuEScatterCuts.h"
 #include "utils.h"
-#include "Reducer.h"
 #include "plotStyle.C"
 
 #include <string>
@@ -44,10 +43,9 @@ using namespace ana;
 
 using namespace std;
 
-const string state_fname = "NuEScatter_state_all.root";
 const std::vector<CutDef> cuts = truth_int_type_cuts;
 const std::vector<Plot<SpillVar>> plots = recoPlots_all;
-const std::vector<TrueCategory> categories = nue_sel;
+const std::vector<TrueCategory> categories = no_cosmic_sel;
 
 void NuEScatter_ana(bool reload = true)
 {
@@ -65,7 +63,7 @@ void NuEScatter_ana(bool reload = true)
 
   const double gPOT = 10e20;
   const bool save = true;
-  const string surName = "fullsample_nue_inttype_cuts_tmatch_slice";
+  const string surName = "fullsample_inttype_cuts_tmatch_slice";
   const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"_"+surName;
   const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 
@@ -95,8 +93,6 @@ void NuEScatter_ana(bool reload = true)
   loaderNu.Go();
   std::cout.clear();
   //loaderIntime.Go();
-
-  TFile fout(state_fname.c_str(),"RECREATE");
 
   const double nomInt           = 5e12;
   const double targetLive       = gPOT / nomInt;

@@ -23,3 +23,18 @@ def cTheta(theta,cut_val=60e-3):
 def cNEle(nele,cut_val=1):
   return nele==cut_val
 
+def apply_cuts(events):
+  """
+  Apply cuts to dataframe
+  """
+  for ind,row in events.iterrows():
+    #Cuts return true if they're passed, tweak these to modify values
+    events.loc[ind,'cEtheta2_true'] = cEtheta2(row.true_Etheta)
+    events.loc[ind,'cNEle_true'] = cNEle(row.nele)
+    events.loc[ind,'cNShw_true'] = cNShw(row.truenshw)
+    events.loc[ind,'cNTrk_true'] = cNTrk(row.truentrk)
+    events.loc[ind,'cNShw_reco'] = cNShw(row.nshw)
+    events.loc[ind,'cNTrk_reco'] = cNTrk(row.ntrk)
+    events.loc[ind,'cERazzle_lshw'] = cERazzle(row['lshw.electron'])
+    events.loc[ind,'cEtheta2_reco'] = cEtheta2(row['Etheta'])
+  return events

@@ -43,7 +43,6 @@ def set_event_type(events):
     events.loc[events.loc[:,'evt_type'] == i,'evt_type'] = cat
   return events
 
-
 # def select_electron(events,objs=['lshw','ltrk','slshw','sltrk']):
 #   """
 #   Function to select which reco object (lshw,ltrk,slshw,etc.) is the electron
@@ -63,19 +62,26 @@ for fname in fnames:
   tree = uproot.open(f'{NuEScat_dir}/{fname}:rectree;1')
   print(fname)
   df = helpers.get_df(tree,tree.keys(),hdrkeys=['run','subrun','evt'],library='np')
-  print(df['run'],df['Etheta'])
-  df = pd.DataFrame.from_dict(df)
-  #df.set_index(['run','subrun','evt'])
-  #df.sort_index()
-  #dfs.append(df)
+  dfs.append(df)
+print('trying to concat')
 events = pd.concat(dfs,axis=1)
-events.iloc[0].to_csv('head.csv')
+print('concat')
 
 #Mask event type and get their names
 events = set_event_type(events)
 events.loc[:,'nreco'] = events.nshw + events.ntrk
 
-events = cuts.apply_cuts(events)
+for ind,row in events.iterrows():
+  #Cuts return true if they're passed
+  events.loc[ind,'cEtheta2_true'] = cuts.cEtheta2(row.true_Etheta)
+  events.loc[ind,'cNEle_true'] = cuts.cNEle(row.nele)
+  events.loc[ind,'cNShw_true'] = cuts.cNShw(row.truenshw)
+  events.loc[ind,'cNTrk_true'] = cuts.cNTrk(row.truentrk)
+  events.loc[ind,'cNShw_reco'] = cuts.cNShw(row.nshw)
+  events.loc[ind,'cNTrk_reco'] = cuts.cNTrk(row.ntrk)
+  events.loc[ind,'cERazzle_lshw'] = cuts.cERazzle(row['lshw.electron'])
+  events.loc[ind,'cEtheta2_reco'] = cuts.cEtheta2(row['Etheta'])
+  #events.loc[ind,'cTheta_true'] = cuts.cEtheta2(true_etheta2)
 
 print('Trying to save')
 events.to_pickle(f'{NuEScat_dir}/events_raw.pkl')

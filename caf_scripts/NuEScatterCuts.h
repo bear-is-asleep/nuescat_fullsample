@@ -26,7 +26,7 @@ const SpillCut kHasNuFVSlc([](const caf::SRSpillProxy* sp) {
   });
 
 const SpillCut kHasCRUMBSSlc([](const caf::SRSpillProxy* sp) {
-    auto const& slc = sp->slc[kTrueBestSlice(sp)];
+    auto const& slc = sp->slc[kBestSlcID(sp)];
 
     if(isnan(slc.crumbs_result.score)) return false;
 
@@ -34,16 +34,16 @@ const SpillCut kHasCRUMBSSlc([](const caf::SRSpillProxy* sp) {
   });
 
 const SpillCut kIsFV([](const caf::SRSpillProxy* sp) {
-    auto const& slc = sp->slc[kTrueBestSlice(sp)];
+    auto const& slc = sp->slc[kBestSlcID(sp)];
     
     return PtInVolAbsX(slc.vertex, fvndNuEScat);
   });
 
 const SpillCut kIsTrueFV([](const caf::SRSpillProxy* sp) {
-    auto const& slc = sp->slc[kTrueBestSlice(sp)];
-    std::cout<<"run,subrun,evt : "<<sp->hdr.run<<","<<sp->hdr.subrun<<","<<sp->hdr.evt<<std::endl;
-    print_all_prim_matched(sp,kTrueBestSlice(sp));
-    print_all_prim_info_slc(sp,kTrueBestSlice(sp));
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+    //std::cout<<"run,subrun,evt : "<<sp->hdr.run<<","<<sp->hdr.subrun<<","<<sp->hdr.evt<<std::endl;
+    //print_all_prim_matched(sp,kBestSlcID(sp));
+    //print_all_prim_info_slc(sp,kBestSlcID(sp));
     return PtInVolAbsX(slc.truth.position, fvndNuEScat);
   });
 
@@ -58,7 +58,7 @@ const SpillCut kEtheta2([](const caf::SRSpillProxy* sp) {
   int bestplane = -1;
   double Etheta2 = 999;
   //std::cout<<"nslc: "<<sp->nslc<<std::endl;
-  auto const& slc = sp->slc[kTrueBestSlice(sp)];
+  auto const& slc = sp->slc[kBestSlcID(sp)];
   int cnt = 0;
   //Showers
   for (auto const& shw : slc.reco.shw){
@@ -141,22 +141,22 @@ const SpillCut kEtheta2([](const caf::SRSpillProxy* sp) {
 });
 
 const SpillCut kHasNoTrks([](const caf::SRSpillProxy* sp) {
-    auto const& slc = sp->slc[kTrueBestSlice(sp)];
+    auto const& slc = sp->slc[kBestSlcID(sp)];
 
     return slc.reco.ntrk == 0;
   });
 
 const SpillCut kHasOneShw([](const caf::SRSpillProxy* sp) {
-    auto const& slc = sp->slc[kTrueBestSlice(sp)];
+    auto const& slc = sp->slc[kBestSlcID(sp)];
 
     return slc.reco.nshw == 1;
   });
 
 const SpillCut kTooManyRecoObjects([](const caf::SRSpillProxy* sp) {
-  auto const& slc = sp->slc[kTrueBestSlice(sp)];
+  auto const& slc = sp->slc[kBestSlcID(sp)];
 
-  if (slc.reco.nshw + slc.reco.ntrk < 6){
-    if (slc.reco.ntrk < 4 && slc.reco.nshw < 5){ //additional condition on track cut based on pure nue study
+  if (slc.reco.nshw + slc.reco.ntrk <= 5){
+    if (slc.reco.ntrk <= 3 && slc.reco.nshw <= 4){ //additional condition on track cut based on pure nue study - loses 3 events
       return true;
     }
   }
@@ -164,8 +164,13 @@ const SpillCut kTooManyRecoObjects([](const caf::SRSpillProxy* sp) {
 
 });
 
+const SpillCut kSoftRecoAngleCut([](const caf::SRSpillProxy* sp) {
+  return kRecoSmallestTheta(sp) < 0.65; //Small angle requirement 
+});
+
+
 const SpillCut kRazzleCut([](const caf::SRSpillProxy* sp) {
-    auto const& slc = sp->slc[kTrueBestSlice(sp)];
+    auto const& slc = sp->slc[kBestSlcID(sp)];
 
     for (auto const& shw : slc.reco.shw){
       if (shw.razzle.electronScore <= kRazzleCutVal){
@@ -176,12 +181,12 @@ const SpillCut kRazzleCut([](const caf::SRSpillProxy* sp) {
   });
 
 const SpillCut kTruthIDNuEScat([](const caf::SRSpillProxy* sp) {
-    auto const& slc = sp->slc[kTrueBestSlice(sp)];
+    auto const& slc = sp->slc[kBestSlcID(sp)];
     return slc.truth.genie_inttype == 1098;
 });
 
 const SpillCut kTruthEleCut([](const caf::SRSpillProxy* sp) {
-    auto const& slc = sp->slc[kTrueBestSlice(sp)];
+    auto const& slc = sp->slc[kBestSlcID(sp)];
     int ne = 0;
     for (auto const& prim : slc.truth.prim){
       if (abs(prim.pdg) == 12 || abs(prim.pdg) == 14) continue; //Don't count these
@@ -192,7 +197,7 @@ const SpillCut kTruthEleCut([](const caf::SRSpillProxy* sp) {
 
 const SpillCut kTruthShwCut([](const caf::SRSpillProxy *sp) {
   int nshw = 0;
-  auto const& slc = sp->slc[kTrueBestSlice(sp)];
+  auto const& slc = sp->slc[kBestSlcID(sp)];
   for (auto const& prim : slc.truth.prim){
     int pdg = prim.pdg;
     if (abs(pdg) == 11 || pdg == 22){++nshw;}
@@ -203,7 +208,7 @@ const SpillCut kTruthShwCut([](const caf::SRSpillProxy *sp) {
 
 const SpillCut kTruthTrkCut([](const caf::SRSpillProxy *sp) {
   int ntrk = 0;
-  auto const& slc = sp->slc[kTrueBestSlice(sp)];
+  auto const& slc = sp->slc[kBestSlcID(sp)];
   for (auto const& prim : slc.truth.prim){
     int pdg = prim.pdg;
     if (abs(pdg) == 2212){++ntrk;}
@@ -223,7 +228,7 @@ const SpillCut kTruthEtheta2([](const caf::SRSpillProxy* sp) {
   int pdg = 0;
   int bestplane = -1;
   double Etheta2 = 999;
-  auto const& slc = sp->slc[kTrueBestSlice(sp)];
+  auto const& slc = sp->slc[kBestSlcID(sp)];
   for (auto const& prim : slc.truth.prim){
     TVector3 pvec(prim.genp.x,prim.genp.y,prim.genp.z);
     double p = pvec.Mag();
@@ -239,7 +244,7 @@ const SpillCut kTruthEtheta2([](const caf::SRSpillProxy* sp) {
 });
 
 const SpillCut kTruthSlcGenieType([](const caf::SRSpillProxy* sp) {
-  auto const& slc = sp->slc[kTrueBestSlice(sp)];
+  auto const& slc = sp->slc[kBestSlcID(sp)];
   return slc.truth.genie_inttype == 1098;
 });
 
@@ -306,6 +311,6 @@ std::vector<CutDef> preselection_cuts = { { "No Cut", "no_cut", kNoSpillCut },
 const SpillCut kPreSelection = kHasSlc && kHasNuSlc && kHasNuFVSlc;
 const SpillCut kCosmicRej    = kPreSelection && kHasCRUMBSSlc && kIsFV;
 const SpillCut kEthetaSelection = kPreSelection && kCosmicRej && kEtheta2;
-const SpillCut kLimitRecoObjects = kPreSelection && kIsFV && kTooManyRecoObjects;
+const SpillCut kSoftSelection = kPreSelection && kIsFV && kTooManyRecoObjects && kSoftRecoAngleCut;
 const SpillCut kFullSelection = kEthetaSelection && kHasNoTrks && kHasOneShw && kRazzleCut;
 const SpillCut kTrueSelection = kHasSlc && kIsTrueFV && kTruthTrkCut && kTruthShwCut && kTruthEleCut && kTruthEtheta2;

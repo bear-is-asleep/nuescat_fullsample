@@ -16,12 +16,12 @@ using namespace ana;
 
 #include "Constants.h"
 #include "Structs.h"
+#include "NuEScatter_debug.h"
 #include "TrueEventCategories.h"
 #include "NuEScatterTruthVars.h"
 #include "NuEScatterRecoVars.h"
 #include "NuEScatterCuts.h"
 #include "utils.h"
-#include "Reducer.h"
 #include "plotStyle.C"
 
 #include <string>
@@ -46,7 +46,7 @@ const string inputNameNu = "defname: official_MCP2022A_prodoverlay_corsika_cosmi
 const string inputNameNu_noflat = "defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_caf_sbnd";
 const std::string inputNameNuE_new = "/sbnd/data/users/brindenc/analyze_sbnd/nue/v09_54_00/CAFnue_full.root";
 
-const string surName = "fullsample_nue_no_cuts_truthslc";
+const string surName = "fullsample_few_recocut_recoslc";
 const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 
 int kEventType(const caf::SRSpillProxy* sp){
@@ -73,7 +73,7 @@ int kEventType(const caf::SRSpillProxy* sp){
   }
 }
 
-int kReserveSpace = 20000;
+int kReserveSpace = 2000000; //2,000,000
 
 void NuEScatter_events()
 {
@@ -122,6 +122,10 @@ void NuEScatter_events()
   vector<double> lshw_start_x;
   vector<double> lshw_start_y;
   vector<double> lshw_start_z;
+  vector<double> lshw_true_pdg;
+  vector<double> lshw_true_angle;
+  vector<double> lshw_true_len;
+  vector<double> lshw_angle;
 
   vector<double> slshw_eng;
   vector<double> slshw_dedx;
@@ -135,6 +139,10 @@ void NuEScatter_events()
   vector<double> slshw_start_x;
   vector<double> slshw_start_y;
   vector<double> slshw_start_z;
+  vector<double> slshw_true_pdg;
+  vector<double> slshw_true_angle;
+  vector<double> slshw_true_len;
+  vector<double> slshw_angle;
 
   vector <double> ltrk_eng;
   vector <double> ltrk_len;
@@ -146,6 +154,10 @@ void NuEScatter_events()
   vector<double> ltrk_start_x;
   vector<double> ltrk_start_y;
   vector<double> ltrk_start_z;
+  vector<double> ltrk_true_pdg;
+  vector<double> ltrk_true_angle;
+  vector<double> ltrk_true_len;
+  vector<double> ltrk_angle;
 
   vector <double> sltrk_eng;
   vector <double> sltrk_len;
@@ -157,6 +169,10 @@ void NuEScatter_events()
   vector<double> sltrk_start_x;
   vector<double> sltrk_start_y;
   vector<double> sltrk_start_z;
+  vector<double> sltrk_true_pdg;
+  vector<double> sltrk_true_angle;
+  vector<double> sltrk_true_len;
+  vector<double> sltrk_angle;
 
   vector<int> genie_inttype;
   vector<int> genie_mode;
@@ -208,6 +224,10 @@ void NuEScatter_events()
   lshw_start_x.reserve(kReserveSpace);
   lshw_start_y.reserve(kReserveSpace);
   lshw_start_z.reserve(kReserveSpace);
+  lshw_true_pdg.reserve(kReserveSpace);
+  lshw_true_angle.reserve(kReserveSpace);
+  lshw_true_len.reserve(kReserveSpace);
+  lshw_angle.reserve(kReserveSpace);
 
   slshw_eng.reserve(kReserveSpace);
   slshw_dedx.reserve(kReserveSpace);
@@ -221,6 +241,10 @@ void NuEScatter_events()
   slshw_start_x.reserve(kReserveSpace);
   slshw_start_y.reserve(kReserveSpace);
   slshw_start_z.reserve(kReserveSpace);
+  slshw_true_pdg.reserve(kReserveSpace);
+  slshw_true_angle.reserve(kReserveSpace);
+  slshw_true_len.reserve(kReserveSpace);
+  slshw_angle.reserve(kReserveSpace);
 
   ltrk_eng.reserve(kReserveSpace);
   ltrk_len.reserve(kReserveSpace);
@@ -232,6 +256,10 @@ void NuEScatter_events()
   ltrk_start_x.reserve(kReserveSpace);
   ltrk_start_y.reserve(kReserveSpace);
   ltrk_start_z.reserve(kReserveSpace);
+  ltrk_true_pdg.reserve(kReserveSpace);
+  ltrk_true_angle.reserve(kReserveSpace);
+  ltrk_true_len.reserve(kReserveSpace);
+  ltrk_angle.reserve(kReserveSpace);
 
   sltrk_eng.reserve(kReserveSpace);
   sltrk_len.reserve(kReserveSpace);
@@ -243,6 +271,10 @@ void NuEScatter_events()
   sltrk_start_x.reserve(kReserveSpace);
   sltrk_start_y.reserve(kReserveSpace);
   sltrk_start_z.reserve(kReserveSpace);
+  sltrk_true_pdg.reserve(kReserveSpace);
+  sltrk_true_angle.reserve(kReserveSpace);
+  sltrk_true_len.reserve(kReserveSpace);
+  sltrk_angle.reserve(kReserveSpace);
 
   genie_inttype.reserve(kReserveSpace);
   genie_mode.reserve(kReserveSpace);
@@ -309,6 +341,10 @@ void NuEScatter_events()
   tree2->Branch("lshw.start.x",&lshw_start_x);
   tree2->Branch("lshw.start.y",&lshw_start_y);
   tree2->Branch("lshw.start.z",&lshw_start_z);
+  tree2->Branch("lshw.true.pdg",&lshw_true_pdg);
+  tree2->Branch("lshw.true.angle",&lshw_true_angle);
+  tree2->Branch("lshw.true.len",&lshw_true_len);
+  tree2->Branch("lshw.angle",&lshw_angle);
 
   tree2->Branch("slshw.eng",&slshw_eng);
   tree2->Branch("slshw.dedx",&slshw_dedx);
@@ -322,6 +358,10 @@ void NuEScatter_events()
   tree2->Branch("slshw.start.x",&slshw_start_x);
   tree2->Branch("slshw.start.y",&slshw_start_y);
   tree2->Branch("slshw.start.z",&slshw_start_z);
+  tree2->Branch("slshw.true.pdg",&slshw_true_pdg);
+  tree2->Branch("slshw.true.angle",&slshw_true_angle);
+  tree2->Branch("slshw.true.len",&slshw_true_len);
+  tree2->Branch("slshw.angle",&lshw_angle);
   
 
   tree->Branch("genie_inttype",&genie_inttype);
@@ -337,6 +377,10 @@ void NuEScatter_events()
   tree3->Branch("ltrk.start.x",&ltrk_start_x);
   tree3->Branch("ltrk.start.y",&ltrk_start_y);
   tree3->Branch("ltrk.start.z",&ltrk_start_z);
+  tree3->Branch("ltrk.true.pdg",&ltrk_true_pdg);
+  tree3->Branch("ltrk.true.angle",&ltrk_true_angle);
+  tree3->Branch("ltrk.true.len",&ltrk_true_len);
+  tree3->Branch("ltrk.angle",&ltrk_angle);
 
   tree3->Branch("sltrk.eng",&sltrk_eng);
   tree3->Branch("sltrk.len",&sltrk_len);
@@ -348,17 +392,21 @@ void NuEScatter_events()
   tree3->Branch("sltrk.start.x",&ltrk_start_x);
   tree3->Branch("sltrk.start.y",&ltrk_start_y);
   tree3->Branch("sltrk.start.z",&ltrk_start_z);
+  tree3->Branch("sltrk.true.pdg",&sltrk_true_pdg);
+  tree3->Branch("sltrk.true.angle",&sltrk_true_angle);
+  tree3->Branch("sltrk.true.len",&sltrk_true_len);
+  tree3->Branch("sltrk.angle",&sltrk_angle);
 
   SpectrumLoader loader(inputNameNu);
 
   gSystem->Exec("mkdir -p " + stateDir);
   ofstream out(stateDir+"/selected_events.txt");
-  out <<"Run\t Subrun\t Event\t SpillID\n";
+  //out <<"Run\t Subrun\t Event\t SpillID\n";
   const SpillVar dummy_var([&](const caf::SRSpillProxy* sp){
     //for(const auto& slc: sp->slc) {
-      if(kPreSelection(sp) && kNuEScat(sp)) {
-        out << sp->hdr.run << "\t" << sp->hdr.subrun
-            << "\t" << sp->hdr.evt << "\t" << kBestSlcID(sp) <<"\n";
+      if(kSoftSelection(sp)) {
+        out << sp->hdr.run << "\t" << sp->hdr.subrun << "\t" << sp->hdr.evt <<"\n";
+            // << "\t" << kBestSlcID(sp) <<"\n";
             //<< "\tVertex: (" 
             //<< slc.vertex.x << ", " << slc.vertex.y << ", " << slc.vertex.z << ")\n";
         run.push_back(sp->hdr.run);
@@ -401,6 +449,10 @@ void NuEScatter_events()
         lshw_start_x.push_back(kLeadingShwStartX(sp));
         lshw_start_y.push_back(kLeadingShwStartY(sp));
         lshw_start_z.push_back(kLeadingShwStartZ(sp));
+        lshw_true_pdg.push_back(kLeadingShwTruePdg(sp));
+        lshw_true_angle.push_back(kLeadingShwTrueAngle(sp));
+        lshw_true_len.push_back(kLeadingShwTrueLength(sp));
+        lshw_angle.push_back(kLeadingShwAngle(sp));
 
         slshw_eng.push_back(kSubLeadingShwEnergy(sp));
         slshw_dedx.push_back(kSubLeadingShwdEdx(sp));
@@ -414,6 +466,10 @@ void NuEScatter_events()
         slshw_start_x.push_back(kSubLeadingShwStartX(sp));
         slshw_start_y.push_back(kSubLeadingShwStartY(sp));
         slshw_start_z.push_back(kSubLeadingShwStartZ(sp));
+        slshw_true_pdg.push_back(kSubLeadingShwTruePdg(sp));
+        slshw_true_angle.push_back(kSubLeadingShwTrueAngle(sp));
+        slshw_true_len.push_back(kSubLeadingShwTrueLength(sp));
+        slshw_angle.push_back(kSubLeadingShwAngle(sp));
 
         ltrk_eng.push_back(kLeadingTrkEnergy(sp));
         ltrk_len.push_back(kLeadingTrkLen(sp));
@@ -425,6 +481,10 @@ void NuEScatter_events()
         ltrk_start_x.push_back(kLeadingTrkStartX(sp));
         ltrk_start_y.push_back(kLeadingTrkStartY(sp));
         ltrk_start_z.push_back(kLeadingTrkStartZ(sp));
+        ltrk_true_pdg.push_back(kLeadingTrkTruePdg(sp));
+        ltrk_true_angle.push_back(kLeadingTrkTrueAngle(sp));
+        ltrk_true_len.push_back(kLeadingTrkTrueLength(sp));
+        ltrk_angle.push_back(kLeadingTrkAngle(sp));
 
         sltrk_eng.push_back(kSubLeadingTrkEnergy(sp));
         sltrk_len.push_back(kSubLeadingTrkLen(sp));
@@ -436,9 +496,13 @@ void NuEScatter_events()
         sltrk_start_x.push_back(kSubLeadingTrkStartX(sp));
         sltrk_start_y.push_back(kSubLeadingTrkStartY(sp));
         sltrk_start_z.push_back(kSubLeadingTrkStartZ(sp));
+        sltrk_true_pdg.push_back(kSubLeadingTrkTruePdg(sp));
+        sltrk_true_angle.push_back(kSubLeadingTrkTrueAngle(sp));
+        sltrk_true_len.push_back(kSubLeadingTrkTrueLength(sp));
+        sltrk_angle.push_back(kSubLeadingTrkAngle(sp));
 
-        genie_inttype.push_back(sp->slc[kBestSlcID(sp)].truth.genie_inttype);
-        genie_mode.push_back(sp->slc[kBestSlcID(sp)].truth.genie_mode);
+        genie_inttype.push_back(kGenieType(sp));
+        genie_mode.push_back(kGenieMode(sp));
         return 1;
       }
     //} 
