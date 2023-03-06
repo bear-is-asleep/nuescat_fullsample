@@ -1,3 +1,8 @@
+/*
+This is to show what has changed between og and now cuts after applying neutrino
+direction correction
+*/
+
 #include "sbnana/CAFAna/Core/Spectrum.h"
 #include "sbnana/CAFAna/Core/SpectrumLoader.h"
 #include "sbnanaobj/StandardRecord/Proxy/SRProxy.h"
@@ -24,11 +29,10 @@ using namespace ana;
 
 #include "Constants.h"
 #include "Structs.h"
-#include "NuEScatter_debug.h"
+#include "utils.h"
 #include "TrueEventCategories.h"
 #include "NuEScatterRecoVars.h"
 #include "NuEScatterCuts.h"
-#include "utils.h"
 #include "plotStyle.C"
 
 #include <string>
@@ -43,7 +47,7 @@ using namespace ana;
 
 using namespace std;
 
-const std::vector<CutDef> cuts = truth_int_type_cuts;
+const std::vector<CutDef> cuts = nuescatter_cuts;
 const std::vector<Plot<SpillVar>> plots = recoPlots_all;
 const std::vector<TrueCategory> categories = no_cosmic_sel;
 
@@ -63,7 +67,7 @@ void NuEScatter_ana(bool reload = true)
 
   const double gPOT = 10e20;
   const bool save = true;
-  const string surName = "fullsample_inttype_cuts_tmatch_slice";
+  const string surName = "fullsample_nue_fullselection_cuts";
   const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"_"+surName;
   const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 
@@ -194,5 +198,5 @@ void NuEScatter_ana(bool reload = true)
 	}
       ++j;
     }
-  gSystem->Exec("cp NuEScatter_events.C NuEScatterRecoVars.h NuEScatterCuts.h TrueEventCategories.h Constants.h Structs.h " + saveDir);
+  gSystem->Exec("cp NuEScatter_ana.C NuEScatterRecoVars.h NuEScatterCuts.h TrueEventCategories.h Constants.h Structs.h " + saveDir);
 }

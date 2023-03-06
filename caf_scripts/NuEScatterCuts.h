@@ -49,94 +49,32 @@ const SpillCut kIsTrueFV([](const caf::SRSpillProxy* sp) {
 
 const SpillCut kEtheta2([](const caf::SRSpillProxy* sp) {
   // --Return true if a single object has Etheta < Ethetacut
+  // --Future want to redesign this so that we sum over fragmented reco objects
 
-  double theta = 0;
-  double ke = 0;
-  double m = 0;
-  double Eng = 0;
-  int pdg = 0;
-  int bestplane = -1;
-  double Etheta2 = 999;
-  //std::cout<<"nslc: "<<sp->nslc<<std::endl;
   auto const& slc = sp->slc[kBestSlcID(sp)];
-  int cnt = 0;
+  TVector3 nu_direction = kNuDir(&slc);
   //Showers
   for (auto const& shw : slc.reco.shw){
-    cnt++;
-    theta = acos(shw.dir.z); //Longitudinal angle
-    bestplane = shw.bestplane; //Best plane
-    pdg = abs(shw.razzle.pdg); //Use razzle pdg
-    if (pdg == 5 || pdg == 0){ //Why is this sometimes -5?
-          m=0;
-        }
-    else{
-      m = pdgmass.at(pdg); //mass
-    }
-    ke = shw.bestplane_energy; //ke
-    Eng = sqrt(m*m+ke*ke); //Energy
-    Etheta2 = Eng*theta*theta;
-    if (Etheta2 < kEtheta2Cut && Eng != 0){ 
-      if (kNuEScat(sp)){
-        // std::cout<<"passed shw "<<shw.dir.z<<","<<theta<<","<<Eng<<","<<Etheta2<<","<<cnt<<std::endl;
-        // std::cout<<"n shw "<< slc.reco.nshw<< std::endl;
-        // std::cout<<"n trk "<< slc.reco.ntrk<< std::endl;
-        // std::cout<<"n stub "<< slc.reco.nstub<< std::endl;
-      }
-      // std::cout<<"passed "<<shw.dir.z<<","<<theta<<","<<Eng<<","<<Etheta2<<std::endl;
-      // std::cout<<"nue scat?  "<< kNuEScat(sp)<< std::endl;
-      // std::cout<<"n shw "<< slc.reco.nshw<< std::endl;
-      // std::cout<<"n trk "<< slc.reco.ntrk<< std::endl;
-      // std::cout<<"n stub "<< slc.reco.nstub<< std::endl;
+    TVector3 shw_dir(shw.dir.x,shw.dir.y,shw.dir.z);
+    double shw_theta = acos(shw_dir.Dot(nu_direction));
+    //pdg = abs(shw.razzle.pdg); //Use razzle pdg
+    //m=pdgmass.at(pdg);//mass using table
+    double Eng = shw.bestplane_energy; //ke
+    if (Eng*shw_theta*shw_theta < kEtheta2Cut && Eng != 0){
       return true;
-    }
-    else if(kNuEScat(sp)){
-      TVector3 mom(shw.truth.p.genp.x,shw.truth.p.genp.y,shw.truth.p.genp.z);
-      double true_angle = acos(mom.Z()/mom.Mag());
-      // std::cout<<mom.X()<<","<<mom.Y()<<","<<mom.Z()<<std::endl;
-      // std::cout<<"failed shw "<<shw.dir.z<<","<<theta<<",true angle "<<true_angle<<Eng<<","<<Etheta2<<","<<cnt<<std::endl;
-      // std::cout<<"n shw "<< slc.reco.nshw<< std::endl;
-      // std::cout<<"n trk "<< slc.reco.ntrk<< std::endl;
-      // std::cout<<"n stub "<< slc.reco.nstub<< std::endl;
     }
   }
   //Tracks
   for (auto const& trk : slc.reco.trk){
-    cnt++;
-    theta = acos(trk.dir.z); //Longitudinal angle
-    bestplane = trk.bestplane; //Best plane
-    pdg = abs(trk.dazzle.pdg); //Use dazzle pdg
-    ke = trk.calo[bestplane].ke*1e-3; //ke
-    m = pdgmass.at(pdg); //mass
-    Eng = sqrt(m*m+ke*ke); //Energy
-    Etheta2 = Eng*theta*theta;
-    if (Etheta2 < kEtheta2Cut && Eng != 0){ 
-      if (kNuEScat(sp)){
-        // std::cout<<"passed trk "<<trk.dir.z<<","<<theta<<","<<Eng<<","<<Etheta2<<","<<cnt<<std::endl;
-
-        // std::cout<<"n shw "<< slc.reco.nshw<< std::endl;
-        // std::cout<<"n trk "<< slc.reco.ntrk<< std::endl;
-        // std::cout<<"n stub "<< slc.reco.nstub<< std::endl;
-      }
-      // std::cout<<"passed "<<trk.dir.z<<","<<theta<<","<<Eng<<","<<Etheta2<<std::endl;
-      // std::cout<<"nue scat?  "<< kNuEScat(sp)<< std::endl;
-      // std::cout<<"n shw "<< slc.reco.nshw<< std::endl;
-      // std::cout<<"n trk "<< slc.reco.ntrk<< std::endl;
-      // std::cout<<"n stub "<< slc.reco.nstub<< std::endl;
+    TVector3 trk_dir(trk.dir.x,trk.dir.y,trk.dir.z);
+    double trk_theta = acos(trk_dir.Dot(nu_direction));
+    //pdg = abs(trk.dazzle.pdg); //Use dazzle pdg
+    //m=pdgmass.at(pdg);//mass using table
+    double Eng = trk.calo[trk.bestplane].ke*1e-3; //ke
+    if (Eng*trk_theta*trk_theta < kEtheta2Cut && Eng != 0){ 
       return true;
     }
-    else if(kNuEScat(sp)){
-      TVector3 mom(trk.truth.p.genp.x,trk.truth.p.genp.y,trk.truth.p.genp.z);
-      double true_angle = acos(mom.Z()/mom.Mag());
-      // std::cout<<mom.X()<<","<<mom.Y()<<","<<mom.Z()<<std::endl;
-      // std::cout<<"failed trk "<<trk.dir.z<<","<<theta<<",true angle "<<true_angle<<Eng<<","<<Etheta2<<","<<cnt<<std::endl;
-      // std::cout<<"n shw "<< slc.reco.nshw<< std::endl;
-      // std::cout<<"n trk "<< slc.reco.ntrk<< std::endl;
-      // std::cout<<"n stub "<< slc.reco.nstub<< std::endl;
-    }
   }
-  //std::cout<<Etheta2<<std::endl;
-  //std::cout<<"cut val"<<kEtheta2Cut<<std::endl;
-  //Stubs -- not yet implemented
   return false;
 });
 
@@ -221,26 +159,7 @@ const SpillCut kTruthTrkCut([](const caf::SRSpillProxy *sp) {
 const SpillCut kTruthEtheta2([](const caf::SRSpillProxy* sp) {
   // --Return true if a single object has Etheta < Ethetacut
 
-  double theta = 0;
-  double ke = 0;
-  double m = 0;
-  double Eng = 0;
-  int pdg = 0;
-  int bestplane = -1;
-  double Etheta2 = 999;
-  auto const& slc = sp->slc[kBestSlcID(sp)];
-  for (auto const& prim : slc.truth.prim){
-    TVector3 pvec(prim.genp.x,prim.genp.y,prim.genp.z);
-    double p = pvec.Mag();
-    theta = acos(prim.genp.z/p); //Longitudinal angle
-    pdg = abs(prim.pdg); //Use razzle pdg
-    Eng = prim.genE; //Energy
-    Etheta2 = Eng*theta*theta;
-    if (Etheta2 < kEtheta2Cut && Eng != 0){ 
-      return true;
-    }
-  }
-  return false;
+  return abs(kTruthEtheta2Var(sp)) < kEtheta2Cut; //Use abs incase the mask value is wrong
 });
 
 const SpillCut kTruthSlcGenieType([](const caf::SRSpillProxy* sp) {
@@ -249,7 +168,7 @@ const SpillCut kTruthSlcGenieType([](const caf::SRSpillProxy* sp) {
 });
 
 std::vector<CutDef> truth_int_type_cuts = { { "No Cut", "no_cut", kNoSpillCut },
-{ "Has Slc", "has_slc", kHasSlc },
+  { "Has Slc", "has_slc", kHasSlc },
   {"Genie Int Type Slice","int_type",kTruthSlcGenieType},
   { "Is FV", "is_fv", kIsTrueFV },
 };
@@ -283,10 +202,10 @@ std::vector<CutDef> nuescatter_cuts = { { "No Cut", "no_cut", kNoSpillCut },
   { "Has Nu FV Slc", "has_nu_fv_slc", kHasNuFVSlc },
   { "Has CRUMBS Slc", "has_crumbs_slc", kHasCRUMBSSlc },
   { "Is FV", "is_fv", kIsFV },
-  {"Etheta2 Cut","Etheta2",kEtheta2},
   {"Has One Shower","one_shw",kHasOneShw},
   {"Has No Tracks","no_trks",kHasNoTrks},
   {"Electron Razzle","erazzle",kRazzleCut},
+  {"Etheta2 Cut","Etheta2",kEtheta2},
 };
 
 std::vector<CutDef> Etheta_cuts = { { "No Cut", "no_cut", kNoSpillCut },

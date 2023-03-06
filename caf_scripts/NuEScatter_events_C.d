@@ -99,10 +99,9 @@
 ./NuEScatter_events_C.so: /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TMatrixFUtils.h
 ./NuEScatter_events_C.so: /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TMatrixFUtilsfwd.h
 ./NuEScatter_events_C.so: /sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbnanaobj/v09_19_06/include/sbnanaobj/StandardRecord/SRTrueParticle.h
-./NuEScatter_events_C.so: Constants.h Structs.h NuEScatter_debug.h
-./NuEScatter_events_C.so: TrueEventCategories.h NuEScatterTruthVars.h
-./NuEScatter_events_C.so: NuEScatterRecoVars.h NuEScatterCuts.h utils.h
-./NuEScatter_events_C.so: plotStyle.C
+./NuEScatter_events_C.so: Constants.h Structs.h utils.h TrueEventCategories.h
+./NuEScatter_events_C.so: NuEScatterTruthVars.h NuEScatterRecoVars.h
+./NuEScatter_events_C.so: NuEScatterCuts.h plotStyle.C
 ./NuEScatter_events_C.so: /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TStyle.h
 ./NuEScatter_events_C.so: /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TAttAxis.h
 ./NuEScatter_events_C.so: /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TAttText.h

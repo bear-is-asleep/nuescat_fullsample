@@ -7,13 +7,17 @@ import os
 import matplotlib.cm as cm
 plt.style.use(['science','no-latex'])
 
+import sys
+sys.path.append('/sbnd/app/users/brindenc/mypython/bc_utils')
+from utils import plotters,pic
+
 sample = ''
 
 day = helpers.day
 
-suffix = '_systs'
-state_folder = f'/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_1_29{suffix}'
-plot_folder = f'/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_1_29{suffix}'
+suffix = '_systs_nuescat_cut'
+state_folder = f'/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_3{suffix}'
+plot_folder = f'/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_3{suffix}'
 
 fnames = os.listdir(state_folder)
 colors = cm.get_cmap('Spectral', len(fnames))
@@ -88,12 +92,12 @@ for i,df in enumerate(syst_dfs):
     alpha=0.4,
     color=colors(i)
   )
-  helpers.set_style(ax3,legend_size=16,axis_size=14)
+  plotters.set_style(ax3,legend_size=16,axis_size=14)
   #ax3.set_title('Interaction Uncertainties',fontsize=20)
   ax3.legend()
   ax3.set_xlabel('Energy [GeV]')
   ax3.set_ylabel('Counts')
-  helpers.save_plot(f'band_{labels[i]}',folder_name=f'{plot_folder}/systs')
+  plotters.save_plot(f'band_{labels[i]}',folder_name=f'{plot_folder}/systs')
 
   #Horizontal bar chart
   rect = ax4.bar(f'{labels[i]}',# ({avg*100:.1f}%)',
@@ -108,21 +112,21 @@ for i,df in enumerate(syst_dfs):
 ax.legend()
 ax.set_xlabel('True energy [GeV]')
 ax.set_ylabel('Fractional Uncertainty')
-helpers.set_style(ax,legend_size=12,axis_size=16)
-helpers.save_plot(f'frac_systs_all',folder_name=f'{plot_folder}/systs',fig=fig)
+plotters.set_style(ax,legend_size=12,axis_size=16)
+plotters.save_plot(f'frac_systs_all',folder_name=f'{plot_folder}/systs',fig=fig)
 
 ax2.legend()
 ax2.set_xlabel('Energy')
 ax2.set_ylabel('Fractional Uncertainty')
-helpers.set_style(ax2,legend_size=12,axis_size=16)
-helpers.save_plot(f'frac_systs',folder_name=f'{plot_folder}/systs',fig=fig2)
+plotters.set_style(ax2,legend_size=12,axis_size=16)
+plotters.save_plot(f'frac_systs',folder_name=f'{plot_folder}/systs',fig=fig2)
 
 #ax4.legend()
 ax4.set_ylabel('Fractional Uncertainty %')
 fig4.autofmt_xdate(rotation=60)
 ax4.grid(True)
-helpers.set_style(ax4,axis_size=16)
-helpers.save_plot(f'horizontal_systs',folder_name=f'{plot_folder}/systs',fig=fig4)
+plotters.set_style(ax4,axis_size=16)
+plotters.save_plot(f'horizontal_systs',folder_name=f'{plot_folder}/systs',fig=fig4)
 #ax.set_title('Fractional Systematic Uncertainties',fontsize=18)
 
 

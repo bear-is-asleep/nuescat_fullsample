@@ -13,3 +13,20 @@ string get_date(){
   string day = to_string(local_tm->tm_mday);
   return year+"_"+month+"_"+day;
 }
+
+const TVector3 kNuDir(const caf::SRSliceProxy* slc,bool use_true=false){
+  TVector3 nu_direction;
+  if (use_true){
+    if (isnan(slc->truth.position.x)) return TVector3(0.,0.,1.); //assume nu is in z direction
+    nu_direction.SetXYZ(slc->truth.position.x-kPrismCentroid[0],
+                          slc->truth.position.y-kPrismCentroid[1],
+                          kDistanceFromBNB-slc->truth.position.z);
+  }
+  else{
+    if (isnan(slc->vertex.x)) return TVector3(0.,0.,1.); //assume nu is in z direction
+    nu_direction.SetXYZ(slc->vertex.x-kPrismCentroid[0],
+                          slc->vertex.y-kPrismCentroid[1],
+                          kDistanceFromBNB-slc->vertex.z);
+  }
+  return nu_direction.Unit(); //Direction of neutrino beam
+};

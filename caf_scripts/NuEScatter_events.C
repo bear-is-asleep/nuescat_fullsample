@@ -16,12 +16,11 @@ using namespace ana;
 
 #include "Constants.h"
 #include "Structs.h"
-#include "NuEScatter_debug.h"
+#include "utils.h"
 #include "TrueEventCategories.h"
 #include "NuEScatterTruthVars.h"
 #include "NuEScatterRecoVars.h"
 #include "NuEScatterCuts.h"
-#include "utils.h"
 #include "plotStyle.C"
 
 #include <string>

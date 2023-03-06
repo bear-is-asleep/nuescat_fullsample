@@ -35,7 +35,6 @@ using namespace ana;
 //#include "NuEScatterRecoVars_simple.h"
 //#include "NuEScatterCuts_simple.h"
 #include "utils.h"
-#include "Reducer.h"
 #include "plotStyle.C"
 
 #include <string>
@@ -52,7 +51,7 @@ using namespace std;
 
 const string state_fname = "NuEScatter_state_all.root";
 const bool do_systematics = true;
-const SpillCut kSystematicSelection = kFullSelection;
+const SpillCut kSystematicSelection = kFullSelection && kNuEScat;
 
 void NuEScatter_systs(bool save = true)
 {
@@ -64,7 +63,7 @@ void NuEScatter_systs(bool save = true)
 
 
   const double gPOT = 10e20;
-  const string surName = "systs_5bins";
+  const string surName = "systs_nuescat_cut";
   const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"_"+surName;
   const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 

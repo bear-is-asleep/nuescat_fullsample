@@ -1,5 +1,7 @@
 #include <math.h>
+//#include "utils.h"
 
+//****This must be fixed before using to include neutrino direction...
 const SpillVar kBestSlcID_trueangle([](const caf::SRSpillProxy* sp)->unsigned {
   unsigned i = 0;
   unsigned returnID = 0;
@@ -29,63 +31,6 @@ const SpillVar kBestSlcID_trueangle([](const caf::SRSpillProxy* sp)->unsigned {
   return returnID;
 });
 
-const SpillVar kBestSlcID_Etheta([](const caf::SRSpillProxy* sp) -> unsigned {
-    //std::cout<<"run,subrun,evt : "<<sp->hdr.run<<","<<sp->hdr.subrun<<","<<sp->hdr.evt<<std::endl;
-    unsigned i = 0;
-    unsigned returnID = 0;
-    double Etheta2 = 999;
-    double theta = 0;
-    double ke = 0;
-    double m = 0;
-    double Eng = 0;
-    int pdg = 0;
-    int bestplane = -1;
-    for(auto const& slc : sp->slc)
-    {
-      if(slc.is_clear_cosmic || isnan(slc.crumbs_result.score) || !PtInVolAbsX(slc.vertex, fvndNuEScat)) 
-        { //std::cout<<"--(clear no) Etheta2: "<<Etheta2<<" return ID: "<<returnID<<" i: "<<i<<"inttype: "<<slc.truth.genie_inttype<<std::endl;
-        ++i;continue; }
-      
-      //Showers
-      for (auto const& shw : slc.reco.shw){
-        pdg = abs(shw.razzle.pdg); //Use razzle pdg
-        m = pdgmass.at(pdg); //mass
-        theta = acos(shw.dir.z); //Longitudinal angle
-        bestplane = shw.bestplane; //Best plane
-        ke = shw.bestplane_energy; //ke
-        Eng = sqrt(m*m+ke*ke); //Energy
-        //std::cout<<pdg<<","<<ke<<std::endl;
-        //std::cout<<"---shw eng: "<<Eng<<"---shw angle : "<<theta<<std::endl;
-        if (Eng*theta*theta < Etheta2){
-          //std::cout<<"---lower etheta2: "<<Eng*theta*theta<<" prev: "<<Etheta2<<std::endl;
-          Etheta2 = Eng*theta*theta;
-          returnID = i;
-        }
-      }
-      //Tracks
-      for (auto const& trk : slc.reco.trk){
-        pdg = abs(trk.dazzle.pdg); //Use dazzle pdg
-        m = pdgmass.at(pdg); //mass
-        theta = acos(trk.dir.z); //Longitudinal angle
-        bestplane = trk.bestplane; //Best plane
-        ke = trk.calo[bestplane].ke*1e-3; //ke
-        Eng = sqrt(m*m+ke*ke); //Energy
-        //std::cout<<"---trk eng: "<<Eng<<" trk angle : "<<theta<<std::endl;
-        //std::cout<<pdg<<","<<ke<<std::endl;
-        if (Eng*theta*theta < Etheta2){ 
-          //std::cout<<"---lower etheta2: "<<Eng*theta*theta<<" prev: "<<Etheta2<<std::endl;
-          Etheta2 = Eng*theta*theta;
-          returnID = i;
-        }
-      }
-      //std::cout<<"--Etheta2: "<<Etheta2<<" return ID: "<<returnID<<" i: "<<i<<"inttype: "<<slc.truth.genie_inttype<<std::endl;
-
-	    ++i;
-    }
-    //std::cout<<"ret: "<<returnID<<std::endl;
-    return returnID;
-  });
-
 const SpillVar kBestSlcID_crumbs([](const caf::SRSpillProxy* sp) -> unsigned {
     unsigned i = 0;
     double bestCrumbsScore = -std::numeric_limits<double>::max();
@@ -111,30 +56,26 @@ const SpillVar kBestSlcID([](const caf::SRSpillProxy* sp) -> unsigned {
   unsigned i = 0;
   double theta = std::numeric_limits<double>::max();
   unsigned returnID = 0;
-  //if (!kNuEScat(sp)) {return 0;} //skip non nue scat for now
-  //std::cout<<"run, subrun, evt : "<<sp->hdr.run<<","<<sp->hdr.subrun<<","<<sp->hdr.evt<<std::endl;
-  //Showers
   for(auto const& slc : sp->slc){
-    //std::cout<<"returnID, i : "<<returnID<<","<<i<<std::endl;
     if(!PtInVolAbsX(slc.vertex, fvndNuEScat)){ ++i; continue; }
-    //std::cout<<"-genie_mode : "<<slc.truth.genie_mode<<std::endl;
-    //std::cout<<"-genie_type : "<<slc.truth.genie_inttype<<std::endl;
+    TVector3 nu_direction = kNuDir(&slc);
     for (auto const& shw : slc.reco.shw){
-      //std::cout<<"--shw dir z : "<<acos(shw.dir.z)<<std::endl;
-      if (acos(shw.dir.z) < theta){
-        theta = acos(shw.dir.z);
+      TVector3 shw_dir(shw.dir.x,shw.dir.y,shw.dir.z);
+      double shw_theta = acos(shw_dir.Dot(nu_direction));
+      if (shw_theta < theta){
+        theta = shw_theta;
         returnID = i;
       }
     }
     //Tracks
     for (auto const& trk : slc.reco.trk){
-      //std::cout<<"--trk dir z : "<<acos(trk.dir.z)<<std::endl;
-      if (acos(trk.dir.z)<theta){ 
-        theta = acos(trk.dir.z);
+      TVector3 trk_dir(trk.dir.x,trk.dir.y,trk.dir.z);
+      double trk_theta = acos(trk_dir.Dot(nu_direction));
+      if (trk_theta < theta){
+        theta = trk_theta;
         returnID = i;
       }
     }
-    //print_all_prim_info_slc(sp,i);
     ++i;
   }
   return returnID;
@@ -179,7 +120,7 @@ const SpillVar kNFVSlices([](const caf::SRSpillProxy* sp) -> unsigned {
   });
 
 const SpillVar kCRUMBSScore([](const caf::SRSpillProxy* sp) -> double {
-    if(sp->nslc==0) return -999;
+    if(sp->nslc==0) return -9999;
     auto const& slc = sp->slc[kBestSlcID(sp)];
 
     if(slc.is_clear_cosmic || isnan(slc.crumbs_result.score)) return -1.5;
@@ -263,64 +204,31 @@ const SpillVar kEtheta2Var([](const caf::SRSpillProxy* sp) -> double {
 
     if(sp->nslc==0) return 9999.;
     auto const& slc = sp->slc[kBestSlcID(sp)];
-
-    double Etheta2 = 999.;
-    double theta = 999.;
-    double ke = 0;
-    double m = 0;
-    double Eng = 0;
-    int pdg = 0;
-    int bestplane = -1;
-
+    TVector3 nu_direction = kNuDir(&slc);
+    double Etheta2 = 9999.;
     //Showers
     for (auto const& shw : slc.reco.shw){
-      theta = acos(shw.dir.z); //Longitudinal angle
-      bestplane = shw.bestplane; //Best plane
-      pdg = abs(shw.razzle.pdg); //Use razzle pdg
-      m=pdgmass.at(pdg);//mass using table
-      ke = shw.bestplane_energy; //ke
-      Eng = sqrt(m*m+ke*ke); //Energy
-      if (Eng*theta*theta < Etheta2 && Eng != 0){
-        Etheta2 = Eng*theta*theta;
-        // if (kNuEScat(sp) && kTrueFV(sp) && false){
-        //   std::cout<<"run,subrun,evt : "<<sp->hdr.run<<","<<sp->hdr.subrun<<","<<sp->hdr.evt<<std::endl;
-        //   std::cout<<"nshw: "<<kNShowers(sp)<<std::endl;
-        //   std::cout<<"ntrk: "<<kNTracks(sp)<<std::endl;
-        //   std::cout<<"ntub: "<<kNStubs(sp)<<std::endl;
-        //   std::cout<<"Eng: "<<Eng<<std::endl;
-        //   std::cout<<"Theta: "<<theta<<std::endl;
-        //   std::cout<<"Dir.z: "<<shw.dir.z<<std::endl;
-        //   std::cout<<"Etheta2: "<<Etheta2<<std::endl;
-        // }
+      TVector3 shw_dir(shw.dir.x,shw.dir.y,shw.dir.z);
+      double shw_theta = acos(shw_dir.Dot(nu_direction));
+      //pdg = abs(shw.razzle.pdg); //Use razzle pdg
+      //m=pdgmass.at(pdg);//mass using table
+      double Eng = shw.bestplane_energy; //ke
+      if (Eng*shw_theta*shw_theta < Etheta2 && Eng != 0){
+        Etheta2 = Eng*shw_theta*shw_theta;
       }
     }
     //Tracks
     for (auto const& trk : slc.reco.trk){
-      theta = acos(trk.dir.z); //Longitudinal angle
-      bestplane = trk.bestplane; //Best plane
-      pdg = abs(trk.dazzle.pdg); //Use dazzle pdg
-      m=pdgmass.at(pdg);//mass using table
-      ke = trk.calo[bestplane].ke*1e-3; //ke
-      Eng = sqrt(m*m+ke*ke); //Energy
-      if (Eng*theta*theta < Etheta2 && Eng != 0){ 
-        // Second condition is to make sure if we have a shower with lower threshold, we'll keep that one 
-        Etheta2 = Eng*theta*theta;
-        // if (kNuEScat(sp) && kTrueFV(sp) && false){
-        //   std::cout<<"run,subrun,evt : "<<sp->hdr.run<<","<<sp->hdr.subrun<<","<<sp->hdr.evt<<std::endl;
-        //   std::cout<<"nshw: "<<kNShowers(sp)<<std::endl;
-        //   std::cout<<"ntrk: "<<kNTracks(sp)<<std::endl;
-        //   std::cout<<"ntub: "<<kNStubs(sp)<<std::endl;
-        //   std::cout<<"Eng: "<<Eng<<std::endl;
-        //   std::cout<<"Theta: "<<theta<<std::endl;
-        //   std::cout<<"Dir.z: "<<trk.dir.z<<std::endl;
-        //   std::cout<<"Etheta2: "<<Etheta2<<std::endl;
-        // }
+      TVector3 trk_dir(trk.dir.x,trk.dir.y,trk.dir.z);
+      double trk_theta = acos(trk_dir.Dot(nu_direction));
+      //pdg = abs(trk.dazzle.pdg); //Use dazzle pdg
+      //m=pdgmass.at(pdg);//mass using table
+      double Eng = trk.calo[trk.bestplane].ke*1e-3; //ke
+      if (Eng*trk_theta*trk_theta < Etheta2 && Eng != 0){ 
+        Etheta2 = Eng*trk_theta*trk_theta;
       }
     }
-    //std::cout<<theta<<","<<Eng<<","<<Etheta2<<std::endl;
-    //Stubs - not yet implemented
     return Etheta2;
-    //Return lowest Etheta value 
   });
 
 const SpillVar kLeadingShwID([](const caf::SRSpillProxy* sp) -> int {
@@ -372,9 +280,11 @@ const SpillVar kLeadingShwTruePdg([](const caf::SRSpillProxy* sp) -> double {
 
 const SpillVar kLeadingShwTrueAngle([](const caf::SRSpillProxy* sp) -> double {
     if(kNShowers(sp) == 0) return -9999.;
-    auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+    auto const& shw = slc.reco.shw[kLeadingShwID(sp)];
     TVector3 pvec(shw.truth.p.genp.x,shw.truth.p.genp.y,shw.truth.p.genp.z);
-    double theta = acos(pvec[2]/pvec.Mag());
+    TVector3 nu_direction = kNuDir(&slc,true);
+    double theta = acos(pvec.Unit().Dot(nu_direction));
     return theta;
   });
 const SpillVar kLeadingShwTrueLength([](const caf::SRSpillProxy* sp) -> double {
@@ -385,8 +295,11 @@ const SpillVar kLeadingShwTrueLength([](const caf::SRSpillProxy* sp) -> double {
   });
 const SpillVar kLeadingShwAngle([](const caf::SRSpillProxy* sp) -> double {
     if(kNShowers(sp) == 0) return -9999.;
-    auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kLeadingShwID(sp)];
-    double theta = acos(shw.dir.z);
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+    auto const& shw = slc.reco.shw[kLeadingShwID(sp)];
+    TVector3 shw_dir(shw.dir.x,shw.dir.y,shw.dir.z);
+    TVector3 nu_direction = kNuDir(&slc);
+    double theta = acos(shw_dir.Dot(nu_direction));
     return theta;
   });
 const SpillVar kLeadingShwEnergy([](const caf::SRSpillProxy* sp) -> double {
@@ -520,9 +433,11 @@ const SpillVar kSubLeadingShwTruePdg([](const caf::SRSpillProxy* sp) -> double {
   });
 const SpillVar kSubLeadingShwTrueAngle([](const caf::SRSpillProxy* sp) -> double {
     if(kNShowers(sp) < 2) return -9999.;
-    auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+    auto const& shw = slc.reco.shw[kSubLeadingShwID(sp)];
     TVector3 pvec(shw.truth.p.genp.x,shw.truth.p.genp.y,shw.truth.p.genp.z);
-    double theta = acos(pvec[2]/pvec.Mag());
+    TVector3 nu_direction = kNuDir(&slc,true);
+    double theta = acos(pvec.Unit().Dot(nu_direction));
     return theta;
   });
 const SpillVar kSubLeadingShwTrueLength([](const caf::SRSpillProxy* sp) -> double {
@@ -533,8 +448,11 @@ const SpillVar kSubLeadingShwTrueLength([](const caf::SRSpillProxy* sp) -> doubl
   });
 const SpillVar kSubLeadingShwAngle([](const caf::SRSpillProxy* sp) -> double {
     if(kNShowers(sp) < 2) return -9999.;
-    auto const& shw = sp->slc[kBestSlcID(sp)].reco.shw[kSubLeadingShwID(sp)];
-    double theta = acos(shw.dir.z);
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+    auto const& shw = slc.reco.shw[kSubLeadingShwID(sp)];
+    TVector3 shw_dir(shw.dir.x,shw.dir.y,shw.dir.z);
+    TVector3 nu_direction = kNuDir(&slc);
+    double theta = acos(shw_dir.Dot(nu_direction));
     return theta;
   });
 const SpillVar kSubLeadingShwEnergy([](const caf::SRSpillProxy* sp) -> double {
@@ -723,57 +641,52 @@ const SpillVar kTrueNuE([](const caf::SRSpillProxy* sp) -> double {
 });
 
 const SpillVar kRecoSmallestTheta([](const caf::SRSpillProxy* sp) -> double {
-  if(sp->nslc==0) return 9999.;
+  if(sp->nslc==0) return -9999.;
   auto const& slc = sp->slc[kBestSlcID(sp)];
-  double E = kRecoE(sp);
-  double theta = 999;
-
+  double theta = -9999;
+  TVector3 nu_direction = kNuDir(&slc);
   //Showers
   for (auto const& shw : slc.reco.shw){
-    int pdg = abs(shw.razzle.pdg); //Use razzle pdg
-    if (acos(shw.dir.z) < theta){
-      theta = acos(shw.dir.z);
+    TVector3 shw_dir(shw.dir.x,shw.dir.y,shw.dir.z);
+    double shw_theta = acos(shw_dir.Dot(nu_direction));
+    if (shw_theta < theta){
+      theta = shw_theta;
     }
   }
   //Tracks
   for (auto const& trk : slc.reco.trk){
-    int pdg = abs(trk.dazzle.pdg); //Use dazzle pdg
-    if (acos(trk.dir.z)<theta){ 
-      theta = acos(trk.dir.z);
+    TVector3 trk_dir(trk.dir.x,trk.dir.y,trk.dir.z);
+    double trk_theta = acos(trk_dir.Dot(nu_direction));
+    if (trk_theta < theta){
+      theta = trk_theta;
     }
   }
   return theta;
 });
 
 const SpillVar kTrueSmallestTheta([](const caf::SRSpillProxy* sp) -> double {
-  if(sp->nslc==0) return 9999.;
+  if(sp->nslc==0) return -9999.;
   auto const& slc = sp->slc[kBestSlcID(sp)];
-  double theta = 999;
+  double theta = -9999.;
+  TVector3 nu_direction = kNuDir(&slc,true);
   for (auto const& prim : slc.truth.prim){
     if (abs(prim.pdg) == 12 || abs(prim.pdg) == 14) continue; //Don't count these
-    double px = prim.genp.x;
-    double py = prim.genp.y;
-    double pz = prim.genp.z;
-    double p = sqrt(px*px+py*py+pz*pz);
-    if (acos(pz/p)<theta){
-      theta = acos(pz/p);
+    TVector3 pvec(prim.genp.x,prim.genp.y,prim.genp.z);
+    double theta_prim = acos(pvec.Unit().Dot(nu_direction));
+    if (theta_prim<theta){
+      theta = theta_prim;
     }
   }
   return theta; //Lowest angle
 });
 
 const SpillVar kNuAngle([](const caf::SRSpillProxy* sp) -> double {
-  if(sp->nslc==0) return 9999;
+  if(sp->nslc==0) return -9999.;
   auto const& slc = sp->slc[kBestSlcID(sp)];
-  if (isnan(slc.truth.position.x)) return 9999;
-  double xNu = slc.truth.position.x;
-  double yNu = slc.truth.position.y;
+  if (isnan(slc.truth.position.x)) return -9999.;
+  TVector3 nu_direction = kNuDir(&slc);
 
-  double dx = xNu-kPrismCentroid[0];
-  double dy = yNu-kPrismCentroid[1];
-  double dz = kDistanceFromBNB;
-
-  return atan(sqrt(dx*dx+dy*dy)/dz)*180/PI;
+  return acos(nu_direction[2]);
 });
 
 const SpillVar kNuX([](const caf::SRSpillProxy* sp) -> double {
@@ -967,9 +880,11 @@ const SpillVar kLeadingTrkTruePdg([](const caf::SRSpillProxy* sp) -> double {
   });
 const SpillVar kLeadingTrkTrueAngle([](const caf::SRSpillProxy* sp) -> double {
     if(kNTracks(sp) == 0) return -9999.;
-    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+    auto const& trk = slc.reco.trk[kLeadingTrkID(sp)];
     TVector3 pvec(trk.truth.p.genp.x,trk.truth.p.genp.y,trk.truth.p.genp.z);
-    double theta = acos(pvec[2]/pvec.Mag());
+    TVector3 nu_direction = kNuDir(&slc,true);
+    double theta = acos(pvec.Unit().Dot(nu_direction));
     return theta;
   });
 const SpillVar kLeadingTrkTrueLength([](const caf::SRSpillProxy* sp) -> double {
@@ -980,8 +895,11 @@ const SpillVar kLeadingTrkTrueLength([](const caf::SRSpillProxy* sp) -> double {
   });
 const SpillVar kLeadingTrkAngle([](const caf::SRSpillProxy* sp) -> double {
     if(kNTracks(sp) == 0) return -9999.;
-    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
-    double theta = acos(trk.dir.z);
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+    auto const& trk = slc.reco.trk[kLeadingTrkID(sp)];
+    TVector3 trk_dir(trk.dir.x,trk.dir.y,trk.dir.z);
+    TVector3 nu_direction = kNuDir(&slc);
+    double theta = acos(trk_dir.Dot(nu_direction));
     return theta;
   });
 const SpillVar kLeadingTrkEnergy([](const caf::SRSpillProxy* sp) -> double {
@@ -1065,9 +983,11 @@ const SpillVar kSubLeadingTrkTruePdg([](const caf::SRSpillProxy* sp) -> double {
   });
 const SpillVar kSubLeadingTrkTrueAngle([](const caf::SRSpillProxy* sp) -> double {
     if(kNTracks(sp) < 2) return -9999.;
-    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+    auto const& trk = slc.reco.trk[kSubLeadingTrkID(sp)];
     TVector3 pvec(trk.truth.p.genp.x,trk.truth.p.genp.y,trk.truth.p.genp.z);
-    double theta = acos(pvec[2]/pvec.Mag());
+    TVector3 nu_direction = kNuDir(&slc,true);
+    double theta = acos(pvec.Unit().Dot(nu_direction));
     return theta;
   });
 const SpillVar kSubLeadingTrkTrueLength([](const caf::SRSpillProxy* sp) -> double {
@@ -1078,8 +998,11 @@ const SpillVar kSubLeadingTrkTrueLength([](const caf::SRSpillProxy* sp) -> doubl
   });
 const SpillVar kSubLeadingTrkAngle([](const caf::SRSpillProxy* sp) -> double {
     if(kNTracks(sp) < 2) return -9999.;
-    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
-    double theta = acos(trk.dir.z);
+    auto const& slc = sp->slc[kBestSlcID(sp)];
+    auto const& trk = slc.reco.trk[kSubLeadingTrkID(sp)];
+    TVector3 trk_dir(trk.dir.x,trk.dir.y,trk.dir.z);
+    TVector3 nu_direction = kNuDir(&slc);
+    double theta = acos(trk_dir.Dot(nu_direction));
     return theta;
   });
 const SpillVar kSubLeadingTrkEnergy([](const caf::SRSpillProxy* sp) -> double {
@@ -1216,17 +1139,15 @@ const SpillVar kRecoVtxZ([](const caf::SRSpillProxy* sp) -> double {
 
 const SpillVar kTruthEtheta2Var([](const caf::SRSpillProxy* sp) -> double{
   // --Return true if a single object has Etheta < Ethetacut
-  if(sp->nslc==0) return -1;
-  double theta = 0;
-  double Eng = 0;
-  double Etheta2 = 999;
+  if(sp->nslc==0) return 9999.;
+  double Etheta2 = 9999;
   auto const& slc = sp->slc[kBestSlcID(sp)];
+  TVector3 nu_direction = kNuDir(&slc,true);
   for (auto const& prim : slc.truth.prim){
     if (abs(prim.pdg) == 12 || abs(prim.pdg) == 14){continue;} //skip neutrino events
     TVector3 pvec(prim.genp.x,prim.genp.y,prim.genp.z);
-    double p = pvec.Mag();
-    theta = acos(prim.genp.z/p); //Longitudinal angle
-    Eng = prim.genE; //Energy
+    double theta = acos(pvec.Unit().Dot(nu_direction)); //Angle wrt neutrino
+    double Eng = prim.genE; //Energy
     if (Eng*theta*theta < Etheta2 && Eng != 0){ 
       Etheta2 = Eng*theta*theta;
     }

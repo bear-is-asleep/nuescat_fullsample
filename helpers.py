@@ -60,3 +60,10 @@ def remove_dummy_values(events,dummy_val_list=[-9999,-999,999,9999],is_df=True,
     return events,drop_ind
   else:
     return events
+
+def correct_angles(events):
+  """
+  Return corrected angles based on vertex location
+  """
+def confine_points(x):
+  return 1
