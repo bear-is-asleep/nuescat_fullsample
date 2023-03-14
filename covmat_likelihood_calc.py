@@ -61,6 +61,23 @@ def plot_reweighted_nue_dist(universes,weights,**kwargs):
   plotters.set_style(ax)
 
   return fig,ax
+
+def plot_covmat(covmat,edges,**kwargs):
+  """
+  Plot covmat
+  """
+  fig,ax = plt.subplots(figsize=(8,8),tight_layout=True)
+  plt.imshow(covmat,cmap='viridis',**kwargs)
+  # add text to display the value of each bin
+  for i in range(covmat.shape[0]):
+    for j in range(covmat.shape[1]):
+      plt.text(j, i, f'{covmat[i,j]:.1f}', ha='center', va='center', color='white')
+  plt.xticks(np.arange(len(edges)-1),edges[:-1]) #Label ticks with energy spectrum
+  plt.yticks(np.arange(len(edges)-1),edges[:-1]) #Label ticks with energy spectrum
+  plt.colorbar()
+  return fig,ax
+
+
   
 fname = 'state_all.root' #To get all universes and nominal one
 hist = uproot.open(f'{state_dir}/{fname}') #Open histograms
@@ -82,30 +99,35 @@ plt.hist(np.sum(universes,axis=1))
 plt.savefig('tests/universe.png')
 
 #Calcu cov mat using Vij = 1/N sum_i((xu_i-xn_i)(xu_j-xn_j))
-covmat = np.zeros((len(nom),len(nom)))
+covmat_syst = np.zeros((len(nom),len(nom))) #syst
+covmat_stat = np.zeros((len(nom),len(nom))) #stat
 
 for _,uni in enumerate(universes):
   for i,_ in enumerate(nom):
     for j,_ in enumerate(nom):
       if (uni == nom).all(): continue #Don't include nominal universe in calc
-      covmat[i][j] += (uni[i]-nom[i])*(uni[j]-nom[j])
+      covmat_syst[i][j] += (uni[i]-nom[i])*(uni[j]-nom[j])
       if i == j:
-        covmat[i][j] += 1/np.sqrt(uni[i])
+        covmat_stat[i][j] += np.sqrt(uni[i])
 
-covmat/=n_universes
+covmat_syst/=n_universes
+covmat_stat/=n_universes
+covmat = covmat_stat+covmat_syst #total covariance
+if True: #Save covariance matrices
+  np.savetxt(f'{state_dir}/covmat_syst.txt',covmat_syst)
+  np.savetxt(f'{state_dir}/covmat_stat.txt',covmat_stat)
+  np.savetxt(f'{state_dir}/covmat.txt',covmat)
 
-# Display the covmat 
-if True:
-  fig,ax = plt.subplots(figsize=(8,8),tight_layout=True)
-  plt.imshow(covmat,cmap='viridis')
-  # add text to display the value of each bin
-  for i in range(covmat.shape[0]):
-    for j in range(covmat.shape[1]):
-      plt.text(j, i, f'{covmat[i,j]:.1f}', ha='center', va='center', color='white')
-  plt.xticks(np.arange(len(edges)-1),edges[:-1]) #Label ticks with energy spectrum
-  plt.yticks(np.arange(len(edges)-1),edges[:-1]) #Label ticks with energy spectrum
-  plt.colorbar()
-  plotters.save_plot('covmat',folder_name=f'{state_dir}/plots')
+  #Make plots
+  fig,ax = plot_covmat(covmat_syst,edges,vmax=np.max(covmat))
+  plotters.save_plot('covmat_syst',folder_name=f'{state_dir}/plots',fig=fig)
+
+  fig,ax = plot_covmat(covmat_stat,edges,vmax=np.max(covmat))
+  plotters.save_plot('covmat_stat',folder_name=f'{state_dir}/plots',fig=fig)
+
+  fig,ax = plot_covmat(covmat,edges,vmax=np.max(covmat))
+  plotters.save_plot('covmat',folder_name=f'{state_dir}/plots',fig=fig)
+
 print('covmat made')
 
 #Calc likelihood W = P(N_{\nu+e}|M) = \frac{1}{(2\pi)^{K/2}}\frac{1}{\sqrt{\Sigma_N}}
@@ -130,9 +152,9 @@ plt.close('all')
 #universes_reweighted = np.sum(universes,axis=0)/np.sum(universes_reweighted,axis=0)*universes_reweighted #normalize
 #np.savetxt('tests/reweighted.txt',universes_reweighted)
 W_arr = len(universes)/np.sum(W_arr)*W_arr
-np.savetxt('tests/universes.txt',universes)
-np.savetxt('tests/x2.txt',np.exp(-0.5*chi_squared_arr))
-print(normalization)
+np.savetxt(f'{state_dir}/universes.txt',universes)
+np.savetxt(f'{state_dir}/x2.txt',np.exp(-0.5*chi_squared_arr))
+np.savetxt(f'{state_dir}/weights.txt',W_arr)
 #print(W_arr,chi_squared_arr)
 if True:
   plt.hist(W_arr)

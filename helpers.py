@@ -5,6 +5,9 @@ import pandas as pd
 
 day = date.today().strftime("%Y_%m_%d")
 
+colors = ['blue','purple','yellow','red','green','brown','orangered','black']
+categories = [r'$\nu + e$',r'NC $\pi^0$','NC',r'CC$\nu_\mu$',r'CC$\nu_e$','Dirt','Cosmics','Other']
+
 #Return dataframe from set of keys with run info as index
 def get_df(tree,keys,hdrkeys=['run','subrun','evt'],library='pd'):
   """Input tree from uproot and keys, return df with indeces
@@ -48,22 +51,35 @@ def remove_dummy_values(events,dummy_val_list=[-9999,-999,999,9999],is_df=True,
   if is_df:
     #Remove dummy values from events df
     for val in dummy_val_list:
-      events = events[(events != val).all(1)]
+      events = events[(events != val)]
   else: 
     drop_ind = []
     for val in dummy_val_list:
       drop_condition = np.where(events==val) #Drop all values that are the dummy value
       if len(drop_condition[0]) == 0: continue #skip if we don't find any values to drop
       drop_ind.extend(list(drop_condition[0]))
-      events = np.delete(events,drop_condition)
+    events = np.delete(events,drop_ind)
   if return_drop_indeces:
     return events,drop_ind
   else:
     return events
 
-def correct_angles(events):
+def set_event_type(events):
   """
-  Return corrected angles based on vertex location
+  set_event_type(events)
+
+  This function takes a dataframe (events) as input, and sets the 
+  'evt_type' column to a string value based on the numerical value of
+  'evt_type' column. The numerical values are mapped to string values: 
+  0: 'NuEScat', 1: 'NCPi0', 2: 'NC', 3: 'CCNuMu', 4: 'CCNuE', 5: 'Dirt', 6: 'Cosmic', 7: 'Other'.
+
+  Parameters:
+  events (pandas dataframe): dataframe that contains the event data
+
+  Returns:
+  events (pandas dataframe): modified dataframe with the 'evt_type' column as string values
   """
-def confine_points(x):
-  return 1
+  
+  for i,cat in enumerate(categories):
+    events.loc[events.loc[:,'evt_type'] == i,'evt_type'] = cat
+  return events

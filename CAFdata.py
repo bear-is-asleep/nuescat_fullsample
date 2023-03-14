@@ -5,6 +5,7 @@ DATA_DIR = '/pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_c
 FILES = os.listdir(f'{DATA_DIR}')
 FLAT_FILES = [file for file in FILES if 'flat' in file]
 DEFNAME = ''
+SBND_AREA = 4*4 #m^2
 
 #Key labels
 hdrkeys = ['rec.hdr.run','rec.hdr.subrun','rec.hdr.evt'] #Header keys

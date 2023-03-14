@@ -18,7 +18,6 @@ using namespace ana;
 #include "Structs.h"
 #include "utils.h"
 #include "TrueEventCategories.h"
-#include "NuEScatterTruthVars.h"
 #include "NuEScatterRecoVars.h"
 #include "NuEScatterCuts.h"
 #include "plotStyle.C"
@@ -45,7 +44,7 @@ const string inputNameNu = "defname: official_MCP2022A_prodoverlay_corsika_cosmi
 const string inputNameNu_noflat = "defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_caf_sbnd";
 const std::string inputNameNuE_new = "/sbnd/data/users/brindenc/analyze_sbnd/nue/v09_54_00/CAFnue_full.root";
 
-const string surName = "fullsample_few_recocut_recoslc";
+const string surName = "fullsample_softetheta_recoslc";
 const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 
 int kEventType(const caf::SRSpillProxy* sp){
@@ -67,8 +66,11 @@ int kEventType(const caf::SRSpillProxy* sp){
   else if (kDirt(sp)){
     return 5; //"Dirt";
   }
+  else if (kCosmicSpill(sp)){
+    return 6; //Cosmic;
+  }
   else{
-    return 6; //"Other";
+    return 7; //"Other";
   }
 }
 
@@ -157,6 +159,8 @@ void NuEScatter_events()
   vector<double> ltrk_true_angle;
   vector<double> ltrk_true_len;
   vector<double> ltrk_angle;
+  vector<double> ltrk_crttrk_time;
+  vector<double> ltrk_crttrk_angle;
 
   vector <double> sltrk_eng;
   vector <double> sltrk_len;
@@ -172,9 +176,14 @@ void NuEScatter_events()
   vector<double> sltrk_true_angle;
   vector<double> sltrk_true_len;
   vector<double> sltrk_angle;
+  vector<double> sltrk_crttrk_time;
+  vector<double> sltrk_crttrk_angle;
 
   vector<int> genie_inttype;
   vector<int> genie_mode;
+
+  vector<double> fmatch_time;
+  vector<double> fmatch_score;
 
 
   //REserve space
@@ -259,6 +268,8 @@ void NuEScatter_events()
   ltrk_true_angle.reserve(kReserveSpace);
   ltrk_true_len.reserve(kReserveSpace);
   ltrk_angle.reserve(kReserveSpace);
+  ltrk_crttrk_time.reserve(kReserveSpace);
+  ltrk_crttrk_angle.reserve(kReserveSpace);
 
   sltrk_eng.reserve(kReserveSpace);
   sltrk_len.reserve(kReserveSpace);
@@ -274,9 +285,13 @@ void NuEScatter_events()
   sltrk_true_angle.reserve(kReserveSpace);
   sltrk_true_len.reserve(kReserveSpace);
   sltrk_angle.reserve(kReserveSpace);
+  sltrk_crttrk_time.reserve(kReserveSpace);
+  sltrk_crttrk_angle.reserve(kReserveSpace);
 
   genie_inttype.reserve(kReserveSpace);
   genie_mode.reserve(kReserveSpace);
+  fmatch_time.reserve(kReserveSpace);
+  fmatch_score.reserve(kReserveSpace);
 
 
   //Make TTree
@@ -327,6 +342,8 @@ void NuEScatter_events()
   tree->Branch("reco_eng",&reco_eng);
   tree->Branch("reco_theta",&reco_theta);
   tree->Branch("true_theta",&true_theta);
+  tree->Branch("fmatch.time",&fmatch_time);
+  tree->Branch("fmatch.score",&fmatch_score);
 
   tree2->Branch("lshw.eng",&lshw_eng);
   tree2->Branch("lshw.dedx",&lshw_dedx);
@@ -360,7 +377,7 @@ void NuEScatter_events()
   tree2->Branch("slshw.true.pdg",&slshw_true_pdg);
   tree2->Branch("slshw.true.angle",&slshw_true_angle);
   tree2->Branch("slshw.true.len",&slshw_true_len);
-  tree2->Branch("slshw.angle",&lshw_angle);
+  tree2->Branch("slshw.angle",&slshw_angle);
   
 
   tree->Branch("genie_inttype",&genie_inttype);
@@ -380,6 +397,8 @@ void NuEScatter_events()
   tree3->Branch("ltrk.true.angle",&ltrk_true_angle);
   tree3->Branch("ltrk.true.len",&ltrk_true_len);
   tree3->Branch("ltrk.angle",&ltrk_angle);
+  tree3->Branch("ltrk.crttrk.time",&ltrk_crttrk_time);
+  tree3->Branch("ltrk.crttrk.angle",&ltrk_crttrk_angle);
 
   tree3->Branch("sltrk.eng",&sltrk_eng);
   tree3->Branch("sltrk.len",&sltrk_len);
@@ -388,13 +407,15 @@ void NuEScatter_events()
   tree3->Branch("sltrk.muonscore",&sltrk_muonscore);
   tree3->Branch("sltrk.pionscore",&sltrk_pionscore);
   tree3->Branch("sltrk.protonscore",&sltrk_protonscore);
-  tree3->Branch("sltrk.start.x",&ltrk_start_x);
-  tree3->Branch("sltrk.start.y",&ltrk_start_y);
-  tree3->Branch("sltrk.start.z",&ltrk_start_z);
+  tree3->Branch("sltrk.start.x",&sltrk_start_x);
+  tree3->Branch("sltrk.start.y",&sltrk_start_y);
+  tree3->Branch("sltrk.start.z",&sltrk_start_z);
   tree3->Branch("sltrk.true.pdg",&sltrk_true_pdg);
   tree3->Branch("sltrk.true.angle",&sltrk_true_angle);
   tree3->Branch("sltrk.true.len",&sltrk_true_len);
   tree3->Branch("sltrk.angle",&sltrk_angle);
+  tree3->Branch("sltrk.crttrk.time",&sltrk_crttrk_time);
+  tree3->Branch("sltrk.crttrk.angle",&sltrk_crttrk_angle);
 
   SpectrumLoader loader(inputNameNu);
 
@@ -484,6 +505,8 @@ void NuEScatter_events()
         ltrk_true_angle.push_back(kLeadingTrkTrueAngle(sp));
         ltrk_true_len.push_back(kLeadingTrkTrueLength(sp));
         ltrk_angle.push_back(kLeadingTrkAngle(sp));
+        ltrk_crttrk_time.push_back(kLeadingTrkCRTTrkTime(sp));
+        ltrk_crttrk_angle.push_back(kLeadingTrkCRTTrkAngle(sp));
 
         sltrk_eng.push_back(kSubLeadingTrkEnergy(sp));
         sltrk_len.push_back(kSubLeadingTrkLen(sp));
@@ -499,9 +522,13 @@ void NuEScatter_events()
         sltrk_true_angle.push_back(kSubLeadingTrkTrueAngle(sp));
         sltrk_true_len.push_back(kSubLeadingTrkTrueLength(sp));
         sltrk_angle.push_back(kSubLeadingTrkAngle(sp));
+        sltrk_crttrk_time.push_back(kSubLeadingTrkCRTTrkTime(sp));
+        sltrk_crttrk_angle.push_back(kSubLeadingTrkCRTTrkAngle(sp));
 
         genie_inttype.push_back(kGenieType(sp));
         genie_mode.push_back(kGenieMode(sp));
+        fmatch_time.push_back(kFMatchTime(sp));
+        fmatch_score.push_back(kFMatchScore(sp));
         return 1;
       }
     //} 

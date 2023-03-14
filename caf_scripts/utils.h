@@ -20,13 +20,15 @@ const TVector3 kNuDir(const caf::SRSliceProxy* slc,bool use_true=false){
     if (isnan(slc->truth.position.x)) return TVector3(0.,0.,1.); //assume nu is in z direction
     nu_direction.SetXYZ(slc->truth.position.x-kPrismCentroid[0],
                           slc->truth.position.y-kPrismCentroid[1],
-                          kDistanceFromBNB-slc->truth.position.z);
+                          slc->truth.position.z+kDistanceFromBNB);
   }
   else{
     if (isnan(slc->vertex.x)) return TVector3(0.,0.,1.); //assume nu is in z direction
     nu_direction.SetXYZ(slc->vertex.x-kPrismCentroid[0],
                           slc->vertex.y-kPrismCentroid[1],
-                          kDistanceFromBNB-slc->vertex.z);
+                          slc->vertex.z+kDistanceFromBNB);
   }
   return nu_direction.Unit(); //Direction of neutrino beam
 };
+
+//const Var kDoubleToVar([](double w) -> double {return w;}); //Convert double to var

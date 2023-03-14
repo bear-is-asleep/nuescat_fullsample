@@ -1,0 +1,479 @@
+
+Processing /sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbnana/v09_62_00/slf7.x86_64.e20.prof/bin/load_cafana_libs.C...
+Loading libraries..............
+Welcome to the ROOT of all evils 
+Processing NuEScatter_systs.C++()...
+Info in <TUnixSystem::ACLiC>: creating shared library /sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/./NuEScatter_systs_C.so
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.h, output: $EIGEN_INC/NuEScatter_systs_linkdef.h
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hh, output: $EIGEN_INC/NuEScatter_systs_linkdef.hh
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hpp, output: $EIGEN_INC/NuEScatter_systs_linkdef.hpp
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hxx, output: $EIGEN_INC/NuEScatter_systs_linkdef.hxx
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hPP, output: $EIGEN_INC/NuEScatter_systs_linkdef.hPP
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hXX, output: $EIGEN_INC/NuEScatter_systs_linkdef.hXX
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.h, output: $EIGEN_INC/NuEScatter_systs.h
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hh, output: $EIGEN_INC/NuEScatter_systs.hh
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hpp, output: $EIGEN_INC/NuEScatter_systs.hpp
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hxx, output: $EIGEN_INC/NuEScatter_systs.hxx
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hPP, output: $EIGEN_INC/NuEScatter_systs.hPP
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hXX, output: $EIGEN_INC/NuEScatter_systs.hXX
+In file included from input_line_12:6:
+In file included from ././NuEScatter_systs.C:32:
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterRecoVars.h:61:29: error: use of undeclared identifier 'kNuDir'
+    TVector3 nu_direction = kNuDir(&slc);
+                            ^
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterRecoVars.h:90:29: error: use of undeclared identifier 'kNuDir'
+    TVector3 nu_direction = kNuDir(&slc);
+                            ^
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterRecoVars.h:240:29: error: use of undeclared identifier 'kNuDir'
+    TVector3 nu_direction = kNuDir(&slc);
+                            ^
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterRecoVars.h:319:29: error: use of undeclared identifier 'kNuDir'
+    TVector3 nu_direction = kNuDir(&slc,true);
+                            ^
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterRecoVars.h:334:29: error: use of undeclared identifier 'kNuDir'
+    TVector3 nu_direction = kNuDir(&slc);
+                            ^
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterRecoVars.h:472:29: error: use of undeclared identifier 'kNuDir'
+    TVector3 nu_direction = kNuDir(&slc,true);
+                            ^
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterRecoVars.h:487:29: error: use of undeclared identifier 'kNuDir'
+    TVector3 nu_direction = kNuDir(&slc);
+                            ^
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterRecoVars.h:685:27: error: use of undeclared identifier 'kNuDir'
+  TVector3 nu_direction = kNuDir(&slc);
+                          ^
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterRecoVars.h:714:27: error: use of undeclared identifier 'kNuDir'
+  TVector3 nu_direction = kNuDir(&slc,true);
+                          ^
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterRecoVars.h:730:27: error: use of undeclared identifier 'kNuDir'
+  TVector3 nu_direction = kNuDir(&slc);
+                          ^
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterRecoVars.h:929:29: error: use of undeclared identifier 'kNuDir'
+    TVector3 nu_direction = kNuDir(&slc,true);
+                            ^
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterRecoVars.h:944:29: error: use of undeclared identifier 'kNuDir'
+    TVector3 nu_direction = kNuDir(&slc);
+                            ^
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterRecoVars.h:1046:29: error: use of undeclared identifier 'kNuDir'
+    TVector3 nu_direction = kNuDir(&slc,true);
+                            ^
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterRecoVars.h:1061:29: error: use of undeclared identifier 'kNuDir'
+    TVector3 nu_direction = kNuDir(&slc);
+                            ^
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterRecoVars.h:1215:27: error: use of undeclared identifier 'kNuDir'
+  TVector3 nu_direction = kNuDir(&slc,true);
+                          ^
+In file included from input_line_12:6:
+In file included from ././NuEScatter_systs.C:33:
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterCuts.h:63:27: error: use of undeclared identifier 'kNuDir'
+  TVector3 nu_direction = kNuDir(&slc);
+                          ^
+In file included from input_line_12:6:
+././NuEScatter_systs.C:100:20: error: use of undeclared identifier 'nue_reweight'
+    weis_flux[j] = nue_reweight[j]*weis_flux[j]; //Reweight universe by nu+e constraint
+                   ^
+Error in <ACLiC>: Executing '/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/bin/rootcling -v0 "--lib-list-prefix=/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatter_systs_C_ACLiC_map" -f "/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatter_systs_C_ACLiC_dict.cxx" -I/sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbnana/v09_62_00/include -I$ROOTSYS/include -I$SRPROXY_INC -I$OSCLIB_INC -I$EIGEN_INC -I"/sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbndcode/v09_62_00/include" -I"/sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbncode/v09_62_00/include" -I"/sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbnana/v09_62_00/include" -I"/sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbnanaobj/v09_19_06/include" -I"/sbnd/app/users/brindenc/mysbn/build_slf7.x86_64/sbnana" -I"/sbnd/app/users/brindenc/mysbn/srcs/sbnana" -I"/sbnd/app/users/brindenc/mysbn/build_slf7.x86_64/sbndcode" -I"/sbnd/app/users/brindenc/mysbn/srcs/sbndcode" -I"/sbnd/app/users/brindenc/mysbn/build_slf7.x86_64/sbncode" -I"/sbnd/app/users/brindenc/mysbn/srcs/sbncode" -I"/sbnd/app/users/brindenc/mysbn/build_slf7.x86_64/sbnanaobj" -I"/sbnd/app/users/brindenc/mysbn/srcs/sbnanaobj" -I"/cvmfs/larsoft.opensciencegrid.org/products/larwirecell/v09_10_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/hdf5/v1_12_0b/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/spdlog/v1_8_2a/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/wirecell/v0_23_0/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/gallery/v1_18_05/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larsimrad/v09_06_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larsimdnn/v09_02_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larrecodnn/v09_15_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/opencv/v4_2_0b/Linux64bit+3.10-2.17-e20-p392/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larpandora/v09_14_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larpandoracontent/v04_02_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/pandora/v03_16_00f/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/protobuf/v3_12_3a/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/libtorch/v1_6_0d/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larexamples/v09_05_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/lareventdisplay/v09_06_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/nuevdb/v1_07_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larana/v09_08_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larreco/v09_14_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/rstartree/v2016_07/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larsim/v09_28_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/nutools/v3_13_02/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/cry/v1_7n/Linux64bit+3.10-2.17-e20-prof/cry_v1.7/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/nugen/v1_16_03/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/ifdh_art/v2_13_12/slf7.x86_64.e20.prof/inc" -I"/cvmfs/larsoft.opensciencegrid.org/products/dk2nugenie/v01_10_00d/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/genie/v3_00_06p/Linux64bit+3.10-2.17-e20-prof/include/GENIE" -I"/cvmfs/larsoft.opensciencegrid.org/products/genie/v3_00_06p/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/marley/v1_2_0g/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larg4/v09_13_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/nurandom/v1_09_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/nug4/v1_13_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larevt/v09_06_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/lardata/v09_10_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larvecutils/v09_02_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/lardataalg/v09_12_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larcore/v09_07_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/artg4tk/v10_06_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/art_root_io/v1_08_05/include" -I"/cvmfs/sbnd.opensciencegrid.org/products/sbnd/sbnobj/v09_14_12/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/lardataobj/v09_13_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/nusimdata/v1_26_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/dk2nudata/v01_10_00d/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larcorealg/v09_07_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larcoreobj/v09_07_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/art/v3_09_04/include" -I"/cvmfs/sbnd.opensciencegrid.org/products/sbnd/sbndaq_artdaq_core/v1_04_00of0/include" -I"." -I"/cvmfs/larsoft.opensciencegrid.org/products/fhiclcpp/v4_15_03/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/cetlib/v3_13_04/slf7.x86_64.e20.prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/boost/v1_75_0/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/artdaq_core/v3_09_02/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/artdaq_core/v3_09_02/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/canvas_root_io/v1_09_05/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/canvas/v3_12_05/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/range/v3_0_11_0/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/messagefacility/v2_08_04/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/fhiclcpp/v4_15_03/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/cetlib/v3_13_04/slf7.x86_64.e20.prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/hep_concurrency/v1_07_04/slf7.x86_64.e20.prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/cetlib_except/v1_07_04/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/clhep/v2_4_5_1/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/TRACE/v3_17_05/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/boost/v1_75_0/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/tbb/v2021_1_1/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/xrootd/v5_1_0/Linux64bit+3.10-2.17-e20-p392-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/mysql_client/v8_0_23/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/postgresql/v13_2/Linux64bit+3.10-2.17-p392/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/pythia/v6_4_28r/Linux64bit+3.10-2.17-gcc930-prof/include" -I"." -I"/cvmfs/larsoft.opensciencegrid.org/products/fftw/v3_3_9/Linux64bit+3.10-2.17/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/openblas/v0_3_13/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/etc/" -I"/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/etc//cling" -I"/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/" -I"/cvmfs/larsoft.opensciencegrid.org/products/tbb/v2021_1_1/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include" -D__ACLIC__  "/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/./NuEScatter_systs.C" "/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatter_systs_C_ACLiC_linkdef.h"' failed!
+
+Processing /sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbnana/v09_62_00/slf7.x86_64.e20.prof/bin/load_cafana_libs.C...
+Loading libraries..............
+Welcome to the ROOT of all evils 
+Processing NuEScatter_systs.C++()...
+Info in <TUnixSystem::ACLiC>: creating shared library /sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/./NuEScatter_systs_C.so
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.h, output: $EIGEN_INC/NuEScatter_systs_linkdef.h
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hh, output: $EIGEN_INC/NuEScatter_systs_linkdef.hh
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hpp, output: $EIGEN_INC/NuEScatter_systs_linkdef.hpp
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hxx, output: $EIGEN_INC/NuEScatter_systs_linkdef.hxx
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hPP, output: $EIGEN_INC/NuEScatter_systs_linkdef.hPP
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hXX, output: $EIGEN_INC/NuEScatter_systs_linkdef.hXX
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.h, output: $EIGEN_INC/NuEScatter_systs.h
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hh, output: $EIGEN_INC/NuEScatter_systs.hh
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hpp, output: $EIGEN_INC/NuEScatter_systs.hpp
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hxx, output: $EIGEN_INC/NuEScatter_systs.hxx
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hPP, output: $EIGEN_INC/NuEScatter_systs.hPP
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hXX, output: $EIGEN_INC/NuEScatter_systs.hXX
+Warning in <TColor::TColor>: color 999 already defined
+Warning in <TColor::TColor>: color 998 already defined
+Warning in <TColor::TColor>: color 997 already defined
+Warning in <TColor::TColor>: color 996 already defined
+Warning in <TColor::TColor>: color 995 already defined
+Warning in <TColor::TColor>: color 994 already defined
+Warning in <TColor::TColor>: color 993 already defined
+Warning in <TColor::TColor>: color 992 already defined
+Warning in <TColor::TColor>: color 991 already defined
+Warning in <TColor::TColor>: color 990 already defined
+Warning in <TColor::TColor>: color 989 already defined
+Warning in <TColor::TColor>: color 988 already defined
+Warning in <TColor::TColor>: color 987 already defined
+Warning in <TColor::TColor>: color 986 already defined
+Warning in <TColor::TColor>: color 985 already defined
+Warning in <TColor::TColor>: color 984 already defined
+Warning in <TColor::TColor>: color 983 already defined
+Warning in <TColor::TColor>: color 982 already defined
+Warning in <TColor::TColor>: color 981 already defined
+Warning in <TColor::TColor>: color 980 already defined
+Warning in <TColor::TColor>: color 979 already defined
+Warning in <TColor::TColor>: color 978 already defined
+Warning in <TColor::TColor>: color 977 already defined
+Warning in <TColor::TColor>: color 976 already defined
+Warning in <TColor::TColor>: color 975 already defined
+Warning in <TColor::TColor>: color 974 already defined
+Warning in <TColor::TColor>: color 973 already defined
+Warning in <TColor::TColor>: color 972 already defined
+Warning in <TColor::TColor>: color 971 already defined
+Warning in <TColor::TColor>: color 970 already defined
+Warning in <TColor::TColor>: color 969 already defined
+Warning in <TColor::TColor>: color 968 already defined
+Warning in <TColor::TColor>: color 967 already defined
+Warning in <TColor::TColor>: color 966 already defined
+Warning in <TColor::TColor>: color 965 already defined
+Warning in <TColor::TColor>: color 964 already defined
+Warning in <TColor::TColor>: color 963 already defined
+Warning in <TColor::TColor>: color 962 already defined
+Warning in <TColor::TColor>: color 961 already defined
+Warning in <TColor::TColor>: color 960 already defined
+Warning in <TColor::TColor>: color 959 already defined
+Warning in <TColor::TColor>: color 958 already defined
+Warning in <TColor::TColor>: color 957 already defined
+Warning in <TColor::TColor>: color 956 already defined
+Warning in <TColor::TColor>: color 955 already defined
+Warning in <TColor::TColor>: color 954 already defined
+Warning in <TColor::TColor>: color 953 already defined
+Warning in <TColor::TColor>: color 952 already defined
+Warning in <TColor::TColor>: color 951 already defined
+Warning in <TColor::TColor>: color 950 already defined
+Looking up files matching 'defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd' using SAM...
+Looking up locations of 1089 files using SAM...
+Filling 16016 spectra from 1089 files matching 'defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd'...
+SRProxy: Warning: rec.slc[0].truth.E = nan in entry 2504 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1014-c62ae7c9-4703-4f03-972f-6cbeb926e546.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 2504 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1014-c62ae7c9-4703-4f03-972f-6cbeb926e546.root
+
+Systematic weights in file:
+52 parameter sets:
+  0: AhtBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    AhtBY
+  1: BhtBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    BhtBY
+  2: CV1uBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    CV1uBY
+  3: CV2uBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    CV2uBY
+  4: EtaNCEL_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    EtaNCEL
+  5: FormZone_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FormZone
+  6: FrAbs_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrAbs_N
+  7: FrAbs_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrAbs_pi
+  8: FrCEx_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrCEx_N
+  9: FrCEx_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrCEx_pi
+  10: FrInel_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrInel_N
+  11: FrInel_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrInel_pi
+  12: FrPiProd_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrPiProd_N
+  13: FrPiProd_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrPiProd_pi
+  14: MFP_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MFP_N
+  15: MFP_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MFP_pi
+  16: MaCCQE_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaCCQE
+  17: MaCCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaCCRES
+  18: MaNCEL_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaNCEL
+  19: MaNCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaNCRES
+  20: MvCCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MvCCRES
+  21: MvNCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MvNCRES
+  22: NonRESBGvbarnCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnCC1pi
+  23: NonRESBGvbarnCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnCC2pi
+  24: NonRESBGvbarnNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnNC1pi
+  25: NonRESBGvbarnNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnNC2pi
+  26: NonRESBGvbarpCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpCC1pi
+  27: NonRESBGvbarpCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpCC2pi
+  28: NonRESBGvbarpNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpNC1pi
+  29: NonRESBGvbarpNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpNC2pi
+  30: NonRESBGvnCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnCC1pi
+  31: NonRESBGvnCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnCC2pi
+  32: NonRESBGvnNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnNC1pi
+  33: NonRESBGvnNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnNC2pi
+  34: NonRESBGvpCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvpCC1pi
+  35: NonRESBGvpCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvpCC2pi
+  36: NonRESBGvpNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvpNC1pi
+  37: NonRESBGvpNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvpNC2pi
+  38: multisim_Genie, type 0, 1000 universes, adjusted parameters:
+    AhtBY
+    BhtBY
+    CV1uBY
+    CV2uBY
+    EtaNCEL
+    FrAbs_N
+    FrAbs_pi
+    FrCEx_N
+    FrCEx_pi
+    FrInel_N
+    FrInel_pi
+    MFP_N
+    MFP_pi
+    MaCCQE
+    MaCCRES
+    MaNCEL
+    MaNCRES
+    MvCCRES
+    MvNCRES
+    NonRESBGvbarnCC1pi
+    NonRESBGvbarnCC2pi
+    NonRESBGvbarnNC1pi
+    NonRESBGvbarnNC2pi
+    NonRESBGvbarpCC1pi
+    NonRESBGvbarpCC2pi
+    NonRESBGvbarpNC1pi
+    NonRESBGvbarpNC2pi
+    NonRESBGvnCC1pi
+    NonRESBGvnCC2pi
+    NonRESBGvnNC1pi
+    NonRESBGvnNC2pi
+    NonRESBGvpCC1pi
+    NonRESBGvpCC2pi
+    NonRESBGvpNC1pi
+    NonRESBGvpNC2pi
+  39: expskin_Flux, type 0, 1000 universes, adjusted parameters:
+    expskin
+  40: horncurrent_Flux, type 0, 1000 universes, adjusted parameters:
+    horncurrent
+  41: kminus_Flux, type 0, 1000 universes, adjusted parameters:
+    kminus
+  42: kplus_Flux, type 0, 1000 universes, adjusted parameters:
+    kplus
+  43: kzero_Flux, type 0, 1000 universes, adjusted parameters:
+    kzero
+  44: nucleoninexsec_Flux, type 0, 1000 universes, adjusted parameters:
+    nucleoninexsec
+  45: nucleonqexsec_Flux, type 0, 1000 universes, adjusted parameters:
+    nucleonqexsec
+  46: nucleontotxsec_Flux, type 0, 1000 universes, adjusted parameters:
+    nucleontotxsec
+  47: piminus_Flux, type 0, 1000 universes, adjusted parameters:
+    piminus
+  48: pioninexsec_Flux, type 0, 1000 universes, adjusted parameters:
+    pioninexsec
+  49: pionqexsec_Flux, type 0, 1000 universes, adjusted parameters:
+    pionqexsec
+  50: piontotxsec_Flux, type 0, 1000 universes, adjusted parameters:
+    piontotxsec
+  51: piplus_Flux, type 0, 1000 universes, adjusted parameters:
+    piplus
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 2504 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1014-c62ae7c9-4703-4f03-972f-6cbeb926e546.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 2504 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1014-c62ae7c9-4703-4f03-972f-6cbeb926e546.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 2504 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1014-c62ae7c9-4703-4f03-972f-6cbeb926e546.root
+SRProxy: Warning: rec.slc[6].truth.E = nan in entry 2504 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1014-c62ae7c9-4703-4f03-972f-6cbeb926e546.root
+SRProxy: Warning: rec.slc[7].truth.E = nan in entry 2504 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1014-c62ae7c9-4703-4f03-972f-6cbeb926e546.root
+SRProxy: Warning: rec.slc[8].truth.E = nan in entry 2504 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1014-c62ae7c9-4703-4f03-972f-6cbeb926e546.root
+SRProxy: Warning: rec.slc[9].truth.E = nan in entry 2504 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1014-c62ae7c9-4703-4f03-972f-6cbeb926e546.root
+SRProxy: Warning: rec.slc[0].truth.E = nan in entry 956 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1020-d4d2cf93-ba66-4e43-85cd-690c8ea6d33c.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 956 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1020-d4d2cf93-ba66-4e43-85cd-690c8ea6d33c.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 956 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1020-d4d2cf93-ba66-4e43-85cd-690c8ea6d33c.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 956 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1020-d4d2cf93-ba66-4e43-85cd-690c8ea6d33c.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 956 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1020-d4d2cf93-ba66-4e43-85cd-690c8ea6d33c.root
+SRProxy: Warning: rec.slc[6].truth.E = nan in entry 956 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1020-d4d2cf93-ba66-4e43-85cd-690c8ea6d33c.root
+SRProxy: Warning: rec.slc[7].truth.E = nan in entry 956 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1020-d4d2cf93-ba66-4e43-85cd-690c8ea6d33c.root
+SRProxy: Warning: rec.slc[8].truth.E = nan in entry 956 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1020-d4d2cf93-ba66-4e43-85cd-690c8ea6d33c.root
+SRProxy: Warning: rec.slc[0].truth.E = nan in entry 1001 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_104-1b1c8110-d4bc-4e1e-a5c9-c243e7a9c7cf.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 1001 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_104-1b1c8110-d4bc-4e1e-a5c9-c243e7a9c7cf.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 1001 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_104-1b1c8110-d4bc-4e1e-a5c9-c243e7a9c7cf.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 1001 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_104-1b1c8110-d4bc-4e1e-a5c9-c243e7a9c7cf.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 1001 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_104-1b1c8110-d4bc-4e1e-a5c9-c243e7a9c7cf.root
+SRProxy: Warning: rec.slc[6].truth.E = nan in entry 1001 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_104-1b1c8110-d4bc-4e1e-a5c9-c243e7a9c7cf.root
+SRProxy: Warning: rec.slc[7].truth.E = nan in entry 1001 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_104-1b1c8110-d4bc-4e1e-a5c9-c243e7a9c7cf.root
+SRProxy: Warning: rec.slc[0].truth.E = nan in entry 1109 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1057-92e43f78-9f1a-4e20-a2c9-b316aff4cfa6.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 1109 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1057-92e43f78-9f1a-4e20-a2c9-b316aff4cfa6.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 1109 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1057-92e43f78-9f1a-4e20-a2c9-b316aff4cfa6.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 1109 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1057-92e43f78-9f1a-4e20-a2c9-b316aff4cfa6.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 1109 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1057-92e43f78-9f1a-4e20-a2c9-b316aff4cfa6.root
+SRProxy: Warning: rec.slc[6].truth.E = nan in entry 1109 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1057-92e43f78-9f1a-4e20-a2c9-b316aff4cfa6.root
+SRProxy: Warning: rec.slc[7].truth.E = nan in entry 1109 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1057-92e43f78-9f1a-4e20-a2c9-b316aff4cfa6.root
+SRProxy: Warning: rec.slc[8].truth.E = nan in entry 1109 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1057-92e43f78-9f1a-4e20-a2c9-b316aff4cfa6.root
+SRProxy: Warning: rec.slc[9].truth.E = nan in entry 1109 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1057-92e43f78-9f1a-4e20-a2c9-b316aff4cfa6.root
+SRProxy: Warning: rec.slc[10].truth.E = nan in entry 1109 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1057-92e43f78-9f1a-4e20-a2c9-b316aff4cfa6.root
+SRProxy: Warning: rec.slc[11].truth.E = nan in entry 1109 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1057-92e43f78-9f1a-4e20-a2c9-b316aff4cfa6.root
+SRProxy: Warning: rec.slc[12].truth.E = nan in entry 1109 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1057-92e43f78-9f1a-4e20-a2c9-b316aff4cfa6.root
+SRProxy: Warning: rec.slc[0].truth.E = nan in entry 2734 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1065-784f6db6-2ae9-425a-ac7a-3fecbc186e42.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 2734 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1065-784f6db6-2ae9-425a-ac7a-3fecbc186e42.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 2734 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1065-784f6db6-2ae9-425a-ac7a-3fecbc186e42.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 2734 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1065-784f6db6-2ae9-425a-ac7a-3fecbc186e42.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 2734 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1065-784f6db6-2ae9-425a-ac7a-3fecbc186e42.root
+SRProxy: Warning: rec.slc[0].truth.E = nan in entry 1459 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1076-fb7a3f21-362f-49b4-b790-d37ab65e573a.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 1459 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1076-fb7a3f21-362f-49b4-b790-d37ab65e573a.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 1459 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1076-fb7a3f21-362f-49b4-b790-d37ab65e573a.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 1459 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1076-fb7a3f21-362f-49b4-b790-d37ab65e573a.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 1459 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1076-fb7a3f21-362f-49b4-b790-d37ab65e573a.root
+SRProxy: Warning: rec.slc[6].truth.E = nan in entry 1459 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1076-fb7a3f21-362f-49b4-b790-d37ab65e573a.root
+SRProxy: Warning: rec.slc[7].truth.E = nan in entry 1459 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1076-fb7a3f21-362f-49b4-b790-d37ab65e573a.root
+SRProxy: Warning: rec.slc[8].truth.E = nan in entry 1459 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1076-fb7a3f21-362f-49b4-b790-d37ab65e573a.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 1634 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_180-0919b925-e44d-4ebc-8af8-32c9d6ae2fa9.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 1634 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_180-0919b925-e44d-4ebc-8af8-32c9d6ae2fa9.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 1634 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_180-0919b925-e44d-4ebc-8af8-32c9d6ae2fa9.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 1634 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_180-0919b925-e44d-4ebc-8af8-32c9d6ae2fa9.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 1634 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_180-0919b925-e44d-4ebc-8af8-32c9d6ae2fa9.root
+SRProxy: Warning: rec.slc[6].truth.E = nan in entry 1634 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_180-0919b925-e44d-4ebc-8af8-32c9d6ae2fa9.root
+SRProxy: Warning: rec.slc[7].truth.E = nan in entry 1634 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_180-0919b925-e44d-4ebc-8af8-32c9d6ae2fa9.root
+SRProxy: Warning: rec.slc[8].truth.E = nan in entry 1634 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_180-0919b925-e44d-4ebc-8af8-32c9d6ae2fa9.root
+SRProxy: Warning: rec.slc[0].truth.E = nan in entry 1409 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_199-1ac72c40-de18-499b-9d2a-c664f910f5ab.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 1409 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_199-1ac72c40-de18-499b-9d2a-c664f910f5ab.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 1409 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_199-1ac72c40-de18-499b-9d2a-c664f910f5ab.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 1409 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_199-1ac72c40-de18-499b-9d2a-c664f910f5ab.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 1409 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_199-1ac72c40-de18-499b-9d2a-c664f910f5ab.root
+SRProxy: Warning: rec.slc[0].truth.E = nan in entry 1744 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_20-c4b2dec7-0579-42f7-96aa-a66f2f11f547.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 1744 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_20-c4b2dec7-0579-42f7-96aa-a66f2f11f547.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 1744 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_20-c4b2dec7-0579-42f7-96aa-a66f2f11f547.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 1744 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_20-c4b2dec7-0579-42f7-96aa-a66f2f11f547.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 1744 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_20-c4b2dec7-0579-42f7-96aa-a66f2f11f547.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 1753 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_202-8bdc5a56-26d8-4819-84d9-ac2719a3b6be.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 1753 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_202-8bdc5a56-26d8-4819-84d9-ac2719a3b6be.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 1753 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_202-8bdc5a56-26d8-4819-84d9-ac2719a3b6be.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 1753 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_202-8bdc5a56-26d8-4819-84d9-ac2719a3b6be.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 1753 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_202-8bdc5a56-26d8-4819-84d9-ac2719a3b6be.root
+SRProxy: Warning: rec.slc[6].truth.E = nan in entry 1753 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_202-8bdc5a56-26d8-4819-84d9-ac2719a3b6be.root
+SRProxy: Warning: rec.slc[7].truth.E = nan in entry 1753 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_202-8bdc5a56-26d8-4819-84d9-ac2719a3b6be.root
+SRProxy: Warning: rec.slc[8].truth.E = nan in entry 1753 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_202-8bdc5a56-26d8-4819-84d9-ac2719a3b6be.root
+SRProxy: Warning: rec.slc[9].truth.E = nan in entry 1753 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_202-8bdc5a56-26d8-4819-84d9-ac2719a3b6be.root
+SRProxy: Warning: rec.slc[10].truth.E = nan in entry 1753 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_202-8bdc5a56-26d8-4819-84d9-ac2719a3b6be.root
+SRProxy: Warning: rec.slc[11].truth.E = nan in entry 1753 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_202-8bdc5a56-26d8-4819-84d9-ac2719a3b6be.root
+SRProxy: Warning: rec.slc[12].truth.E = nan in entry 1753 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_202-8bdc5a56-26d8-4819-84d9-ac2719a3b6be.root
+SRProxy: Warning: rec.slc[13].truth.E = nan in entry 1753 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_202-8bdc5a56-26d8-4819-84d9-ac2719a3b6be.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 799 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_22-ae585992-2c5b-432f-be1d-b7d4b77efd8c.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 799 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_22-ae585992-2c5b-432f-be1d-b7d4b77efd8c.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 799 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_22-ae585992-2c5b-432f-be1d-b7d4b77efd8c.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 799 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_22-ae585992-2c5b-432f-be1d-b7d4b77efd8c.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 799 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_22-ae585992-2c5b-432f-be1d-b7d4b77efd8c.root
+SRProxy: Warning: rec.slc[6].truth.E = nan in entry 799 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_22-ae585992-2c5b-432f-be1d-b7d4b77efd8c.root
+SRProxy: Warning: rec.slc[7].truth.E = nan in entry 799 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_22-ae585992-2c5b-432f-be1d-b7d4b77efd8c.root
+SRProxy: Warning: rec.slc[8].truth.E = nan in entry 799 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_22-ae585992-2c5b-432f-be1d-b7d4b77efd8c.root
+SRProxy: Warning: rec.slc[9].truth.E = nan in entry 799 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_22-ae585992-2c5b-432f-be1d-b7d4b77efd8c.root
+SRProxy: Warning: rec.slc[10].truth.E = nan in entry 799 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_22-ae585992-2c5b-432f-be1d-b7d4b77efd8c.root
+SRProxy: Warning: rec.slc[11].truth.E = nan in entry 799 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_22-ae585992-2c5b-432f-be1d-b7d4b77efd8c.root
+SRProxy: Warning: rec.slc[12].truth.E = nan in entry 799 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_22-ae585992-2c5b-432f-be1d-b7d4b77efd8c.root
+SRProxy: Warning: rec.slc[0].truth.E = nan in entry 2804 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_261-97ee9b70-d49a-4962-baeb-2e1e497a0831.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 2804 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_261-97ee9b70-d49a-4962-baeb-2e1e497a0831.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 2804 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_261-97ee9b70-d49a-4962-baeb-2e1e497a0831.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 2804 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_261-97ee9b70-d49a-4962-baeb-2e1e497a0831.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 2804 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_261-97ee9b70-d49a-4962-baeb-2e1e497a0831.root
+SRProxy: Warning: rec.slc[6].truth.E = nan in entry 2804 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_261-97ee9b70-d49a-4962-baeb-2e1e497a0831.root
+SRProxy: Warning: rec.slc[7].truth.E = nan in entry 2804 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_261-97ee9b70-d49a-4962-baeb-2e1e497a0831.root
+SRProxy: Warning: rec.slc[8].truth.E = nan in entry 2804 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_261-97ee9b70-d49a-4962-baeb-2e1e497a0831.root
+SRProxy: Warning: rec.slc[0].truth.E = nan in entry 889 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_336-cc51b66b-aaaa-403d-aa2a-9980bbf0d022.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 889 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_336-cc51b66b-aaaa-403d-aa2a-9980bbf0d022.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 889 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_336-cc51b66b-aaaa-403d-aa2a-9980bbf0d022.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 889 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_336-cc51b66b-aaaa-403d-aa2a-9980bbf0d022.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 889 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_336-cc51b66b-aaaa-403d-aa2a-9980bbf0d022.root
+SRProxy: Warning: rec.slc[6].truth.E = nan in entry 889 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_336-cc51b66b-aaaa-403d-aa2a-9980bbf0d022.root
+SRProxy: Warning: rec.slc[7].truth.E = nan in entry 889 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_336-cc51b66b-aaaa-403d-aa2a-9980bbf0d022.root
+SRProxy: Warning: rec.slc[0].truth.E = nan in entry 1620 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_356-a78ce751-772c-4382-805b-23c9055152a9.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 1620 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_356-a78ce751-772c-4382-805b-23c9055152a9.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 1620 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_356-a78ce751-772c-4382-805b-23c9055152a9.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 1620 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_356-a78ce751-772c-4382-805b-23c9055152a9.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 1620 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_356-a78ce751-772c-4382-805b-23c9055152a9.root
+SRProxy: Warning: rec.slc[6].truth.E = nan in entry 1620 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_356-a78ce751-772c-4382-805b-23c9055152a9.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 2330 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_356-a78ce751-772c-4382-805b-23c9055152a9.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 2330 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_356-a78ce751-772c-4382-805b-23c9055152a9.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 2330 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_356-a78ce751-772c-4382-805b-23c9055152a9.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 2330 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_356-a78ce751-772c-4382-805b-23c9055152a9.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 2330 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_356-a78ce751-772c-4382-805b-23c9055152a9.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 2800 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_376-5c32bb31-00e0-4cda-af55-99bbfcd09ba3.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 2800 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_376-5c32bb31-00e0-4cda-af55-99bbfcd09ba3.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 2800 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_376-5c32bb31-00e0-4cda-af55-99bbfcd09ba3.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 2800 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_376-5c32bb31-00e0-4cda-af55-99bbfcd09ba3.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 2800 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_376-5c32bb31-00e0-4cda-af55-99bbfcd09ba3.root
+SRProxy: Warning: rec.slc[0].truth.E = nan in entry 2978 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_467-60d3c1b9-719f-4eff-a690-fad34d914210.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 2978 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_467-60d3c1b9-719f-4eff-a690-fad34d914210.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 2978 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_467-60d3c1b9-719f-4eff-a690-fad34d914210.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 2978 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_467-60d3c1b9-719f-4eff-a690-fad34d914210.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 2978 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_467-60d3c1b9-719f-4eff-a690-fad34d914210.root
+SRProxy: Warning: rec.slc[6].truth.E = nan in entry 2978 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_467-60d3c1b9-719f-4eff-a690-fad34d914210.root
+SRProxy: Warning: rec.slc[7].truth.E = nan in entry 2978 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_467-60d3c1b9-719f-4eff-a690-fad34d914210.root
+SRProxy: Warning: rec.slc[8].truth.E = nan in entry 2978 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_467-60d3c1b9-719f-4eff-a690-fad34d914210.root
+SRProxy: Warning: rec.slc[9].truth.E = nan in entry 2978 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_467-60d3c1b9-719f-4eff-a690-fad34d914210.root
+SRProxy: Warning: rec.slc[10].truth.E = nan in entry 2978 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_467-60d3c1b9-719f-4eff-a690-fad34d914210.root
+SRProxy: Warning: rec.slc[11].truth.E = nan in entry 2978 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_467-60d3c1b9-719f-4eff-a690-fad34d914210.root
+SRProxy: Warning: rec.slc[0].truth.E = nan in entry 3290 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_551-c3741172-a52f-41da-a7ce-3ef269c73838.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 3290 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_551-c3741172-a52f-41da-a7ce-3ef269c73838.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 3290 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_551-c3741172-a52f-41da-a7ce-3ef269c73838.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 3290 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_551-c3741172-a52f-41da-a7ce-3ef269c73838.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 2597 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_603-5f0d586e-b4a3-4905-854b-81f8c963fcf5.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 2597 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_603-5f0d586e-b4a3-4905-854b-81f8c963fcf5.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 2597 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_603-5f0d586e-b4a3-4905-854b-81f8c963fcf5.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 2597 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_603-5f0d586e-b4a3-4905-854b-81f8c963fcf5.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 2597 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_603-5f0d586e-b4a3-4905-854b-81f8c963fcf5.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 3274 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_626-beefb640-1a46-4bb1-87ee-c816c9e6f242.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 3274 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_626-beefb640-1a46-4bb1-87ee-c816c9e6f242.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 3274 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_626-beefb640-1a46-4bb1-87ee-c816c9e6f242.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 3274 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_626-beefb640-1a46-4bb1-87ee-c816c9e6f242.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 3274 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_626-beefb640-1a46-4bb1-87ee-c816c9e6f242.root
+SRProxy: Warning: rec.slc[6].truth.E = nan in entry 3274 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_626-beefb640-1a46-4bb1-87ee-c816c9e6f242.root
+SRProxy: Warning: rec.slc[7].truth.E = nan in entry 3274 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_626-beefb640-1a46-4bb1-87ee-c816c9e6f242.root
+SRProxy: Warning: rec.slc[8].truth.E = nan in entry 3274 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_626-beefb640-1a46-4bb1-87ee-c816c9e6f242.root
+SRProxy: Warning: rec.slc[9].truth.E = nan in entry 3274 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_626-beefb640-1a46-4bb1-87ee-c816c9e6f242.root
+SRProxy: Warning: rec.slc[10].truth.E = nan in entry 3274 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_626-beefb640-1a46-4bb1-87ee-c816c9e6f242.root
+SRProxy: Warning: rec.slc[11].truth.E = nan in entry 3274 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_626-beefb640-1a46-4bb1-87ee-c816c9e6f242.root
+SRProxy: Warning: rec.slc[12].truth.E = nan in entry 3274 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_626-beefb640-1a46-4bb1-87ee-c816c9e6f242.root
+SRProxy: Warning: rec.slc[13].truth.E = nan in entry 3274 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_626-beefb640-1a46-4bb1-87ee-c816c9e6f242.root
+SRProxy: Warning: rec.slc[14].truth.E = nan in entry 3274 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_626-beefb640-1a46-4bb1-87ee-c816c9e6f242.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 2761 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_674-98e4fb6b-2358-4a51-bc2c-9ba0c235d639.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 2761 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_674-98e4fb6b-2358-4a51-bc2c-9ba0c235d639.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 2761 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_674-98e4fb6b-2358-4a51-bc2c-9ba0c235d639.root
+SRProxy: Warning: rec.slc[0].truth.E = nan in entry 850 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_706-1fa6c885-2be2-4c1b-a0e5-648b86aa38be.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 850 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_706-1fa6c885-2be2-4c1b-a0e5-648b86aa38be.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 850 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_706-1fa6c885-2be2-4c1b-a0e5-648b86aa38be.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 850 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_706-1fa6c885-2be2-4c1b-a0e5-648b86aa38be.root
+SRProxy: Warning: rec.slc[0].truth.E = nan in entry 3415 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_724-c7e4dd1d-2da9-4c38-918c-1b41d46e1538.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 3415 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_724-c7e4dd1d-2da9-4c38-918c-1b41d46e1538.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 3415 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_724-c7e4dd1d-2da9-4c38-918c-1b41d46e1538.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 3415 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_724-c7e4dd1d-2da9-4c38-918c-1b41d46e1538.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 3415 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_724-c7e4dd1d-2da9-4c38-918c-1b41d46e1538.root
+SRProxy: Warning: rec.slc[6].truth.E = nan in entry 3415 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_724-c7e4dd1d-2da9-4c38-918c-1b41d46e1538.root
+SRProxy: Warning: rec.slc[7].truth.E = nan in entry 3415 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_724-c7e4dd1d-2da9-4c38-918c-1b41d46e1538.root
+SRProxy: Warning: rec.slc[8].truth.E = nan in entry 3415 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_724-c7e4dd1d-2da9-4c38-918c-1b41d46e1538.root
+SRProxy: Warning: rec.slc[9].truth.E = nan in entry 3415 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_724-c7e4dd1d-2da9-4c38-918c-1b41d46e1538.root
+SRProxy: Warning: rec.slc[10].truth.E = nan in entry 3415 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_724-c7e4dd1d-2da9-4c38-918c-1b41d46e1538.root
+SRProxy: Warning: rec.slc[0].truth.E = nan in entry 930 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_756-a05ab65d-4677-43d9-93dc-ae7720d2cfdb.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 930 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_756-a05ab65d-4677-43d9-93dc-ae7720d2cfdb.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 930 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_756-a05ab65d-4677-43d9-93dc-ae7720d2cfdb.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 930 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_756-a05ab65d-4677-43d9-93dc-ae7720d2cfdb.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 930 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_756-a05ab65d-4677-43d9-93dc-ae7720d2cfdb.root
+SRProxy: Warning: rec.slc[6].truth.E = nan in entry 930 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_756-a05ab65d-4677-43d9-93dc-ae7720d2cfdb.root
+SRProxy: Warning: rec.slc[7].truth.E = nan in entry 930 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_756-a05ab65d-4677-43d9-93dc-ae7720d2cfdb.root
+SRProxy: Warning: rec.slc[8].truth.E = nan in entry 930 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_756-a05ab65d-4677-43d9-93dc-ae7720d2cfdb.root
+SRProxy: Warning: rec.slc[9].truth.E = nan in entry 930 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_756-a05ab65d-4677-43d9-93dc-ae7720d2cfdb.root
+SRProxy: Warning: rec.slc[10].truth.E = nan in entry 930 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_756-a05ab65d-4677-43d9-93dc-ae7720d2cfdb.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 1305 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_836-7a541255-fe0b-4b99-a93c-df042e87e21c.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 1305 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_836-7a541255-fe0b-4b99-a93c-df042e87e21c.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 1305 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_836-7a541255-fe0b-4b99-a93c-df042e87e21c.root
+SRProxy: Warning: rec.slc[4].truth.E = nan in entry 1305 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_836-7a541255-fe0b-4b99-a93c-df042e87e21c.root
+SRProxy: Warning: rec.slc[5].truth.E = nan in entry 1305 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_836-7a541255-fe0b-4b99-a93c-df042e87e21c.root
+SRProxy: Warning: rec.slc[1].truth.E = nan in entry 2141 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_869-469a404a-11b8-492c-bfa2-233c02889670.root
+SRProxy: Warning: rec.slc[2].truth.E = nan in entry 2141 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_869-469a404a-11b8-492c-bfa2-233c02889670.root
+SRProxy: Warning: rec.slc[3].truth.E = nan in entry 2141 of /pnfs/sbnd/per

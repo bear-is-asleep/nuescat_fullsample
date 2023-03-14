@@ -47,7 +47,7 @@ using namespace ana;
 
 using namespace std;
 
-const std::vector<CutDef> cuts = nuescatter_cuts;
+const std::vector<CutDef> cuts = no_cuts;
 const std::vector<Plot<SpillVar>> plots = recoPlots_all;
 const std::vector<TrueCategory> categories = no_cosmic_sel;
 
@@ -67,7 +67,7 @@ void NuEScatter_ana(bool reload = true)
 
   const double gPOT = 10e20;
   const bool save = true;
-  const string surName = "fullsample_nue_fullselection_cuts";
+  const string surName = "fullsample_fullselection_cuts";
   const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"_"+surName;
   const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 

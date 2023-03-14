@@ -31,7 +31,7 @@ const SpillVar kBestSlcID_trueangle([](const caf::SRSpillProxy* sp)->unsigned {
   return returnID;
 });
 
-const SpillVar kBestSlcID_crumbs([](const caf::SRSpillProxy* sp) -> unsigned {
+const SpillVar kBestSlcID([](const caf::SRSpillProxy* sp) -> unsigned {
     unsigned i = 0;
     double bestCrumbsScore = -std::numeric_limits<double>::max();
     unsigned returnID = 0;
@@ -52,7 +52,7 @@ const SpillVar kBestSlcID_crumbs([](const caf::SRSpillProxy* sp) -> unsigned {
     return returnID;
   });
 
-const SpillVar kBestSlcID([](const caf::SRSpillProxy* sp) -> unsigned {
+const SpillVar kBestSlcID_theta([](const caf::SRSpillProxy* sp) -> unsigned {
   unsigned i = 0;
   double theta = std::numeric_limits<double>::max();
   unsigned returnID = 0;
@@ -73,6 +73,39 @@ const SpillVar kBestSlcID([](const caf::SRSpillProxy* sp) -> unsigned {
       double trk_theta = acos(trk_dir.Dot(nu_direction));
       if (trk_theta < theta){
         theta = trk_theta;
+        returnID = i;
+      }
+    }
+    ++i;
+  }
+  return returnID;
+});
+
+const SpillVar kBestSlcID_etheta([](const caf::SRSpillProxy* sp) -> unsigned {
+  unsigned i = 0;
+  double Etheta = std::numeric_limits<double>::max();
+  unsigned returnID = 0;
+  for(auto const& slc : sp->slc){
+    if(!PtInVolAbsX(slc.vertex, fvndNuEScat)){ ++i; continue; }
+    TVector3 nu_direction = kNuDir(&slc);
+    for (auto const& shw : slc.reco.shw){
+      TVector3 shw_dir(shw.dir.x,shw.dir.y,shw.dir.z);
+      double shw_theta = acos(shw_dir.Dot(nu_direction));
+      double energy = shw.bestplane_energy;
+      double shw_Etheta = shw_theta*shw_theta*energy;
+      if (shw_Etheta < Etheta){
+        Etheta = shw_Etheta;
+        returnID = i;
+      }
+    }
+    //Tracks
+    for (auto const& trk : slc.reco.trk){
+      TVector3 trk_dir(trk.dir.x,trk.dir.y,trk.dir.z);
+      double trk_theta = acos(trk_dir.Dot(nu_direction));
+      double energy = trk.calo[trk.bestplane].ke*1e-3;
+      double trk_Etheta = trk_theta*trk_theta*energy;
+      if (trk_Etheta < Etheta){
+        Etheta = trk_Etheta;
         returnID = i;
       }
     }
@@ -640,15 +673,23 @@ const SpillVar kTrueNuE([](const caf::SRSpillProxy* sp) -> double {
   return slc.truth.E;
 });
 
+const Var kTrueNuESlice([](const caf::SRSliceProxy* sr) -> double {
+  if (isnan(sr->truth.E)) return -9999;
+  return sr->truth.E;
+});
+
 const SpillVar kRecoSmallestTheta([](const caf::SRSpillProxy* sp) -> double {
-  if(sp->nslc==0) return -9999.;
+  if(sp->nslc==0) return 9999.;
   auto const& slc = sp->slc[kBestSlcID(sp)];
-  double theta = -9999;
+  double theta = 9999;
   TVector3 nu_direction = kNuDir(&slc);
+  //cout<<"nu x,y,z: "<<nu_direction.X()<<","<<nu_direction.Y()<<","<<nu_direction.Z()<<","<<endl;
   //Showers
   for (auto const& shw : slc.reco.shw){
     TVector3 shw_dir(shw.dir.x,shw.dir.y,shw.dir.z);
     double shw_theta = acos(shw_dir.Dot(nu_direction));
+    //cout<<"--shw x,y,z: "<<shw_dir.X()<<","<<shw_dir.Y()<<","<<shw_dir.Z()<<","<<endl;
+    //cout<<"--shw theta: "<<shw_theta<<endl;
     if (shw_theta < theta){
       theta = shw_theta;
     }
@@ -657,6 +698,8 @@ const SpillVar kRecoSmallestTheta([](const caf::SRSpillProxy* sp) -> double {
   for (auto const& trk : slc.reco.trk){
     TVector3 trk_dir(trk.dir.x,trk.dir.y,trk.dir.z);
     double trk_theta = acos(trk_dir.Dot(nu_direction));
+    //cout<<"--trk x,y,z: "<<trk_dir.X()<<","<<trk_dir.Y()<<","<<trk_dir.Z()<<","<<endl;
+    //cout<<"--trk theta: "<<trk_theta<<endl;
     if (trk_theta < theta){
       theta = trk_theta;
     }
@@ -665,9 +708,9 @@ const SpillVar kRecoSmallestTheta([](const caf::SRSpillProxy* sp) -> double {
 });
 
 const SpillVar kTrueSmallestTheta([](const caf::SRSpillProxy* sp) -> double {
-  if(sp->nslc==0) return -9999.;
+  if(sp->nslc==0) return 9999.;
   auto const& slc = sp->slc[kBestSlcID(sp)];
-  double theta = -9999.;
+  double theta = 9999.;
   TVector3 nu_direction = kNuDir(&slc,true);
   for (auto const& prim : slc.truth.prim){
     if (abs(prim.pdg) == 12 || abs(prim.pdg) == 14) continue; //Don't count these
@@ -974,6 +1017,20 @@ const SpillVar kLeadingTrkEndZ([](const caf::SRSpillProxy* sp) -> double {
     auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
     return trk.end.z;
   });
+
+const SpillVar kLeadingTrkCRTTrkTime([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) ==0) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+    if (isnan(trk.crttrack.time)){return -9999.;}
+    return trk.crttrack.time;
+  });
+const SpillVar kLeadingTrkCRTTrkAngle([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) ==0) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kLeadingTrkID(sp)];
+    if (isnan(trk.crttrack.angle)){return -9999.;}
+    return trk.crttrack.angle;
+  });
+
 //Sub leading tracks
 const SpillVar kSubLeadingTrkTruePdg([](const caf::SRSpillProxy* sp) -> double {
     if(kNTracks(sp) < 2) return -9999.;
@@ -1078,6 +1135,19 @@ const SpillVar kSubLeadingTrkEndZ([](const caf::SRSpillProxy* sp) -> double {
     return trk.end.z;
   });
 
+const SpillVar kSubLeadingTrkCRTTrkTime([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) < 2) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+    if (isnan(trk.crttrack.time)){return -9999.;}
+    return trk.crttrack.time;
+  });
+const SpillVar kSubLeadingTrkCRTTrkAngle([](const caf::SRSpillProxy* sp) -> double {
+    if(kNTracks(sp) < 2) return -9999.;
+    auto const& trk = sp->slc[kBestSlcID(sp)].reco.trk[kSubLeadingTrkID(sp)];
+    if (isnan(trk.crttrack.angle)){return -9999.;}
+    return trk.crttrack.angle;
+  });
+
 const SpillVar kLeadingTrkPDGPlot([](const caf::SRSpillProxy* sp) -> double {
     if(kNTracks(sp) == 0) return -.5;
 
@@ -1163,6 +1233,16 @@ const SpillVar kGenieType([](const caf::SRSpillProxy *sp) -> int{
 const SpillVar kGenieMode([](const caf::SRSpillProxy *sp) -> int{
   if (sp->nslc==0) return -1;
   return sp->slc[kBestSlcID(sp)].truth.genie_mode;
+});
+
+const SpillVar kFMatchTime([](const caf::SRSpillProxy *sp) -> double{
+  if (sp->nslc==0) return -9999;
+  return sp->slc[kBestSlcID(sp)].fmatch.time;
+});
+
+const SpillVar kFMatchScore([](const caf::SRSpillProxy *sp) -> double{
+  if (sp->nslc==0) return -9999;
+  return sp->slc[kBestSlcID(sp)].fmatch.score;
 });
 
 
@@ -1271,6 +1351,8 @@ std::vector<Plot<SpillVar>> recoPlots_all = {
   { "Leading Track Angle (Zoom)", kLeadingTrkAngle, Binning::Simple(20,0,PI/10), ";Leading Track Angle (rad);Events", "leading_trk_angle_zoom", {.59,.57,.89,.85} },
   { "Leading Track True Angle", kLeadingTrkTrueAngle, Binning::Simple(36,0,PI), ";Leading Track True Angle (rad);Events", "leading_trk_true_angle", {.59,.57,.89,.85} },
   { "Leading Track True Angle (Zoom)", kLeadingTrkTrueAngle, Binning::Simple(20,0,PI/10), ";Leading Track True Angle (rad);Events", "leading_trk_true_angle_zoom", {.59,.57,.89,.85} },
+  { "Leading Track CRT Track Time",kLeadingTrkCRTTrkTime,Binning::Simple(20,0,2000),";Leading Track CRT Track Time [us];Events","leading_trk_crttrk_time",{.59,.57,.89,.85}},
+  { "Leading Track CRT Track Angle",kLeadingTrkCRTTrkAngle,Binning::Simple(20,0,PI),";Leading Track CRT Track Angle;Events","leading_trk_crttrk_angle",{.59,.57,.89,.85}},
   { "SubLeading Track Energy", kSubLeadingTrkEnergy, Binning::Simple(40,0,2), ";Sub Leading Track Energy (GeV);Events", "subleading_trk_energy", {.59,.57,.89,.85} },
   { "SubLeading Track Length", kSubLeadingTrkLen, Binning::Simple(40,0,500), ";Sub Leading Track Length (cm);Events", "subleading_trk_len", {.59,.57,.89,.85} },
   { "SubLeading Track NPoints", kSubLeadingTrkNPts, Binning::Simple(40,0,1000), ";Sub Leading Track NPts;Events", "subleading_trk_npts", {.59,.57,.89,.85} },
@@ -1288,12 +1370,16 @@ std::vector<Plot<SpillVar>> recoPlots_all = {
   { "SubLeading Track Angle (Zoom)", kSubLeadingTrkAngle, Binning::Simple(20,0,PI/10), ";SubLeading Track Angle (rad);Events", "subleading_trk_angle_zoom", {.59,.57,.89,.85} },
   { "SubLeading Track True Angle", kSubLeadingTrkTrueAngle, Binning::Simple(36,0,PI), ";SubLeading Track True Angle (rad);Events", "subleading_trk_true_angle", {.59,.57,.89,.85} },
   { "SubLeading Track True Angle (Zoom)", kSubLeadingTrkTrueAngle, Binning::Simple(20,0,PI/10), ";SubLeading Track True Angle (rad);Events", "subleading_trk_true_angle_zoom", {.59,.57,.89,.85} },
+  { "SubLeading Track CRT Track Time",kSubLeadingTrkCRTTrkTime,Binning::Simple(20,0,2000),";SubLeading Track CRT Track Time [us];Events","subleading_trk_crttrk_time",{.59,.57,.89,.85}},
+  { "SubLeading Track CRT Track Angle",kSubLeadingTrkCRTTrkAngle,Binning::Simple(0,0,PI),";SubLeading Track CRT Track Angle;Events","subleading_trk_crttrk_angle",{.59,.57,.89,.85}},
   //{ "Invariant Mass", kInvariantMass, Binning::Simple(30,0,1), ";Invariant Mass (GeV);Events", "invariant_mass", {.59,.57,.89,.85} },
   { "Reco vtx x",kRecoVtxX,Binning::Simple(40,-400,400),";Reco vtx x;Events","reco_vtx_x",{.59,.57,.89,.85}},
   { "Reco vtx y",kRecoVtxY,Binning::Simple(40,-400,400),";Reco vtx y;Events","reco_vtx_y",{.59,.57,.89,.85}},
   { "Reco vtx z",kRecoVtxZ,Binning::Simple(60,-200,700),";Reco vtx z;Events","reco_vtx_z",{.59,.57,.89,.85}},
   {"Genie Interaction Type",kGenieType,Binning::Simple(100,1000,1100),";Genie Interaction Type;Events","genie_type",{.59,.57,.89,.85}},
   {"Genie Interaction Mode",kGenieMode,Binning::Simple(14,-1,13),";Genie Mode;Events","genie_mode",{.59,.57,.89,.85}},
+  {"Flash Match Time",kFMatchTime,Binning::Simple(20,0,4),";FMatch Time (us);Events","fmatch_time",{.59,.57,.89,.85}},
+  {"Flash Match Score",kFMatchScore,Binning::Simple(20,0,4),";FMatch Score (us);Events","fmatch_score",{.59,.57,.89,.85}},
 };
 
 std::vector<Plot<SpillVar>> recoPlots_basic = {

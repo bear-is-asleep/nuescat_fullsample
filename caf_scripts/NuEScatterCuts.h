@@ -47,6 +47,14 @@ const SpillCut kIsTrueFV([](const caf::SRSpillProxy* sp) {
     return PtInVolAbsX(slc.truth.position, fvndNuEScat);
   });
 
+const SpillCut kIsTrueAV([](const caf::SRSpillProxy* sp) {
+  auto const& slc = sp->slc[kBestSlcID(sp)];
+  //std::cout<<"run,subrun,evt : "<<sp->hdr.run<<","<<sp->hdr.subrun<<","<<sp->hdr.evt<<std::endl;
+  //print_all_prim_matched(sp,kBestSlcID(sp));
+  //print_all_prim_info_slc(sp,kBestSlcID(sp));
+  return PtInVolAbsX(slc.truth.position, avnd);
+});
+
 const SpillCut kEtheta2([](const caf::SRSpillProxy* sp) {
   // --Return true if a single object has Etheta < Ethetacut
   // --Future want to redesign this so that we sum over fragmented reco objects
@@ -103,7 +111,11 @@ const SpillCut kTooManyRecoObjects([](const caf::SRSpillProxy* sp) {
 });
 
 const SpillCut kSoftRecoAngleCut([](const caf::SRSpillProxy* sp) {
-  return kRecoSmallestTheta(sp) < 0.65; //Small angle requirement 
+  return kRecoSmallestTheta(sp) < 0.6; //Small angle requirement 
+});
+
+const SpillCut kSoftEthetaCut([](const caf::SRSpillProxy* sp) {
+  return kEtheta2Var(sp) < 0.05; //Small Etheta requirement
 });
 
 
@@ -229,7 +241,8 @@ std::vector<CutDef> preselection_cuts = { { "No Cut", "no_cut", kNoSpillCut },
 
 const SpillCut kPreSelection = kHasSlc && kHasNuSlc && kHasNuFVSlc;
 const SpillCut kCosmicRej    = kPreSelection && kHasCRUMBSSlc && kIsFV;
+const SpillCut kNuFluxSelection = kHasSlc && kHasNuSlc && kTrueAV && !kCosmicSpill;
 const SpillCut kEthetaSelection = kPreSelection && kCosmicRej && kEtheta2;
-const SpillCut kSoftSelection = kPreSelection && kIsFV && kTooManyRecoObjects && kSoftRecoAngleCut;
+const SpillCut kSoftSelection = kPreSelection && kIsFV && kTooManyRecoObjects && kSoftEthetaCut;
 const SpillCut kFullSelection = kEthetaSelection && kHasNoTrks && kHasOneShw && kRazzleCut;
 const SpillCut kTrueSelection = kHasSlc && kIsTrueFV && kTruthTrkCut && kTruthShwCut && kTruthEleCut && kTruthEtheta2;
