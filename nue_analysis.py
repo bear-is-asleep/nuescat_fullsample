@@ -21,32 +21,14 @@ day = date.today().strftime("%Y_%m_%d")
 plotters.use_science_style()
 #NuEScat_dir = f'/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_6_fullsample_few_recocut_recoslc'
 #NuEScat_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_8_fullsample_nue_few_recocut_recoslc'
-NuEScat_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_2_23_pure_nue_truth_cuts'
+#NuEScat_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_2_23_pure_nue_truth_cuts'
+NuEScat_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_14_fullsample_softetheta_recoslc'
 surname = ''
 fnames = [f'cut_events_basic{surname}.root',f'cut_events_trk{surname}.root',f'cut_events_shw{surname}.root']
-folder_name=f'{NuEScat_dir}/plots'
+folder_name=f'{NuEScat_dir}/cut_sel_{day}/cut_plots'
 
-colors = ['blue','purple','yellow','red','green','brown','black']
-categories = [r'$\nu + e$',r'NC $\pi^0$','NC',r'CC$\nu_\mu$',r'CC$\nu_e$','Dirt','Other']
-def set_event_type(events):
-  """
-  set_event_type(events)
-
-  This function takes a dataframe (events) as input, and sets the 
-  'evt_type' column to a string value based on the numerical value of
-  'evt_type' column. The numerical values are mapped to string values: 
-  0: 'NuEScat', 1: 'NCPi0', 2: 'NC', 3: 'CCNuMu', 4: 'CCNuE', 5: 'Dirt', 6: 'Other'.
-
-  Parameters:
-  events (pandas dataframe): dataframe that contains the event data
-
-  Returns:
-  events (pandas dataframe): modified dataframe with the 'evt_type' column as string values
-  """
-  
-  for i,cat in enumerate(categories):
-    events.loc[events.loc[:,'evt_type'] == i,'evt_type'] = cat
-  return events
+colors = helpers.colors
+categories = helpers.categories
 def key_mask_values(x,key):
   """
   Mask extreme values such that we view important regions of the plots.
@@ -253,7 +235,7 @@ def plot_hist(df,key_x,title=None,**kwargs):
                                     is_df=False)
     if len(x) == 0: continue #Skip event types that have no events
     xs.append(x)
-    labels.append(f'{name} ({len(xs[i]):,})')
+    labels.append(f'{name} ({len(x):,})')
   fig,ax = plt.subplots(figsize=(6,6),tight_layout=True)
 
   ax.hist(xs,label=labels,edgecolor=colors[i],stacked=True,**kwargs)
@@ -323,21 +305,24 @@ def plot_masked_vals(df,x_key,masks,labels,use_kde=True,y_key=None,title=None,**
   return fig,ax
 
 #Use uproot to load all the ttrees and concatenate them
-dfs = []
-for fname in fnames:
-  print(fname)
-  tree = uproot.open(f'{NuEScat_dir}/{fname}:rectree;1')
-  #use numpy library to convert numpy array to dataframe
-  df = helpers.get_df(tree,
-                      tree.keys(),
-                      hdrkeys=['run','subrun','evt'],
-                      library='np')
-  dfs.append(df)
-events = pd.concat(dfs,axis=1)
+# dfs = []
+# for fname in fnames:
+#   print(fname)
+#   tree = uproot.open(f'{NuEScat_dir}/{fname}:rectree;1')
+#   #use numpy library to convert numpy array to dataframe
+#   df = helpers.get_df(tree,
+#                       tree.keys(),
+#                       hdrkeys=['run','subrun','evt'],
+#                       library='np')
+#   dfs.append(df)
+# events = pd.concat(dfs,axis=1)
 
+events = pd.read_csv(f'{NuEScat_dir}/cut_events.csv')
+events = events.set_index(['run','subrun','evt'])
+#print(events.loc[:,('ntrk','nshw')])
 print('-----Cleaning data')
 #Mask event type and get their names
-events = set_event_type(events)
+events = helpers.set_event_type(events)
 events.loc[:,'nreco'] = events.nshw + events.ntrk
 events.loc[:,'theta_err'] = (events.reco_theta-events.true_theta)/events.true_theta
 #events = cuts.apply_cuts(events)
@@ -361,10 +346,10 @@ ltrk = events.loc[:,ltrk_keys]
 sltrk = events.loc[:,sltrk_keys]
 
 #Remove events filled with dummy values
-lshw = helpers.remove_dummy_values(lshw)
-slshw = helpers.remove_dummy_values(slshw)
-ltrk = helpers.remove_dummy_values(ltrk)
-sltrk = helpers.remove_dummy_values(sltrk)
+# lshw = helpers.remove_dummy_values(lshw)
+# slshw = helpers.remove_dummy_values(slshw)
+# ltrk = helpers.remove_dummy_values(ltrk)
+# sltrk = helpers.remove_dummy_values(sltrk)
 
 other_keys = []
 for key in events.keys():
@@ -373,7 +358,7 @@ for key in events.keys():
       other_keys.append(key)
 other_keys.extend(['evt_type'])
 other_events = events.loc[:,other_keys]
-other_events = helpers.remove_dummy_values(other_events)
+#other_events = helpers.remove_dummy_values(other_events)
 
 #Get reco and true labels and arrays
 reco_labels_other = ['nshw','ntrk','reco_eng','reco_theta',
@@ -453,8 +438,8 @@ mask_labels = ['ntrk = 0 & nshw = 0',
 plot_mask_keys = ['reco_eng','true_theta','reco_theta','Etheta','true_Etheta','true_slice_eng','nstub','theta_err']
 
 print('-----Test plots')
-x_key = 'lshw.electron'
-fig,ax = plot_masked_vals(events,x_key,masks,mask_labels)
+# x_key = 'lshw.electron'
+# fig,ax = plot_masked_vals(events,x_key,masks,mask_labels)
 #plotters.save_plot(f'pdgmask_ele_{x_key}',folder_name=folder_name,fig=fig)
 #plot_df_keys(other_events,keys_x=['reco_eng'])
 # plot_df_keys(lshw,keys_x=['lshw.len','lshw.cnvgap','lshw.dens'])
@@ -492,88 +477,89 @@ print('-----Starting plots')
 #     plt.close('all')
 
 #Make comps to true type
-for i,x_key in enumerate(events):
-  for j,y_key in enumerate(events):
-    #if x_key not in plot_mask_keys: continue
-    if y_key in ['evt_type']: continue
-    
-    if x_key == y_key and x_key not in ['evt_type']:
-      print(f'mask plot {x_key} {y_key}')
-      #fig,ax = plot_masked_vals(events,x_key,masks,mask_labels,alpha=0.7)
-      #key_set_lim(ax,x_key)
-      #pname = f'dist_{x_key.replace(".","_")}'
-    else:
-      continue
-      fig,ax = plot_masked_vals(events,x_key,masks,mask_labels,use_kde=False,y_key=y_key,
-                                alpha=0.3)
-      #key_set_lim(ax,x_key)
-      #key_set_lim(ax,y_key,axis='y')
-      pname = f'scat_{x_key.replace(".","_")}_{y_key.replace(".","_")}'
-    #plotters.save_plot(pname,folder_name=folder_name+'/pdgmask',fig=fig)
-    #ax.cla()
-    #plt.clf()
-    #plt.close('all')
-    if x_key == y_key and x_key not in ['evt_type']:
-      if x_key in ['truentrk','truenshw','nele']: continue
-      elif x_key in ['nshw','nreco','ntrk','nstub','truenshw','truentrk','nele']:
-        bins = np.arange(0,max(events.loc[:,x_key]),1) #arange bins into integer numbers
-      elif x_key[-3:] == 'eng':
-        bins=eng_bins
-      elif x_key[-4:] in ['vgap','dens']:
-        bins=dens_bins
-      elif x_key[-3:] in ['len']:
-        bins=len_bins
-      elif x_key[-6:] in ['Etheta']:
-        bins=etheta_bins
-      elif x_key[-5:] in ['theta']:
-        bins = theta_bins
-      elif x_key in ['theta_err']:
-        bins = theta_err_bins
-      elif x_key[-4:] in ['dedx']:
-        bins = de_dx_bins
-      else: bins = 20
-      fig,ax = plot_masked_vals(events,x_key,masks,mask_labels,use_kde=False,
-                                alpha=0.7,bins=bins,histtype='step',linewidth=2)
-      key_set_lim(ax,x_key)
-      # if x_key[-3:] == 'eng':
-      #   ax.set_ylim([0,180])
-      # if x_key[-5:] == 'theta':
-      #   ax.set_ylim([0,310])
-      if x_key == 'lshw.photon':
-        ax.set_ylim([0,55])
-      pname = f'hist_{x_key.replace(".","_")}'
-      plotters.save_plot(pname,folder_name=folder_name+'/pdgmask',fig=fig)
-      ax.set_yscale('log')
-      plotters.save_plot(pname+'_logy',folder_name=folder_name+'/pdgmask',fig=fig)
-      plt.close('all')
+if False:
+  for i,x_key in enumerate(events):
+    for j,y_key in enumerate(events):
+      #if x_key not in plot_mask_keys: continue
+      if y_key in ['evt_type']: continue
+      
+      if x_key == y_key and x_key not in ['evt_type']:
+        print(f'mask plot {x_key} {y_key}')
+        #fig,ax = plot_masked_vals(events,x_key,masks,mask_labels,alpha=0.7)
+        #key_set_lim(ax,x_key)
+        #pname = f'dist_{x_key.replace(".","_")}'
+      else:
+        continue
+        fig,ax = plot_masked_vals(events,x_key,masks,mask_labels,use_kde=False,y_key=y_key,
+                                  alpha=0.3)
+        #key_set_lim(ax,x_key)
+        #key_set_lim(ax,y_key,axis='y')
+        pname = f'scat_{x_key.replace(".","_")}_{y_key.replace(".","_")}'
+      #plotters.save_plot(pname,folder_name=folder_name+'/pdgmask',fig=fig)
+      #ax.cla()
+      #plt.clf()
+      #plt.close('all')
+      if x_key == y_key and x_key not in ['evt_type']:
+        if x_key in ['truentrk','truenshw','nele']: continue
+        elif x_key in ['nshw','nreco','ntrk','nstub','truenshw','truentrk','nele']:
+          bins = np.arange(0,max(events.loc[:,x_key]),1) #arange bins into integer numbers
+        elif x_key[-3:] == 'eng':
+          bins=eng_bins
+        elif x_key[-4:] in ['vgap','dens']:
+          bins=dens_bins
+        elif x_key[-3:] in ['len']:
+          bins=len_bins
+        elif x_key[-6:] in ['Etheta']:
+          bins=etheta_bins
+        elif x_key[-5:] in ['theta']:
+          bins = theta_bins
+        elif x_key in ['theta_err']:
+          bins = theta_err_bins
+        elif x_key[-4:] in ['dedx']:
+          bins = de_dx_bins
+        else: bins = 20
+        fig,ax = plot_masked_vals(events,x_key,masks,mask_labels,use_kde=False,
+                                  alpha=0.7,bins=bins,histtype='step',linewidth=2)
+        key_set_lim(ax,x_key)
+        # if x_key[-3:] == 'eng':
+        #   ax.set_ylim([0,180])
+        # if x_key[-5:] == 'theta':
+        #   ax.set_ylim([0,310])
+        if x_key == 'lshw.photon':
+          ax.set_ylim([0,55])
+        pname = f'hist_{x_key.replace(".","_")}'
+        plotters.save_plot(pname,folder_name=folder_name+'/pdgmask',fig=fig)
+        ax.set_yscale('log')
+        plotters.save_plot(pname+'_logy',folder_name=folder_name+'/pdgmask',fig=fig)
+        plt.close('all')
 
 
 #Make histograms
-if False:
+if True:
   for i,key in enumerate(events):
     if key == 'evt_type': continue
 
-    if key[-4:] in ['dedx']:
-      fig,ax = plot_hist(events,key,alpha=0.5,linewidth=2,bins=de_dx_bins)
-    elif key in ['nshw','nreco','ntrk','nstub','truenshw','truentrk','nele']:
-      bins = np.arange(0,max(events.loc[:,key]),1) #arange bins into integer numbers
-      fig,ax = plot_hist(events,key,alpha=0.5,linewidth=2,bins=bins)
-    elif key[-3:] == 'eng':
-      fig,ax = plot_hist(events,key,alpha=0.5,linewidth=2,bins=eng_bins)
-    elif key[-4:] in ['vgap','dens']:
-      fig,ax = plot_hist(events,key,alpha=0.5,linewidth=2,bins=dens_bins)
-    elif key[-3:] in ['len']:
-      fig,ax = plot_hist(events,key,alpha=0.5,linewidth=2,bins=len_bins)
-    else:
-      fig,ax = plot_hist(events,key,alpha=0.5,linewidth=2,bins=20)
-    if key != 'Etheta':
-      key_set_lim(ax,key)
+    # if key[-4:] in ['dedx']:
+    #   fig,ax = plot_hist(events,key,alpha=0.5,linewidth=2,bins=de_dx_bins)
+    if key in ['nshw','nreco','ntrk','nstub','truenshw','truentrk','nele']:
+      bins = np.arange(0,max(events.loc[:,key]),step=1) #arange bins into integer numbers
+    #   fig,ax = plot_hist(events,key,alpha=0.5,linewidth=2,bins=bins)
+    # elif key[-3:] == 'eng':
+    #   fig,ax = plot_hist(events,key,alpha=0.5,linewidth=2,bins=eng_bins)
+    # elif key[-4:] in ['vgap','dens']:
+    #   fig,ax = plot_hist(events,key,alpha=0.5,linewidth=2,bins=dens_bins)
+    # elif key[-3:] in ['len']:
+    #   fig,ax = plot_hist(events,key,alpha=0.5,linewidth=2,bins=len_bins)
+    else: bins = 10
+    fig,ax = plot_hist(events,key,alpha=0.5,linewidth=2,bins=20)
+    # if key != 'Etheta':
+    #   key_set_lim(ax,key)
     key = key.replace('.','_')
     plotters.save_plot(f'hist_{key}',folder_name=folder_name,fig=fig)
-    if key[-6:] == 'Etheta':
-      fig,ax = plot_hist(events,key,alpha=0.5,linewidth=2,bins=etheta_bins)
-      key = f'{key}_zoom'
-      plotters.save_plot(f'hist_{key}',folder_name=folder_name,fig=fig)
+    # if key[-6:] == 'Etheta':
+    #   fig,ax = plot_hist(events,key,alpha=0.5,linewidth=2,bins=etheta_bins)
+    #   key = f'{key}_zoom'
+    #   plotters.save_plot(f'hist_{key}',folder_name=folder_name,fig=fig)
     #ax.set_yscale('log')
     #plotters.save_plot(f'hist_{key}_logy',folder_name=folder_name,fig=fig)
     plt.close('all')

@@ -83,3 +83,13 @@ def set_event_type(events):
   for i,cat in enumerate(categories):
     events.loc[events.loc[:,'evt_type'] == i,'evt_type'] = cat
   return events
+
+def calc_etheta_reco(events,prefix):
+  """
+  Calc etheta for reco object, and mask out bad values
+  """
+  events.loc[:,f'{prefix}Etheta'] = events.loc[:,f'{prefix}eng']* events.loc[:,f'{prefix}angle']**2
+  mask = abs(events.loc[:,f'{prefix}Etheta']) > 9999 #Mask these values to -9999
+  mask_inds = events.index[mask]
+  events.loc[mask_inds,f'{prefix}Etheta'] = -9999 #Mask to -9999
+  return events

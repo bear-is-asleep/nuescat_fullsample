@@ -15,9 +15,9 @@ import helpers
 from datetime import date
 
 day = date.today().strftime("%Y_%m_%d")
-state_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_3_systs_nuescat_cut'
+#state_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_3_systs_nuescat_cut'
 #'/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_1_30_systs_5bins'
-
+state_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_16_systs_truth_cuts'
 #Functions
 def plot_reweighted_nue_dist(universes,weights,**kwargs):
   """
@@ -46,14 +46,14 @@ def plot_reweighted_nue_dist(universes,weights,**kwargs):
   fig,ax = plt.subplots(figsize=(6,6))
   ax.hist(universes,label='Unweighted',bins=bins,
           color='black',edgecolor='black',**kwargs)
-  ax.hist(universes,weights=W_arr,label='Weighted',bins=bins,
+  ax.hist(universes,weights=weights,label='Weighted',bins=bins,
           color='red',edgecolor='red',**kwargs)
 
   #Set labels
   trans = transforms.blended_transform_factory(ax.transData, ax.transAxes)
-  ax.text(90,0.8,stats_unconstrained,transform=trans,fontsize=14,
+  ax.text(425,0.8,stats_unconstrained,transform=trans,fontsize=14,
           bbox=dict(facecolor='none', edgecolor='black', boxstyle='round'))
-  ax.text(90,0.62,stats_constrained,transform=trans,fontsize=14,
+  ax.text(425,0.62,stats_constrained,transform=trans,fontsize=14,
           bbox=dict(facecolor='none', edgecolor='red', boxstyle='round'))
   ax.set_xlabel(r'$N_{\nu+e}$')
   ax.set_ylabel('Prob. arb')
@@ -72,11 +72,17 @@ def plot_covmat(covmat,edges,**kwargs):
   for i in range(covmat.shape[0]):
     for j in range(covmat.shape[1]):
       plt.text(j, i, f'{covmat[i,j]:.1f}', ha='center', va='center', color='white')
-  plt.xticks(np.arange(len(edges)-1),edges[:-1]) #Label ticks with energy spectrum
-  plt.yticks(np.arange(len(edges)-1),edges[:-1]) #Label ticks with energy spectrum
+  xticks = ['']
+  for i,edge in enumerate(edges):
+    if i == len(edges)-1:break #Don't include last bin for out of bounds error
+    xticks.append(f'{edge} - {edges[i+1]}')
+  ax.set_xticklabels(xticks,rotation=30)
+  ax.set_yticklabels(xticks,rotation=30)
+  ax.set_xlabel(r'True $E_\nu$ [GeV]')
+  ax.set_ylabel(r'True $E_\nu$ [GeV]')
   plt.colorbar()
+  plotters.set_style(ax)
   return fig,ax
-
 
   
 fname = 'state_all.root' #To get all universes and nominal one
@@ -90,13 +96,13 @@ for i,key in enumerate(keys): #Iterate over all universes
   values[i] = hist[key].values()
 
 #Extract nominal and universe values
-nom = values[0,:-1] #I temporarily added the :-1 because the last bin is always zero
-universes = values[1:,:-1]
-edges = edges[:-1]
+nom = values[0] #I temporarily added the :-1 because the last bin is always zero
+#universes = np.concatenate((values[0:4],values[5:]),axis=0)
+universes = values[1:]
+#edges = edges[:-1]
 n_universes = universes.shape[0]
 
 plt.hist(np.sum(universes,axis=1))
-plt.savefig('tests/universe.png')
 
 #Calcu cov mat using Vij = 1/N sum_i((xu_i-xn_i)(xu_j-xn_j))
 covmat_syst = np.zeros((len(nom),len(nom))) #syst
@@ -112,57 +118,69 @@ for _,uni in enumerate(universes):
 
 covmat_syst/=n_universes
 covmat_stat/=n_universes
-covmat = covmat_stat+covmat_syst #total covariance
+covmat = covmat_stat + covmat_syst #total covariance
+minerva_covmat = np.array([
+  [98.7,1.22,1.72,1.38,0.42,-0.269],
+  [1.22,27.3,1.63,1.14,.34,0.755],
+  [1.72,1.63,40.1,1.88,0.596,1.35],
+  [1.38,1.14,1.88,34.7,0.448,0.968],
+  [0.42,0.34,0.596,0.448,18.9,0.778],
+  [-0.269,0.755,1.35,0.968,0.778,59.5]])
+minerva_edges = [0.8,2,3,5,7,9,20]
+#covmat = np.identity(len(nom))
 if True: #Save covariance matrices
   np.savetxt(f'{state_dir}/covmat_syst.txt',covmat_syst)
   np.savetxt(f'{state_dir}/covmat_stat.txt',covmat_stat)
   np.savetxt(f'{state_dir}/covmat.txt',covmat)
+  np.savetxt(f'{state_dir}/minerva_covmat.txt',minerva_covmat)
 
   #Make plots
   fig,ax = plot_covmat(covmat_syst,edges,vmax=np.max(covmat))
-  plotters.save_plot('covmat_syst',folder_name=f'{state_dir}/plots',fig=fig)
+  plotters.save_plot('covmat_syst',folder_name=f'{state_dir}/plots/syst_only',fig=fig)
 
   fig,ax = plot_covmat(covmat_stat,edges,vmax=np.max(covmat))
-  plotters.save_plot('covmat_stat',folder_name=f'{state_dir}/plots',fig=fig)
+  plotters.save_plot('covmat_stat',folder_name=f'{state_dir}/plots/stat_only',fig=fig)
 
   fig,ax = plot_covmat(covmat,edges,vmax=np.max(covmat))
-  plotters.save_plot('covmat',folder_name=f'{state_dir}/plots',fig=fig)
+  plotters.save_plot('covmat',folder_name=f'{state_dir}/plots/total',fig=fig)
 
+  fig,ax = plot_covmat(minerva_covmat,minerva_edges,vmax=np.max(covmat))
+  plotters.save_plot('minerva_covmat',folder_name=f'{state_dir}/plots/total',fig=fig)
+plt.close('all')
 print('covmat made')
 
 #Calc likelihood W = P(N_{\nu+e}|M) = \frac{1}{(2\pi)^{K/2}}\frac{1}{\sqrt{\Sigma_N}}
 # \textrm{exp}\left( -\frac12 (\textbf{N}-\textbf{M})^T\Sigma_N^{-1} (\textbf{N}-\textbf{M})\right)
 #χ2 =(N−M)T Σ−1(N−M)
-dof = len(values[0]) #degrees of freedom
-chi_squared_arr = np.zeros(n_universes)
-normalization = 1/((2*np.pi)**(dof/2)*np.linalg.det(covmat)**(1/2))
-W_arr = np.zeros(n_universes)
-#universes_reweighted = np.zeros(universes.shape)
-norm_bayes = np.zeros(universes.shape[1]) #int pi(m')p(n|m')dm' = sum_i u_i/nom (vector) p(n_i|m)
-for i,uni in enumerate(universes):
-  chi_squared_arr[i] = (nom-uni).T@np.linalg.inv(covmat)@(nom-uni)
-  w = normalization*np.exp(-0.5*chi_squared_arr[i])
-  W_arr[i] = w
-  #universes_reweighted[i] = w*uni
-  #norm_bayes += universes_reweighted[i]/nom
-plt.close('all')
-#for i,uni in enumerate(universes_reweighted):
-#  print(uni/norm_bayes,uni,norm_bayes)
-#universes_reweighted = [uni/norm_bayes for uni in universes_reweighted] #normalize
-#universes_reweighted = np.sum(universes,axis=0)/np.sum(universes_reweighted,axis=0)*universes_reweighted #normalize
-#np.savetxt('tests/reweighted.txt',universes_reweighted)
-W_arr = len(universes)/np.sum(W_arr)*W_arr
+def chi_weights_calc(covmat):
+  dof = len(values[0]) #degrees of freedom
+  chi_squared_arr = np.zeros(n_universes)
+  normalization = 1/((2*np.pi)**(dof/2)*np.linalg.det(covmat)**(1/2))
+  W_arr = np.zeros(n_universes)
+  for i,uni in enumerate(universes):
+    chi_squared_arr[i] = (nom-uni).T@np.linalg.inv(covmat)@(nom-uni)
+    w = normalization*np.exp(-0.5*chi_squared_arr[i])
+    W_arr[i] = w
+  W_arr = len(universes)/np.sum(W_arr)*W_arr
+  return W_arr,chi_squared_arr
+W_arr,chi_squared_arr = chi_weights_calc(covmat)
+W_arr_syst,chi_squared_arr_syst = chi_weights_calc(covmat_syst)
+W_arr_stat,chi_squared_arr_stat = chi_weights_calc(covmat_stat)
+
+
 np.savetxt(f'{state_dir}/universes.txt',universes)
 np.savetxt(f'{state_dir}/x2.txt',np.exp(-0.5*chi_squared_arr))
 np.savetxt(f'{state_dir}/weights.txt',W_arr)
+np.savetxt(f'{state_dir}/weights_syst.txt',W_arr_syst)
+np.savetxt(f'{state_dir}/weights_stat.txt',W_arr_stat)
 #print(W_arr,chi_squared_arr)
 if True:
   plt.hist(W_arr)
-  plotters.save_plot('ws',folder_name=f'{state_dir}/plots')
+  plotters.save_plot('ws',folder_name=f'{state_dir}/plots/total')
   plt.close()
 
   plt.hist(chi_squared_arr)
-  plotters.save_plot('x2',folder_name=f'{state_dir}/plots')
+  plotters.save_plot('x2',folder_name=f'{state_dir}/plots/total')
   plt.close()
 
   
@@ -178,4 +196,10 @@ if True:
   plt.close()
 
   fig,ax = plot_reweighted_nue_dist(np.sum(universes,axis=1),W_arr,histtype='step')
-  plotters.save_plot('reweighted_ne',folder_name=f'{state_dir}/plots',fig=fig)
+  plotters.save_plot('reweighted_ne',folder_name=f'{state_dir}/plots/total',fig=fig)
+
+  fig,ax = plot_reweighted_nue_dist(np.sum(universes,axis=1),W_arr_stat,histtype='step')
+  plotters.save_plot('reweighted_ne',folder_name=f'{state_dir}/plots/stat_only',fig=fig)
+
+  fig,ax = plot_reweighted_nue_dist(np.sum(universes,axis=1),W_arr_syst,histtype='step')
+  plotters.save_plot('reweighted_ne',folder_name=f'{state_dir}/plots/syst_only',fig=fig)

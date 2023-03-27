@@ -3181,3 +3181,25 @@ rec.slc[0] out of range (rec.slc.size() == 0). Aborting.
 Aborted
 
 ImportError: No module named site
+
+Processing /sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbnana/v09_62_00/slf7.x86_64.e20.prof/bin/load_cafana_libs.C...
+Loading libraries..............
+Welcome to the ROOT of all evils 
+Processing NuEScatter_events.C++()...
+Info in <TUnixSystem::ACLiC>: creating shared library /sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/./NuEScatter_events_C.so
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_events_linkdef.h, output: $EIGEN_INC/NuEScatter_events_linkdef.h
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_events_linkdef.hh, output: $EIGEN_INC/NuEScatter_events_linkdef.hh
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_events_linkdef.hpp, output: $EIGEN_INC/NuEScatter_events_linkdef.hpp
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_events_linkdef.hxx, output: $EIGEN_INC/NuEScatter_events_linkdef.hxx
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_events_linkdef.hPP, output: $EIGEN_INC/NuEScatter_events_linkdef.hPP
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_events_linkdef.hXX, output: $EIGEN_INC/NuEScatter_events_linkdef.hXX
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_events.h, output: $EIGEN_INC/NuEScatter_events.h
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_events.hh, output: $EIGEN_INC/NuEScatter_events.hh
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_events.hpp, output: $EIGEN_INC/NuEScatter_events.hpp
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_events.hxx, output: $EIGEN_INC/NuEScatter_events.hxx
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_events.hPP, output: $EIGEN_INC/NuEScatter_events.hPP
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_events.hXX, output: $EIGEN_INC/NuEScatter_events.hXX
+Looking up files matching 'defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd' using SAM...
+Looking up locations of 1089 files using SAM...
+Filling 0 spectra from 1089 files matching 'defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd'...
+3.08415e+20 POT over 20221740 readouts

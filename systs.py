@@ -15,9 +15,11 @@ sample = ''
 
 day = helpers.day
 
-suffix = '_systs_nuescat_cut'
-state_folder = f'/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_3{suffix}'
-plot_folder = f'/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_3{suffix}'
+#suffix = '_systs_nuescat_cut'
+#state_folder = f'/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_3_systs_nuescat_cut'
+#state_folder = f'/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_16_systs_truth_cuts'
+state_folder = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_16_reweight_flux'
+plot_folder = f'{state_folder}/plots'
 
 fnames = os.listdir(state_folder)
 colors = cm.get_cmap('Spectral', len(fnames))
@@ -68,8 +70,9 @@ for i,df in enumerate(syst_dfs):
     ax2.bar(x,(y0_err+y1_err)/2,width=dx,label=f'{labels[i]} ({avg*100:.1f}%)',linewidth=lw,
     fill=False,edgecolor=colors(5))
   elif labels[i] == 'total_multisim':
-    print(y1_err,y0_err,(y0_err+y1_err)/2)
+    #print(y1_err,y0_err,(y0_err+y1_err)/2)
     lw = 2
+    #ax2.step(x,(y0_err+y1_err)/2,label=f'{labels[i]} ({avg*100:.1f}%)',linewidth=lw,where='post',color=colors(10))
     ax2.bar(x,(y0_err+y1_err)/2,width=dx,label=f'{labels[i]} ({avg*100:.1f}%)',linewidth=lw,
     fill=False,edgecolor=colors(10))
   #Add bar for all syst uncertainties

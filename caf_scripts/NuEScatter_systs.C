@@ -48,7 +48,7 @@ using namespace std;
 
 const string state_fname = "NuEScatter_state_all.root";
 const bool do_systematics = true;
-const SpillCut kSystematicSelection = kFullSelection && kNuEScat;
+const SpillCut kSystematicSelection = kTrueSelection && kNuEScat;
 
 
 void NuEScatter_systs(bool save = true)
@@ -61,7 +61,7 @@ void NuEScatter_systs(bool save = true)
 
 
   const double gPOT = 10e20;
-  const string surName = "systs_nuescat_cut";
+  const string surName = "systs_truth_cuts";
   const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"_"+surName;
   const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 
@@ -77,9 +77,9 @@ void NuEScatter_systs(bool save = true)
   const Var kTrueE = SIMPLEVAR(truth.E);
   //const Var kRecoE = SIMPLEVAR(reco.reco_energy);
   //const Binning binsEnergy = Binning::Simple(6, 0, 4);
-  const vector<double>& edges = {0,0.7,1.,1.6,2.5,10};
+  const vector<double>& edges = {0,0.6,0.8,1.1,2.,10};
   const Binning binsEnergy = Binning::Custom(edges);
-  HistAxis ax("True Energy (GeV)",binsEnergy,kTrueE);
+  HistAxis ax("True Energy (GeV)",binsEnergy,kTrueNuESlice);
   for (unsigned j=0; j<1000; j++){
     weis[j] = weis[j]*GetUniverseWeight("multisim_Genie", j); //Get weight from 
   }

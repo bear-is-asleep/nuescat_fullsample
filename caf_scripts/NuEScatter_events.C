@@ -44,7 +44,8 @@ const string inputNameNu = "defname: official_MCP2022A_prodoverlay_corsika_cosmi
 const string inputNameNu_noflat = "defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_caf_sbnd";
 const std::string inputNameNuE_new = "/sbnd/data/users/brindenc/analyze_sbnd/nue/v09_54_00/CAFnue_full.root";
 
-const string surName = "fullsample_softetheta_recoslc";
+//const string surName = "fullsample_softetheta_recoslc";
+const string surName = "pure_nue_truefv_recoslc";
 const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 
 int kEventType(const caf::SRSpillProxy* sp){
@@ -110,6 +111,7 @@ void NuEScatter_events()
   vector<double> reco_eng;
   vector<double>  reco_theta;
   vector<double> true_theta;
+  vector<double> crumbs_score;
 
   vector<double> lshw_eng;
   vector<double> lshw_dedx;
@@ -161,6 +163,7 @@ void NuEScatter_events()
   vector<double> ltrk_angle;
   vector<double> ltrk_crttrk_time;
   vector<double> ltrk_crttrk_angle;
+  vector<double> ltrk_dedx;
 
   vector <double> sltrk_eng;
   vector <double> sltrk_len;
@@ -178,6 +181,7 @@ void NuEScatter_events()
   vector<double> sltrk_angle;
   vector<double> sltrk_crttrk_time;
   vector<double> sltrk_crttrk_angle;
+  vector<double> sltrk_dedx;
 
   vector<int> genie_inttype;
   vector<int> genie_mode;
@@ -214,10 +218,11 @@ void NuEScatter_events()
   reco_vtxx.reserve(kReserveSpace);
   reco_vtxy.reserve(kReserveSpace);
   reco_vtxz.reserve(kReserveSpace);
+  crumbs_score.reserve(kReserveSpace);
 
   true_slice_eng.reserve(kReserveSpace);
   reco_eng.reserve(kReserveSpace);
-   reco_theta.reserve(kReserveSpace);
+  reco_theta.reserve(kReserveSpace);
   true_theta.reserve(kReserveSpace);
 
   lshw_eng.reserve(kReserveSpace);
@@ -270,6 +275,7 @@ void NuEScatter_events()
   ltrk_angle.reserve(kReserveSpace);
   ltrk_crttrk_time.reserve(kReserveSpace);
   ltrk_crttrk_angle.reserve(kReserveSpace);
+  ltrk_dedx.reserve(kReserveSpace);
 
   sltrk_eng.reserve(kReserveSpace);
   sltrk_len.reserve(kReserveSpace);
@@ -287,6 +293,7 @@ void NuEScatter_events()
   sltrk_angle.reserve(kReserveSpace);
   sltrk_crttrk_time.reserve(kReserveSpace);
   sltrk_crttrk_angle.reserve(kReserveSpace);
+  sltrk_dedx.reserve(kReserveSpace);
 
   genie_inttype.reserve(kReserveSpace);
   genie_mode.reserve(kReserveSpace);
@@ -344,6 +351,7 @@ void NuEScatter_events()
   tree->Branch("true_theta",&true_theta);
   tree->Branch("fmatch.time",&fmatch_time);
   tree->Branch("fmatch.score",&fmatch_score);
+  tree->Branch("crumbs.score",&crumbs_score);
 
   tree2->Branch("lshw.eng",&lshw_eng);
   tree2->Branch("lshw.dedx",&lshw_dedx);
@@ -399,6 +407,7 @@ void NuEScatter_events()
   tree3->Branch("ltrk.angle",&ltrk_angle);
   tree3->Branch("ltrk.crttrk.time",&ltrk_crttrk_time);
   tree3->Branch("ltrk.crttrk.angle",&ltrk_crttrk_angle);
+  tree3->Branch("ltrk.dedx",&ltrk_dedx);
 
   tree3->Branch("sltrk.eng",&sltrk_eng);
   tree3->Branch("sltrk.len",&sltrk_len);
@@ -416,15 +425,16 @@ void NuEScatter_events()
   tree3->Branch("sltrk.angle",&sltrk_angle);
   tree3->Branch("sltrk.crttrk.time",&sltrk_crttrk_time);
   tree3->Branch("sltrk.crttrk.angle",&sltrk_crttrk_angle);
+  tree3->Branch("sltrk.dedx",&sltrk_dedx);
 
-  SpectrumLoader loader(inputNameNu);
+  SpectrumLoader loader(inputNameNuE_new);
 
   gSystem->Exec("mkdir -p " + stateDir);
   ofstream out(stateDir+"/selected_events.txt");
   //out <<"Run\t Subrun\t Event\t SpillID\n";
   const SpillVar dummy_var([&](const caf::SRSpillProxy* sp){
     //for(const auto& slc: sp->slc) {
-      if(kSoftSelection(sp)) {
+      if(true) {
         out << sp->hdr.run << "\t" << sp->hdr.subrun << "\t" << sp->hdr.evt <<"\n";
             // << "\t" << kBestSlcID(sp) <<"\n";
             //<< "\tVertex: (" 
@@ -456,6 +466,7 @@ void NuEScatter_events()
         reco_eng.push_back(kRecoE(sp));
         reco_theta.push_back(kRecoSmallestTheta(sp));
         true_theta.push_back(kTrueSmallestTheta(sp));
+        crumbs_score.push_back(kCRUMBSScore(sp));
 
         lshw_eng.push_back(kLeadingShwEnergy(sp));
         lshw_dedx.push_back(kLeadingShwdEdx(sp));
@@ -507,6 +518,7 @@ void NuEScatter_events()
         ltrk_angle.push_back(kLeadingTrkAngle(sp));
         ltrk_crttrk_time.push_back(kLeadingTrkCRTTrkTime(sp));
         ltrk_crttrk_angle.push_back(kLeadingTrkCRTTrkAngle(sp));
+        ltrk_dedx.push_back(kLeadingTrkdEdx(sp));
 
         sltrk_eng.push_back(kSubLeadingTrkEnergy(sp));
         sltrk_len.push_back(kSubLeadingTrkLen(sp));
@@ -524,6 +536,7 @@ void NuEScatter_events()
         sltrk_angle.push_back(kSubLeadingTrkAngle(sp));
         sltrk_crttrk_time.push_back(kSubLeadingTrkCRTTrkTime(sp));
         sltrk_crttrk_angle.push_back(kSubLeadingTrkCRTTrkAngle(sp));
+        sltrk_dedx.push_back(kSubLeadingTrkdEdx(sp));
 
         genie_inttype.push_back(kGenieType(sp));
         genie_mode.push_back(kGenieMode(sp));

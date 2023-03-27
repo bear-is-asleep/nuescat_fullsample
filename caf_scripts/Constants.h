@@ -6,6 +6,7 @@ const double kEtheta2Cut = 0.004; //GeV rad^2
 const double kRazzleCutVal = 0.6;
 const vector<double> kPrismCentroid {-74.,0.}; //x,y [cm]
 const double kDistanceFromBNB = 110e2; // [cm]
+const double nt = 1.53e30; //Number of argon targets in active volume
 
 const double kElectronMass   =  5.109989461e-04;        // GeV
 const double kMuonMass       =  1.056583745e-01;         // GeV

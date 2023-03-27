@@ -241,7 +241,7 @@ std::vector<CutDef> preselection_cuts = { { "No Cut", "no_cut", kNoSpillCut },
 
 const SpillCut kPreSelection = kHasSlc && kHasNuSlc && kHasNuFVSlc;
 const SpillCut kCosmicRej    = kPreSelection && kHasCRUMBSSlc && kIsFV;
-const SpillCut kNuFluxSelection = kHasSlc && kHasNuSlc && kTrueAV && !kCosmicSpill;
+const SpillCut kNuFluxSelection = kTrueAV;
 const SpillCut kEthetaSelection = kPreSelection && kCosmicRej && kEtheta2;
 const SpillCut kSoftSelection = kPreSelection && kIsFV && kTooManyRecoObjects && kSoftEthetaCut;
 const SpillCut kFullSelection = kEthetaSelection && kHasNoTrks && kHasOneShw && kRazzleCut;

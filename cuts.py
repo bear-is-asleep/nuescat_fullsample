@@ -14,10 +14,10 @@ def efficiency_purity_f1_calc(events,mask,intsig_events=None,tot_events=None,
   """
   if intsig_events is None:
     intsig_events = np.count_nonzero(events.evt_type == r'$\nu + e$')
-  if tot_events is None:
-    tot_events = len(events)
   events = events[mask] #mask to get only events that pass cut
   sig_events = np.count_nonzero(events.evt_type == r'$\nu + e$')
+  if tot_events is None:
+    tot_events = len(events)
 
   #Calc eff,pur,f1
   
@@ -57,7 +57,7 @@ def cBoxCut(events,cut_key,cut_val,bool_key,equality='lessthan',
   else:
     vals = events.loc[:,cut_key]
   vals = helpers.remove_dummy_values(vals,
-                                       dummy_val_list=[-9999,-999,5,999,9999]) #Remove dummy vals for search, don't cut on masked out values
+                                       dummy_val_list=[-9999,-999,999,9999]) #Remove dummy vals for search, don't cut on masked out values
   mask_inds = vals.index
   if equality == 'lessthan':
     events.loc[mask_inds,bool_key] = vals<cut_val
@@ -137,6 +137,8 @@ def mask_cosmics(events,time_threshold=None,angle_threshold=None,prefixes=['ltrk
     mask = np.logical_and(angle_mask,time_mask) #Find all cosmics that satisfy criteria
     mask_inds = events.index.values[mask]
     events.loc[mask_inds,prefix_keys] = -9999. #set to dumby value
+    events.loc[mask_inds,'ntrk'] -= 1 #subtract one from tracks
+    events.loc[mask_inds,'nreco'] -= 1 #subtract one from total reco objects
   #logging.info(f'Mask cosmics ltrk -- {events.loc[:,"ltrk.crttrk.time"].head(40)}')
   #logging.info(f'Mask cosmics sltrk -- {events.loc[:,"sltrk.crttrk.time"].head(40)}')
   return events #This will set all cosmic track values to -9999, indicating it shouldn't be included in cut
