@@ -31,6 +31,7 @@ using namespace ana;
 #include "Structs.h"
 #include "utils.h"
 #include "TrueEventCategories.h"
+#include "NuEScatterTrueVars.h"
 #include "NuEScatterRecoVars.h"
 #include "NuEScatterCuts.h"
 #include "plotStyle.C"
@@ -47,9 +48,9 @@ using namespace ana;
 
 using namespace std;
 
-const std::vector<CutDef> cuts = no_cuts;
+const std::vector<CutDef> cuts = truth_cuts_av;
 const std::vector<Plot<SpillVar>> plots = recoPlots_all;
-const std::vector<TrueCategory> categories = no_cosmic_sel;
+const std::vector<TrueCategory> categories = nuecc_nue_sel;
 
 void NuEScatter_ana(bool reload = true)
 {
@@ -67,7 +68,7 @@ void NuEScatter_ana(bool reload = true)
 
   const double gPOT = 10e20;
   const bool save = true;
-  const string surName = "fullsample_fullselection_cuts";
+  const string surName = "fullsample_nue_trueav";
   const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"_"+surName;
   const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 

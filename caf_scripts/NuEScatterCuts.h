@@ -41,17 +41,13 @@ const SpillCut kIsFV([](const caf::SRSpillProxy* sp) {
 
 const SpillCut kIsTrueFV([](const caf::SRSpillProxy* sp) {
     auto const& slc = sp->slc[kBestSlcID(sp)];
-    //std::cout<<"run,subrun,evt : "<<sp->hdr.run<<","<<sp->hdr.subrun<<","<<sp->hdr.evt<<std::endl;
-    //print_all_prim_matched(sp,kBestSlcID(sp));
-    //print_all_prim_info_slc(sp,kBestSlcID(sp));
+    if (isnan(slc.truth.position.x)){return false;} // nan values get false
     return PtInVolAbsX(slc.truth.position, fvndNuEScat);
   });
 
 const SpillCut kIsTrueAV([](const caf::SRSpillProxy* sp) {
   auto const& slc = sp->slc[kBestSlcID(sp)];
-  //std::cout<<"run,subrun,evt : "<<sp->hdr.run<<","<<sp->hdr.subrun<<","<<sp->hdr.evt<<std::endl;
-  //print_all_prim_matched(sp,kBestSlcID(sp));
-  //print_all_prim_info_slc(sp,kBestSlcID(sp));
+  if (isnan(slc.truth.position.x)){return false;} // nan values get false
   return PtInVolAbsX(slc.truth.position, avnd);
 });
 
@@ -174,6 +170,15 @@ const SpillCut kTruthEtheta2([](const caf::SRSpillProxy* sp) {
   return abs(kTruthEtheta2Var(sp)) < kEtheta2Cut; //Use abs incase the mask value is wrong
 });
 
+const Cut kTruthEleEngCut([](const caf::SRSliceProxy* sr) {
+  // --Return true if a single object has Etheta < Ethetacut
+  double E = 0;
+  for (auto const& prim : sr->truth.prim){
+    if (prim.pdg == 11){E += prim.genE;} //skip neutrinos
+  }
+  return E > kElectronMass; 
+});
+
 const SpillCut kTruthSlcGenieType([](const caf::SRSpillProxy* sp) {
   auto const& slc = sp->slc[kBestSlcID(sp)];
   return slc.truth.genie_inttype == 1098;
@@ -194,6 +199,16 @@ std::vector<CutDef> truth_cuts = { { "No Cut", "no_cut", kNoSpillCut },
   {"Etheta2 Truth Cut","Etheta2",kTruthEtheta2},
   {"One Electron","one_ele",kTruthEleCut},
   //{ "Is NuEScat", "is_nue_scat", kTruthIDNuEScat}
+};
+
+std::vector<CutDef> truth_cuts_av = { { "No Cut", "no_cut", kNoSpillCut },
+  { "Has Slc", "has_slc", kHasSlc },
+  { "Is AV", "is_av", kIsTrueAV },
+  {"No Tracks","no_trk",kTruthTrkCut},
+  {"One Shower","one_shw",kTruthShwCut},
+  {"One Electron","one_ele",kTruthEleCut},
+  {"Etheta2 Truth Cut","Etheta2",kTruthEtheta2},
+  { "Is NuEScat", "is_nue_scat", kNuEScat}
 };
 
 std::vector<CutDef> original_cuts = { { "No Cut", "no_cut", kNoSpillCut },
@@ -246,3 +261,4 @@ const SpillCut kEthetaSelection = kPreSelection && kCosmicRej && kEtheta2;
 const SpillCut kSoftSelection = kPreSelection && kIsFV && kTooManyRecoObjects && kSoftEthetaCut;
 const SpillCut kFullSelection = kEthetaSelection && kHasNoTrks && kHasOneShw && kRazzleCut;
 const SpillCut kTrueSelection = kHasSlc && kIsTrueFV && kTruthTrkCut && kTruthShwCut && kTruthEleCut && kTruthEtheta2;
+const SpillCut kTrueSelectionAV = kHasSlc && kIsTrueAV && kTruthTrkCut && kTruthShwCut && kTruthEleCut;

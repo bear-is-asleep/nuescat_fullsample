@@ -7,7 +7,8 @@ DATA_DIR = '/pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_c
 FILES = os.listdir(f'{DATA_DIR}')
 FLAT_FILES = [file for file in FILES if 'flat' in file]
 DEFNAME = ''
-SBND_AREA = 4*4 #m^2
+SBND_AREA = 4*4*1e6 #cm^2
+
 
 #Cut range searches
 etheta_range = np.arange(0.0001,0.01,step=0.001)

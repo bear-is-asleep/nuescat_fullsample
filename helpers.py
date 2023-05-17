@@ -6,7 +6,7 @@ import pandas as pd
 day = date.today().strftime("%Y_%m_%d")
 
 colors = ['blue','purple','yellow','red','green','brown','orangered','black']
-categories = [r'$\nu + e$',r'NC $\pi^0$','NC',r'CC$\nu_\mu$',r'CC$\nu_e$','Dirt','Cosmics','Other']
+categories = [r'$\nu + e$',r'NC $\pi^0$','NC',r'CC $\nu_\mu$',r'CC $\nu_e$','Dirt','Cosmics','Other']
 
 #Return dataframe from set of keys with run info as index
 def get_df(tree,keys,hdrkeys=['run','subrun','evt'],library='pd'):
@@ -93,3 +93,81 @@ def calc_etheta_reco(events,prefix):
   mask_inds = events.index[mask]
   events.loc[mask_inds,f'{prefix}Etheta'] = -9999 #Mask to -9999
   return events
+
+def combine_bins_sum(counts,edges,iterations=1):
+  """
+  Takes counts and edges and combines adjacent bins
+  iterations is how many times to combine the bins
+  """
+  for _ in range(iterations):
+    new_edges = np.zeros(int(len(edges) / 2 + 1)) # Create an empty array to hold new bin edges
+    new_counts = np.zeros(int(len(counts)/2)+len(counts)%2) # Create an empty array to hold new bin counts
+    for i in range(len(edges)):
+        ind = int(i/2)
+        if i%2 == len(edges)%2:
+          new_counts[ind] = counts[i-1] + counts[i]
+        else:
+          new_edges[ind] = edges[i]
+    new_edges[-1] = edges[-1] # Add the last bin count
+    edges = new_edges
+    counts = new_counts
+  return counts,edges
+
+def frac_syst_stat_bias_heights(values,edges,weights):
+  """
+  reweight flux for each energy bin by weight
+
+  universes should be binned by energy
+
+  Returns constrained and unconstrained bin heights, and fractional uncertainties
+  """
+  #Make arrays to fill
+  height_constrained = np.zeros(len(edges)-1)
+  height = height_constrained.copy()
+
+  #Resolution
+  fracunc_constrained = height_constrained.copy()
+  fracunc = height_constrained.copy()
+
+  #Bias
+  fracbias_constrained = height_constrained.copy()
+  fracbias = height_constrained.copy()
+
+  #Stat
+  fracstat_constrained = height_constrained.copy()
+  fracstat = height_constrained.copy()
+
+  for i in range(height_constrained.shape[0]):
+    vals = values[1:,i] #Grab universe bin heights within energy bin
+    nom = values[0,i] #Central value flux
+    #Get heights
+    height_constrained[i] = np.average(vals, weights=weights)
+    height[i] = np.average(vals)
+    #Get resolutions
+    fracunc_constrained[i] = np.sqrt(np.average((vals - height_constrained[i]) ** 2, weights=weights))/height_constrained[i]
+    fracunc[i] = np.sqrt(np.average((vals - height[i]) ** 2))/height[i]
+    #Get biases
+    fracbias_constrained[i] = np.sqrt(np.average((vals - nom) ** 2,weights=weights))/nom
+    fracbias[i] = np.sqrt(np.average((vals - nom) ** 2))/nom
+    #Get stat
+    fracstat_constrained[i] = np.average(np.sqrt(vals),weights=weights)/height[i]
+    fracstat[i] = np.average(np.sqrt(vals))/height[i]
+  return height_constrained,height,fracunc_constrained,fracunc,fracbias_constrained,fracbias,fracstat_constrained,fracstat
+
+def drop_matching_indices(lst, indices_to_check):
+  """
+  Takes a list and a list of indices to check, and returns a new list with the values
+  that do not match those indices.
+  """
+  return [value for index, value in enumerate(lst) if index not in indices_to_check]
+
+def Q2_nuecc(E_e,theta_e):
+  """
+  Q2 = 2mn(Ev-Ee)
+  Ev = (mnEe-me^2/2)/(mn-Ee+Pe cos0_e)
+  """
+  m_e = 0.511e-3 #GeV
+  m_n = 0.938 #GeV
+  p_e = np.sqrt(E_e**2-m_e**2)
+  E_v = (m_n*E_e-m_e**2/2)/(m_n-E_e+p_e*np.cos(theta_e))
+  return 2*m_n*(E_v-E_e)

@@ -45,7 +45,7 @@ const string inputNameNu_noflat = "defname: official_MCP2022A_prodoverlay_corsik
 const std::string inputNameNuE_new = "/sbnd/data/users/brindenc/analyze_sbnd/nue/v09_54_00/CAFnue_full.root";
 
 //const string surName = "fullsample_softetheta_recoslc";
-const string surName = "pure_nue_truefv_recoslc";
+const string surName = "fullsample_nue_trueav";
 const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 
 int kEventType(const caf::SRSpillProxy* sp){
@@ -107,6 +107,7 @@ void NuEScatter_events()
   vector<double> reco_vtxy;
   vector<double> reco_vtxz;
 
+  vector<double> true_enu;
   vector<double> true_slice_eng;
   vector<double> reco_eng;
   vector<double>  reco_theta;
@@ -220,6 +221,7 @@ void NuEScatter_events()
   reco_vtxz.reserve(kReserveSpace);
   crumbs_score.reserve(kReserveSpace);
 
+  true_enu.reserve(kReserveSpace);
   true_slice_eng.reserve(kReserveSpace);
   reco_eng.reserve(kReserveSpace);
   reco_theta.reserve(kReserveSpace);
@@ -302,6 +304,7 @@ void NuEScatter_events()
 
 
   //Make TTree
+  gSystem->Exec("mkdir -p " + stateDir);
   TFile* file = new TFile(stateDir+"/cut_events_basic.root", "RECREATE");
   TTree *tree = new TTree("rectree","CAF Tree");
 
@@ -345,6 +348,7 @@ void NuEScatter_events()
   tree->Branch("reco_vtx.y",&reco_vtxy);
   tree->Branch("reco_vtx.z",&reco_vtxz);
 
+  tree->Branch("true_enu",&true_enu);
   tree->Branch("true_slice_eng",&true_slice_eng);
   tree->Branch("reco_eng",&reco_eng);
   tree->Branch("reco_theta",&reco_theta);
@@ -427,14 +431,13 @@ void NuEScatter_events()
   tree3->Branch("sltrk.crttrk.angle",&sltrk_crttrk_angle);
   tree3->Branch("sltrk.dedx",&sltrk_dedx);
 
-  SpectrumLoader loader(inputNameNuE_new);
+  SpectrumLoader loader(inputNameNu);
 
-  gSystem->Exec("mkdir -p " + stateDir);
   ofstream out(stateDir+"/selected_events.txt");
   //out <<"Run\t Subrun\t Event\t SpillID\n";
   const SpillVar dummy_var([&](const caf::SRSpillProxy* sp){
     //for(const auto& slc: sp->slc) {
-      if(true) {
+      if(kTrueAV(sp) && kHasSlc(sp) && (kNuEScat(sp) || kCCNuE(sp))) {
         out << sp->hdr.run << "\t" << sp->hdr.subrun << "\t" << sp->hdr.evt <<"\n";
             // << "\t" << kBestSlcID(sp) <<"\n";
             //<< "\tVertex: (" 
@@ -462,6 +465,7 @@ void NuEScatter_events()
         reco_vtxy.push_back(kRecoVtxY(sp));
         reco_vtxz.push_back(kRecoVtxZ(sp));
 
+        true_enu.push_back(kTrueNuSliceE(sp));
         true_slice_eng.push_back(kTrueSliceEnergy(sp));
         reco_eng.push_back(kRecoE(sp));
         reco_theta.push_back(kRecoSmallestTheta(sp));

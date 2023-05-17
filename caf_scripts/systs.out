@@ -2528,3 +2528,1609 @@ SRProxy: Warning: rec.slc[0].truth.position.x = nan in entry 2499 of /pnfs/sbnd/
 SRProxy: Warning: rec.slc[0].truth.position.x = nan in entry 2506 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1-10666715-b93e-42fb-8952-6d95c95c648a.root
 SRProxy: Warning: rec.slc[1].truth.position.x = nan in entry 2508 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1-10666715-b93e-42fb-8952-6d95c95c648a.root
 SRProxy: Warning: rec.slc[4].truth.position.x = nan in entry 2509 of /pnfs/sbnd/persistent/sbndpro/mcp/mc/official/MCP2022A/prodoverlay_corsika_cosmics_proton_genie_rockbox_sce/v09_37_02_04/reco2_caf/flat_caf_1-10666715-b93e-42fb-8952-6d95c95c648a.root
+
+Processing /sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbnana/v09_62_00/slf7.x86_64.e20.prof/bin/load_cafana_libs.C...
+Loading libraries..............
+Welcome to the ROOT of all evils 
+Processing NuEScatter_systs.C++()...
+Info in <TUnixSystem::ACLiC>: creating shared library /sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/./NuEScatter_systs_C.so
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.h, output: $EIGEN_INC/NuEScatter_systs_linkdef.h
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hh, output: $EIGEN_INC/NuEScatter_systs_linkdef.hh
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hpp, output: $EIGEN_INC/NuEScatter_systs_linkdef.hpp
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hxx, output: $EIGEN_INC/NuEScatter_systs_linkdef.hxx
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hPP, output: $EIGEN_INC/NuEScatter_systs_linkdef.hPP
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hXX, output: $EIGEN_INC/NuEScatter_systs_linkdef.hXX
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.h, output: $EIGEN_INC/NuEScatter_systs.h
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hh, output: $EIGEN_INC/NuEScatter_systs.hh
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hpp, output: $EIGEN_INC/NuEScatter_systs.hpp
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hxx, output: $EIGEN_INC/NuEScatter_systs.hxx
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hPP, output: $EIGEN_INC/NuEScatter_systs.hPP
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hXX, output: $EIGEN_INC/NuEScatter_systs.hXX
+Warning in <TColor::TColor>: color 999 already defined
+Warning in <TColor::TColor>: color 998 already defined
+Warning in <TColor::TColor>: color 997 already defined
+Warning in <TColor::TColor>: color 996 already defined
+Warning in <TColor::TColor>: color 995 already defined
+Warning in <TColor::TColor>: color 994 already defined
+Warning in <TColor::TColor>: color 993 already defined
+Warning in <TColor::TColor>: color 992 already defined
+Warning in <TColor::TColor>: color 991 already defined
+Warning in <TColor::TColor>: color 990 already defined
+Warning in <TColor::TColor>: color 989 already defined
+Warning in <TColor::TColor>: color 988 already defined
+Warning in <TColor::TColor>: color 987 already defined
+Warning in <TColor::TColor>: color 986 already defined
+Warning in <TColor::TColor>: color 985 already defined
+Warning in <TColor::TColor>: color 984 already defined
+Warning in <TColor::TColor>: color 983 already defined
+Warning in <TColor::TColor>: color 982 already defined
+Warning in <TColor::TColor>: color 981 already defined
+Warning in <TColor::TColor>: color 980 already defined
+Warning in <TColor::TColor>: color 979 already defined
+Warning in <TColor::TColor>: color 978 already defined
+Warning in <TColor::TColor>: color 977 already defined
+Warning in <TColor::TColor>: color 976 already defined
+Warning in <TColor::TColor>: color 975 already defined
+Warning in <TColor::TColor>: color 974 already defined
+Warning in <TColor::TColor>: color 973 already defined
+Warning in <TColor::TColor>: color 972 already defined
+Warning in <TColor::TColor>: color 971 already defined
+Warning in <TColor::TColor>: color 970 already defined
+Warning in <TColor::TColor>: color 969 already defined
+Warning in <TColor::TColor>: color 968 already defined
+Warning in <TColor::TColor>: color 967 already defined
+Warning in <TColor::TColor>: color 966 already defined
+Warning in <TColor::TColor>: color 965 already defined
+Warning in <TColor::TColor>: color 964 already defined
+Warning in <TColor::TColor>: color 963 already defined
+Warning in <TColor::TColor>: color 962 already defined
+Warning in <TColor::TColor>: color 961 already defined
+Warning in <TColor::TColor>: color 960 already defined
+Warning in <TColor::TColor>: color 959 already defined
+Warning in <TColor::TColor>: color 958 already defined
+Warning in <TColor::TColor>: color 957 already defined
+Warning in <TColor::TColor>: color 956 already defined
+Warning in <TColor::TColor>: color 955 already defined
+Warning in <TColor::TColor>: color 954 already defined
+Warning in <TColor::TColor>: color 953 already defined
+Warning in <TColor::TColor>: color 952 already defined
+Warning in <TColor::TColor>: color 951 already defined
+Warning in <TColor::TColor>: color 950 already defined
+Looking up files matching 'defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd' using SAM...
+Looking up locations of 1089 files using SAM...
+Filling 15026 spectra from 1089 files matching 'defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd'...
+
+Systematic weights in file:
+52 parameter sets:
+  0: AhtBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    AhtBY
+  1: BhtBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    BhtBY
+  2: CV1uBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    CV1uBY
+  3: CV2uBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    CV2uBY
+  4: EtaNCEL_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    EtaNCEL
+  5: FormZone_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FormZone
+  6: FrAbs_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrAbs_N
+  7: FrAbs_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrAbs_pi
+  8: FrCEx_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrCEx_N
+  9: FrCEx_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrCEx_pi
+  10: FrInel_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrInel_N
+  11: FrInel_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrInel_pi
+  12: FrPiProd_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrPiProd_N
+  13: FrPiProd_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrPiProd_pi
+  14: MFP_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MFP_N
+  15: MFP_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MFP_pi
+  16: MaCCQE_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaCCQE
+  17: MaCCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaCCRES
+  18: MaNCEL_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaNCEL
+  19: MaNCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaNCRES
+  20: MvCCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MvCCRES
+  21: MvNCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MvNCRES
+  22: NonRESBGvbarnCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnCC1pi
+  23: NonRESBGvbarnCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnCC2pi
+  24: NonRESBGvbarnNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnNC1pi
+  25: NonRESBGvbarnNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnNC2pi
+  26: NonRESBGvbarpCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpCC1pi
+  27: NonRESBGvbarpCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpCC2pi
+  28: NonRESBGvbarpNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpNC1pi
+  29: NonRESBGvbarpNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpNC2pi
+  30: NonRESBGvnCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnCC1pi
+  31: NonRESBGvnCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnCC2pi
+  32: NonRESBGvnNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnNC1pi
+  33: NonRESBGvnNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnNC2pi
+  34: NonRESBGvpCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvpCC1pi
+  35: NonRESBGvpCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvpCC2pi
+  36: NonRESBGvpNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvpNC1pi
+  37: NonRESBGvpNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvpNC2pi
+  38: multisim_Genie, type 0, 1000 universes, adjusted parameters:
+    AhtBY
+    BhtBY
+    CV1uBY
+    CV2uBY
+    EtaNCEL
+    FrAbs_N
+    FrAbs_pi
+    FrCEx_N
+    FrCEx_pi
+    FrInel_N
+    FrInel_pi
+    MFP_N
+    MFP_pi
+    MaCCQE
+    MaCCRES
+    MaNCEL
+    MaNCRES
+    MvCCRES
+    MvNCRES
+    NonRESBGvbarnCC1pi
+    NonRESBGvbarnCC2pi
+    NonRESBGvbarnNC1pi
+    NonRESBGvbarnNC2pi
+    NonRESBGvbarpCC1pi
+    NonRESBGvbarpCC2pi
+    NonRESBGvbarpNC1pi
+    NonRESBGvbarpNC2pi
+    NonRESBGvnCC1pi
+    NonRESBGvnCC2pi
+    NonRESBGvnNC1pi
+    NonRESBGvnNC2pi
+    NonRESBGvpCC1pi
+    NonRESBGvpCC2pi
+    NonRESBGvpNC1pi
+    NonRESBGvpNC2pi
+  39: expskin_Flux, type 0, 1000 universes, adjusted parameters:
+    expskin
+  40: horncurrent_Flux, type 0, 1000 universes, adjusted parameters:
+    horncurrent
+  41: kminus_Flux, type 0, 1000 universes, adjusted parameters:
+    kminus
+  42: kplus_Flux, type 0, 1000 universes, adjusted parameters:
+    kplus
+  43: kzero_Flux, type 0, 1000 universes, adjusted parameters:
+    kzero
+  44: nucleoninexsec_Flux, type 0, 1000 universes, adjusted parameters:
+    nucleoninexsec
+  45: nucleonqexsec_Flux, type 0, 1000 universes, adjusted parameters:
+    nucleonqexsec
+  46: nucleontotxsec_Flux, type 0, 1000 universes, adjusted parameters:
+    nucleontotxsec
+  47: piminus_Flux, type 0, 1000 universes, adjusted parameters:
+    piminus
+  48: pioninexsec_Flux, type 0, 1000 universes, adjusted parameters:
+    pioninexsec
+  49: pionqexsec_Flux, type 0, 1000 universes, adjusted parameters:
+    pionqexsec
+  50: piontotxsec_Flux, type 0, 1000 universes, adjusted parameters:
+    piontotxsec
+  51: piplus_Flux, type 0, 1000 universes, adjusted parameters:
+    piplus
+3.08415e+20 POT over 20221740 readouts
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/all.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_expskin_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_horncurrent_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_kminus_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_kplus_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_kzero_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_nucleoninexsec_Flux.png has been created
+Error in <TColor::GetColorTransparent>: color with index 790 not defined
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_nucleonqexsec_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_nucleontotxsec_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_piminus_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_pioninexsec_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_pionqexsec_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_piontotxsec_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_piplus_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_Flux_multisim.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_GENIE_multisim.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_total_multisim.png has been created
+
+Processing /sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbnana/v09_62_00/slf7.x86_64.e20.prof/bin/load_cafana_libs.C...
+Loading libraries..............
+Welcome to the ROOT of all evils 
+Processing NuEScatter_systs.C++()...
+Info in <TUnixSystem::ACLiC>: creating shared library /sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/./NuEScatter_systs_C.so
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.h, output: $EIGEN_INC/NuEScatter_systs_linkdef.h
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hh, output: $EIGEN_INC/NuEScatter_systs_linkdef.hh
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hpp, output: $EIGEN_INC/NuEScatter_systs_linkdef.hpp
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hxx, output: $EIGEN_INC/NuEScatter_systs_linkdef.hxx
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hPP, output: $EIGEN_INC/NuEScatter_systs_linkdef.hPP
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hXX, output: $EIGEN_INC/NuEScatter_systs_linkdef.hXX
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.h, output: $EIGEN_INC/NuEScatter_systs.h
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hh, output: $EIGEN_INC/NuEScatter_systs.hh
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hpp, output: $EIGEN_INC/NuEScatter_systs.hpp
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hxx, output: $EIGEN_INC/NuEScatter_systs.hxx
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hPP, output: $EIGEN_INC/NuEScatter_systs.hPP
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hXX, output: $EIGEN_INC/NuEScatter_systs.hXX
+Warning in <TColor::TColor>: color 999 already defined
+Warning in <TColor::TColor>: color 998 already defined
+Warning in <TColor::TColor>: color 997 already defined
+Warning in <TColor::TColor>: color 996 already defined
+Warning in <TColor::TColor>: color 995 already defined
+Warning in <TColor::TColor>: color 994 already defined
+Warning in <TColor::TColor>: color 993 already defined
+Warning in <TColor::TColor>: color 992 already defined
+Warning in <TColor::TColor>: color 991 already defined
+Warning in <TColor::TColor>: color 990 already defined
+Warning in <TColor::TColor>: color 989 already defined
+Warning in <TColor::TColor>: color 988 already defined
+Warning in <TColor::TColor>: color 987 already defined
+Warning in <TColor::TColor>: color 986 already defined
+Warning in <TColor::TColor>: color 985 already defined
+Warning in <TColor::TColor>: color 984 already defined
+Warning in <TColor::TColor>: color 983 already defined
+Warning in <TColor::TColor>: color 982 already defined
+Warning in <TColor::TColor>: color 981 already defined
+Warning in <TColor::TColor>: color 980 already defined
+Warning in <TColor::TColor>: color 979 already defined
+Warning in <TColor::TColor>: color 978 already defined
+Warning in <TColor::TColor>: color 977 already defined
+Warning in <TColor::TColor>: color 976 already defined
+Warning in <TColor::TColor>: color 975 already defined
+Warning in <TColor::TColor>: color 974 already defined
+Warning in <TColor::TColor>: color 973 already defined
+Warning in <TColor::TColor>: color 972 already defined
+Warning in <TColor::TColor>: color 971 already defined
+Warning in <TColor::TColor>: color 970 already defined
+Warning in <TColor::TColor>: color 969 already defined
+Warning in <TColor::TColor>: color 968 already defined
+Warning in <TColor::TColor>: color 967 already defined
+Warning in <TColor::TColor>: color 966 already defined
+Warning in <TColor::TColor>: color 965 already defined
+Warning in <TColor::TColor>: color 964 already defined
+Warning in <TColor::TColor>: color 963 already defined
+Warning in <TColor::TColor>: color 962 already defined
+Warning in <TColor::TColor>: color 961 already defined
+Warning in <TColor::TColor>: color 960 already defined
+Warning in <TColor::TColor>: color 959 already defined
+Warning in <TColor::TColor>: color 958 already defined
+Warning in <TColor::TColor>: color 957 already defined
+Warning in <TColor::TColor>: color 956 already defined
+Warning in <TColor::TColor>: color 955 already defined
+Warning in <TColor::TColor>: color 954 already defined
+Warning in <TColor::TColor>: color 953 already defined
+Warning in <TColor::TColor>: color 952 already defined
+Warning in <TColor::TColor>: color 951 already defined
+Warning in <TColor::TColor>: color 950 already defined
+Looking up files matching 'defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd' using SAM...
+Looking up locations of 1089 files using SAM...
+Filling 16016 spectra from 1089 files matching 'defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd'...
+
+Systematic weights in file:
+52 parameter sets:
+  0: AhtBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    AhtBY
+  1: BhtBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    BhtBY
+  2: CV1uBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    CV1uBY
+  3: CV2uBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    CV2uBY
+  4: EtaNCEL_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    EtaNCEL
+  5: FormZone_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FormZone
+  6: FrAbs_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrAbs_N
+  7: FrAbs_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrAbs_pi
+  8: FrCEx_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrCEx_N
+  9: FrCEx_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrCEx_pi
+  10: FrInel_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrInel_N
+  11: FrInel_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrInel_pi
+  12: FrPiProd_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrPiProd_N
+  13: FrPiProd_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrPiProd_pi
+  14: MFP_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MFP_N
+  15: MFP_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MFP_pi
+  16: MaCCQE_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaCCQE
+  17: MaCCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaCCRES
+  18: MaNCEL_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaNCEL
+  19: MaNCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaNCRES
+  20: MvCCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MvCCRES
+  21: MvNCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MvNCRES
+  22: NonRESBGvbarnCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnCC1pi
+  23: NonRESBGvbarnCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnCC2pi
+  24: NonRESBGvbarnNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnNC1pi
+  25: NonRESBGvbarnNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnNC2pi
+  26: NonRESBGvbarpCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpCC1pi
+  27: NonRESBGvbarpCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpCC2pi
+  28: NonRESBGvbarpNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpNC1pi
+  29: NonRESBGvbarpNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpNC2pi
+  30: NonRESBGvnCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnCC1pi
+  31: NonRESBGvnCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnCC2pi
+  32: NonRESBGvnNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnNC1pi
+  33: NonRESBGvnNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnNC2pi
+  34: NonRESBGvpCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvpCC1pi
+  35: NonRESBGvpCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvpCC2pi
+  36: NonRESBGvpNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvpNC1pi
+  37: NonRESBGvpNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvpNC2pi
+  38: multisim_Genie, type 0, 1000 universes, adjusted parameters:
+    AhtBY
+    BhtBY
+    CV1uBY
+    CV2uBY
+    EtaNCEL
+    FrAbs_N
+    FrAbs_pi
+    FrCEx_N
+    FrCEx_pi
+    FrInel_N
+    FrInel_pi
+    MFP_N
+    MFP_pi
+    MaCCQE
+    MaCCRES
+    MaNCEL
+    MaNCRES
+    MvCCRES
+    MvNCRES
+    NonRESBGvbarnCC1pi
+    NonRESBGvbarnCC2pi
+    NonRESBGvbarnNC1pi
+    NonRESBGvbarnNC2pi
+    NonRESBGvbarpCC1pi
+    NonRESBGvbarpCC2pi
+    NonRESBGvbarpNC1pi
+    NonRESBGvbarpNC2pi
+    NonRESBGvnCC1pi
+    NonRESBGvnCC2pi
+    NonRESBGvnNC1pi
+    NonRESBGvnNC2pi
+    NonRESBGvpCC1pi
+    NonRESBGvpCC2pi
+    NonRESBGvpNC1pi
+    NonRESBGvpNC2pi
+  39: expskin_Flux, type 0, 1000 universes, adjusted parameters:
+    expskin
+  40: horncurrent_Flux, type 0, 1000 universes, adjusted parameters:
+    horncurrent
+  41: kminus_Flux, type 0, 1000 universes, adjusted parameters:
+    kminus
+  42: kplus_Flux, type 0, 1000 universes, adjusted parameters:
+    kplus
+  43: kzero_Flux, type 0, 1000 universes, adjusted parameters:
+    kzero
+  44: nucleoninexsec_Flux, type 0, 1000 universes, adjusted parameters:
+    nucleoninexsec
+  45: nucleonqexsec_Flux, type 0, 1000 universes, adjusted parameters:
+    nucleonqexsec
+  46: nucleontotxsec_Flux, type 0, 1000 universes, adjusted parameters:
+    nucleontotxsec
+  47: piminus_Flux, type 0, 1000 universes, adjusted parameters:
+    piminus
+  48: pioninexsec_Flux, type 0, 1000 universes, adjusted parameters:
+    pioninexsec
+  49: pionqexsec_Flux, type 0, 1000 universes, adjusted parameters:
+    pionqexsec
+  50: piontotxsec_Flux, type 0, 1000 universes, adjusted parameters:
+    piontotxsec
+  51: piplus_Flux, type 0, 1000 universes, adjusted parameters:
+    piplus
+3.08415e+20 POT over 20221740 readouts
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Error in <TColor::GetColorTransparent>: color with index 32691 not defined
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/all.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_expskin_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_horncurrent_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_kminus_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_kplus_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_kzero_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_nucleoninexsec_Flux.png has been created
+Error in <TColor::GetColorTransparent>: color with index 790 not defined
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_nucleonqexsec_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_nucleontotxsec_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_piminus_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_pioninexsec_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_pionqexsec_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_piontotxsec_Flux.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_piplus_Flux.png has been created
+Error in <TColor::GetColorTransparent>: color with index 32681 not defined
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_Flux_multisim.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_GENIE_multisim.png has been created
+Info in <TCanvas::Print>: png file /sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/2023_3_29_systs_truth_cuts_eleeng/systs/error_band_total_multisim.png has been created
+
+Processing /sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbnana/v09_62_00/slf7.x86_64.e20.prof/bin/load_cafana_libs.C...
+Loading libraries..............
+Welcome to the ROOT of all evils 
+Processing NuEScatter_systs.C++()...
+Info in <TUnixSystem::ACLiC>: creating shared library /sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/./NuEScatter_systs_C.so
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.h, output: $EIGEN_INC/NuEScatter_systs_linkdef.h
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hh, output: $EIGEN_INC/NuEScatter_systs_linkdef.hh
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hpp, output: $EIGEN_INC/NuEScatter_systs_linkdef.hpp
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hxx, output: $EIGEN_INC/NuEScatter_systs_linkdef.hxx
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hPP, output: $EIGEN_INC/NuEScatter_systs_linkdef.hPP
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs_linkdef.hXX, output: $EIGEN_INC/NuEScatter_systs_linkdef.hXX
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.h, output: $EIGEN_INC/NuEScatter_systs.h
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hh, output: $EIGEN_INC/NuEScatter_systs.hh
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hpp, output: $EIGEN_INC/NuEScatter_systs.hpp
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hxx, output: $EIGEN_INC/NuEScatter_systs.hxx
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hPP, output: $EIGEN_INC/NuEScatter_systs.hPP
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_systs.hXX, output: $EIGEN_INC/NuEScatter_systs.hXX
+Warning in <TColor::TColor>: color 999 already defined
+Warning in <TColor::TColor>: color 998 already defined
+Warning in <TColor::TColor>: color 997 already defined
+Warning in <TColor::TColor>: color 996 already defined
+Warning in <TColor::TColor>: color 995 already defined
+Warning in <TColor::TColor>: color 994 already defined
+Warning in <TColor::TColor>: color 993 already defined
+Warning in <TColor::TColor>: color 992 already defined
+Warning in <TColor::TColor>: color 991 already defined
+Warning in <TColor::TColor>: color 990 already defined
+Warning in <TColor::TColor>: color 989 already defined
+Warning in <TColor::TColor>: color 988 already defined
+Warning in <TColor::TColor>: color 987 already defined
+Warning in <TColor::TColor>: color 986 already defined
+Warning in <TColor::TColor>: color 985 already defined
+Warning in <TColor::TColor>: color 984 already defined
+Warning in <TColor::TColor>: color 983 already defined
+Warning in <TColor::TColor>: color 982 already defined
+Warning in <TColor::TColor>: color 981 already defined
+Warning in <TColor::TColor>: color 980 already defined
+Warning in <TColor::TColor>: color 979 already defined
+Warning in <TColor::TColor>: color 978 already defined
+Warning in <TColor::TColor>: color 977 already defined
+Warning in <TColor::TColor>: color 976 already defined
+Warning in <TColor::TColor>: color 975 already defined
+Warning in <TColor::TColor>: color 974 already defined
+Warning in <TColor::TColor>: color 973 already defined
+Warning in <TColor::TColor>: color 972 already defined
+Warning in <TColor::TColor>: color 971 already defined
+Warning in <TColor::TColor>: color 970 already defined
+Warning in <TColor::TColor>: color 969 already defined
+Warning in <TColor::TColor>: color 968 already defined
+Warning in <TColor::TColor>: color 967 already defined
+Warning in <TColor::TColor>: color 966 already defined
+Warning in <TColor::TColor>: color 965 already defined
+Warning in <TColor::TColor>: color 964 already defined
+Warning in <TColor::TColor>: color 963 already defined
+Warning in <TColor::TColor>: color 962 already defined
+Warning in <TColor::TColor>: color 961 already defined
+Warning in <TColor::TColor>: color 960 already defined
+Warning in <TColor::TColor>: color 959 already defined
+Warning in <TColor::TColor>: color 958 already defined
+Warning in <TColor::TColor>: color 957 already defined
+Warning in <TColor::TColor>: color 956 already defined
+Warning in <TColor::TColor>: color 955 already defined
+Warning in <TColor::TColor>: color 954 already defined
+Warning in <TColor::TColor>: color 953 already defined
+Warning in <TColor::TColor>: color 952 already defined
+Warning in <TColor::TColor>: color 951 already defined
+Warning in <TColor::TColor>: color 950 already defined
+Looking up files matching 'defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd' using SAM...
+Looking up locations of 1089 files using SAM...
+Filling 16016 spectra from 1089 files matching 'defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd'...
+
+Systematic weights in file:
+52 parameter sets:
+  0: AhtBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    AhtBY
+  1: BhtBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    BhtBY
+  2: CV1uBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    CV1uBY
+  3: CV2uBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    CV2uBY
+  4: EtaNCEL_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    EtaNCEL
+  5: FormZone_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FormZone
+  6: FrAbs_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrAbs_N
+  7: FrAbs_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrAbs_pi
+  8: FrCEx_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrCEx_N
+  9: FrCEx_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrCEx_pi
+  10: FrInel_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrInel_N
+  11: FrInel_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrInel_pi
+  12: FrPiProd_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrPiProd_N
+  13: FrPiProd_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrPiProd_pi
+  14: MFP_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MFP_N
+  15: MFP_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MFP_pi
+  16: MaCCQE_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaCCQE
+  17: MaCCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaCCRES
+  18: MaNCEL_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaNCEL
+  19: MaNCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaNCRES
+  20: MvCCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MvCCRES
+  21: MvNCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MvNCRES
+  22: NonRESBGvbarnCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnCC1pi
+  23: NonRESBGvbarnCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnCC2pi
+  24: NonRESBGvbarnNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnNC1pi
+  25: NonRESBGvbarnNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnNC2pi
+  26: NonRESBGvbarpCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpCC1pi
+  27: NonRESBGvbarpCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpCC2pi
+  28: NonRESBGvbarpNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpNC1pi
+  29: NonRESBGvbarpNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpNC2pi
+  30: NonRESBGvnCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnCC1pi
+  31: NonRESBGvnCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnCC2pi
+  32: NonRESBGvnNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnNC1pi
+  33: NonRESBGvnNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnNC2pi
+  34: NonRE

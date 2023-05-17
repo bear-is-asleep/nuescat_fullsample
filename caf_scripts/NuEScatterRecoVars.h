@@ -666,7 +666,7 @@ const SpillVar kTrueSliceQ2([](const caf::SRSpillProxy* sp) ->double {
   return slc.truth.Q2;
   });
 
-const SpillVar kTrueNuE([](const caf::SRSpillProxy* sp) -> double {
+const SpillVar kTrueNuSliceE([](const caf::SRSpillProxy* sp) -> double {
   if(sp->nslc==0) return -9999;
   auto const& slc = sp->slc[kTrueBestSlice(sp)];
   if (isnan(slc.truth.E)) return -9999;
@@ -1295,7 +1295,7 @@ std::vector<Plot<SpillVar>> recoPlots_all = {
   { "e Razzle", kNRazzleElectrons, Binning::Simple(5,0,5),";Razzle Electrons;Events", "e_razzle",{.59,.57,.89,.85}},
   { "ph Razzle", kNRazzlePhotons, Binning::Simple(5,0,5),";Razzle Photons;Events", "ph_razzle",{.59,.57,.89,.85}},
   { "Reco E", kRecoE, Binning::Simple(30,0,3),";Reco E [GeV];Events", "reco_E",{.59,.57,.89,.85}},
-  { "True E_{#nu}", kTrueNuE, Binning::Simple(15,0,3),";True E_{#nu}[GeV];Events", "true_Enu",{.59,.57,.89,.85}},
+  { "True E_{#nu}", kTrueNuSliceE, Binning::Simple(15,0,3),";True E_{#nu}[GeV];Events", "true_Enu",{.59,.57,.89,.85}},
   { "True E", kTrueSliceEnergy, Binning::Simple(15,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
   { "True Q2", kTrueSliceQ2, Binning::Simple(15,0,3),";True Q^{2};Events", "true_E",{.59,.57,.89,.85}},
   { "Reco #theta", kRecoSmallestTheta, Binning::Simple(15,0,1),";Reco #theta ;Events", "reco_theta",{.59,.57,.89,.85}},
@@ -1416,7 +1416,7 @@ std::vector<Plot<SpillVar>> recoPlots_basic = {
   { "N Nu Slices", kNNuSlices, Binning::Simple(10,0,10), ";nNuSlices;Events", "n_nu_slices", {.59,.57,.89,.85} },
   { "N FV Slices", kNFVSlices, Binning::Simple(10,0,10), ";nFVSlices;Events", "n_fv_slices", {.59,.57,.89,.85} },
   { "Reco E", kRecoE, Binning::Simple(30,0,3),";Reco E [GeV];Events", "reco_E",{.59,.57,.89,.85}},
-  { "True E_{#nu}", kTrueNuE, Binning::Simple(30,0,3),";True E_{#nu}[GeV];Events", "true_Enu",{.59,.57,.89,.85}},
+  { "True E_{#nu}", kTrueNuSliceE, Binning::Simple(30,0,3),";True E_{#nu}[GeV];Events", "true_Enu",{.59,.57,.89,.85}},
   { "True E", kTrueSliceEnergy, Binning::Simple(15,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
   { "N Prim", kNPrims, Binning::Simple(20,0,20), ";nPrim;Events", "n_prims", {.59,.57,.89,.85} }, 
   { "N Ele", kNElectrons, Binning::Simple(5,0,5), ";nEle;Events", "n_eles", {.59,.57,.89,.85} }, 
@@ -1431,7 +1431,7 @@ std::vector<Plot<SpillVar>> recoPlots_basic = {
 
 std::vector<Plot<SpillVar>> recoPlots_eng = {//{ "E#theta^{2}", kEtheta2Var, Binning::Simple(15,-10,10),";E#theta^{2};Events", "E_theta",{.59,.57,.89,.85}},
             { "Reco E", kRecoE, Binning::Simple(30,0,3),";Reco E [GeV];Events", "reco_E",{.59,.57,.89,.85}},
-            //{ "True E_{#nu}", kTrueNuE, Binning::Simple(30,0,3),";True E_{#nu}[GeV];Events", "true_Enu",{.59,.57,.89,.85}},
+            //{ "True E_{#nu}", kTrueNuSliceE, Binning::Simple(30,0,3),";True E_{#nu}[GeV];Events", "true_Enu",{.59,.57,.89,.85}},
             //{ "True E", kTrueSliceE, Binning::Simple(30,0,3),";True E [GeV];Events", "true_E",{.59,.57,.89,.85}},
 };
 

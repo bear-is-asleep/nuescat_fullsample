@@ -5,6 +5,8 @@ import uproot
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import matplotlib.transforms as transforms
+from scipy.stats import chi2
+import os
 
 import sys
 sys.path.append('../')
@@ -13,13 +15,18 @@ from utils import plotters,pic
 from CAFdata import *
 import helpers
 from datetime import date
+import logging
+logging.basicConfig(level=logging.CRITICAL)
 
 day = date.today().strftime("%Y_%m_%d")
 #state_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_3_systs_nuescat_cut'
 #'/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_1_30_systs_5bins'
-state_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_16_systs_truth_cuts'
+#state_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_16_systs_truth_cuts'
+#state_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_29_systs_truth_cuts_eleeng'
+state_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_31_systs_truth_cuts_eleeng'
+#state_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_4_3_systs_truth_cuts_eleeng_fv'
 #Functions
-def plot_reweighted_nue_dist(universes,weights,**kwargs):
+def plot_reweighted_nue_dist(nom,universes,weights,**kwargs):
   """
   plot number of nu e scatters for all universes and weights
 
@@ -43,17 +50,19 @@ def plot_reweighted_nue_dist(universes,weights,**kwargs):
                 r'$N_{\nu+e}$ Std = ':f'{std_reweighted:.1f}'}
   stats_constrained = plotters.convert_p_str(stats_constrained) #Get string version of stats
 
-  fig,ax = plt.subplots(figsize=(6,6))
+  fig,ax = plt.subplots(figsize=(8,6))
   ax.hist(universes,label='Unweighted',bins=bins,
           color='black',edgecolor='black',**kwargs)
   ax.hist(universes,weights=weights,label='Weighted',bins=bins,
           color='red',edgecolor='red',**kwargs)
+  ax.axvline(nom,ls='--',color='blue')
+  #ax.text(nom-50,60,f'CV = {nom:.0f}',fontsize=18)
 
   #Set labels
   trans = transforms.blended_transform_factory(ax.transData, ax.transAxes)
-  ax.text(425,0.8,stats_unconstrained,transform=trans,fontsize=14,
+  ax.text(525,0.8,stats_unconstrained,transform=trans,fontsize=14,
           bbox=dict(facecolor='none', edgecolor='black', boxstyle='round'))
-  ax.text(425,0.62,stats_constrained,transform=trans,fontsize=14,
+  ax.text(525,0.62,stats_constrained,transform=trans,fontsize=14,
           bbox=dict(facecolor='none', edgecolor='red', boxstyle='round'))
   ax.set_xlabel(r'$N_{\nu+e}$')
   ax.set_ylabel('Prob. arb')
@@ -78,14 +87,14 @@ def plot_covmat(covmat,edges,**kwargs):
     xticks.append(f'{edge} - {edges[i+1]}')
   ax.set_xticklabels(xticks,rotation=30)
   ax.set_yticklabels(xticks,rotation=30)
-  ax.set_xlabel(r'True $E_\nu$ [GeV]')
-  ax.set_ylabel(r'True $E_\nu$ [GeV]')
+  ax.set_xlabel(r'True $E_e$ [GeV]')
+  ax.set_ylabel(r'True $E_e$ [GeV]')
   plt.colorbar()
   plotters.set_style(ax)
   return fig,ax
 
   
-fname = 'state_all.root' #To get all universes and nominal one
+fname = 'state_Flux_multisim.root' #To get all universes and nominal one
 hist = uproot.open(f'{state_dir}/{fname}') #Open histograms
 
 #GEt bin values and edges
@@ -96,29 +105,34 @@ for i,key in enumerate(keys): #Iterate over all universes
   values[i] = hist[key].values()
 
 #Extract nominal and universe values
-nom = values[0] #I temporarily added the :-1 because the last bin is always zero
-#universes = np.concatenate((values[0:4],values[5:]),axis=0)
-universes = values[1:]
+#print(np.sum(values,axis=1)[8])
+data_ind = int(sys.argv[1]) #Universe number
+meas = f'uni{data_ind}'
+nom = values[0] #Nominal universe - all systs. are at mean value
+data = values[data_ind] #Data we observe
+universes = np.concatenate((values[0:data_ind],values[data_ind:]),axis=0)
+#universes = values[1:]
 #edges = edges[:-1]
 n_universes = universes.shape[0]
 
 plt.hist(np.sum(universes,axis=1))
 
 #Calcu cov mat using Vij = 1/N sum_i((xu_i-xn_i)(xu_j-xn_j))
-covmat_syst = np.zeros((len(nom),len(nom))) #syst
-covmat_stat = np.zeros((len(nom),len(nom))) #stat
+#covmat_stat = np.diag(np.mean(values,axis=0)) #stat
+covmat_syst = np.zeros((len(nom),len(nom)))
+covmat_stat = covmat_syst.copy()
+mean_event_rates = np.mean(universes, axis=0)
 
-for _,uni in enumerate(universes):
-  for i,_ in enumerate(nom):
-    for j,_ in enumerate(nom):
-      if (uni == nom).all(): continue #Don't include nominal universe in calc
-      covmat_syst[i][j] += (uni[i]-nom[i])*(uni[j]-nom[j])
-      if i == j:
-        covmat_stat[i][j] += np.sqrt(uni[i])
+for i,_ in enumerate(nom):
+  for j,_ in enumerate(nom):     
+    if i == j:
+      covmat_stat[i,j] = np.mean((universes[:,i]))
+    covmat_syst[i,j] = np.mean((universes[:,i]-mean_event_rates[i])*(universes[:,j]-mean_event_rates[j]))
 
-covmat_syst/=n_universes
-covmat_stat/=n_universes
-covmat = covmat_stat + covmat_syst #total covariance
+
+#covmat = covmat_stat + covmat_syst #total covariance
+#covmat = np.cov(values.T)
+covmat = covmat_syst+covmat_stat
 minerva_covmat = np.array([
   [98.7,1.22,1.72,1.38,0.42,-0.269],
   [1.22,27.3,1.63,1.14,.34,0.755],
@@ -129,50 +143,66 @@ minerva_covmat = np.array([
 minerva_edges = [0.8,2,3,5,7,9,20]
 #covmat = np.identity(len(nom))
 if True: #Save covariance matrices
-  np.savetxt(f'{state_dir}/covmat_syst.txt',covmat_syst)
-  np.savetxt(f'{state_dir}/covmat_stat.txt',covmat_stat)
-  np.savetxt(f'{state_dir}/covmat.txt',covmat)
+  os.makedirs(f'{state_dir}/{meas}', exist_ok=True)
+  np.savetxt(f'{state_dir}/{meas}/covmat_syst.txt',covmat_syst)
+  np.savetxt(f'{state_dir}/{meas}/covmat_stat.txt',covmat_stat)
+  np.savetxt(f'{state_dir}/{meas}/covmat.txt',covmat)
   np.savetxt(f'{state_dir}/minerva_covmat.txt',minerva_covmat)
 
   #Make plots
   fig,ax = plot_covmat(covmat_syst,edges,vmax=np.max(covmat))
-  plotters.save_plot('covmat_syst',folder_name=f'{state_dir}/plots/syst_only',fig=fig)
+  plotters.save_plot('covmat_syst',folder_name=f'{state_dir}/{meas}/plots/syst_only',fig=fig)
 
   fig,ax = plot_covmat(covmat_stat,edges,vmax=np.max(covmat))
-  plotters.save_plot('covmat_stat',folder_name=f'{state_dir}/plots/stat_only',fig=fig)
+  plotters.save_plot('covmat_stat',folder_name=f'{state_dir}/{meas}/plots/stat_only',fig=fig)
 
   fig,ax = plot_covmat(covmat,edges,vmax=np.max(covmat))
-  plotters.save_plot('covmat',folder_name=f'{state_dir}/plots/total',fig=fig)
+  plotters.save_plot('covmat',folder_name=f'{state_dir}/{meas}/plots/total',fig=fig)
 
   fig,ax = plot_covmat(minerva_covmat,minerva_edges,vmax=np.max(covmat))
-  plotters.save_plot('minerva_covmat',folder_name=f'{state_dir}/plots/total',fig=fig)
+  plotters.save_plot('minerva_covmat',folder_name=f'{state_dir}/{meas}/plots/total',fig=fig)
 plt.close('all')
 print('covmat made')
 
 #Calc likelihood W = P(N_{\nu+e}|M) = \frac{1}{(2\pi)^{K/2}}\frac{1}{\sqrt{\Sigma_N}}
 # \textrm{exp}\left( -\frac12 (\textbf{N}-\textbf{M})^T\Sigma_N^{-1} (\textbf{N}-\textbf{M})\right)
 #χ2 =(N−M)T Σ−1(N−M)
-def chi_weights_calc(covmat):
+def chi_weights_calc(covmat_input,data):
   dof = len(values[0]) #degrees of freedom
   chi_squared_arr = np.zeros(n_universes)
-  normalization = 1/((2*np.pi)**(dof/2)*np.linalg.det(covmat)**(1/2))
+  normalization = 1/((2*np.pi)**(dof/2)*np.linalg.det(covmat_input)**(1/2))
   W_arr = np.zeros(n_universes)
   for i,uni in enumerate(universes):
-    chi_squared_arr[i] = (nom-uni).T@np.linalg.inv(covmat)@(nom-uni)
+    chi_squared_arr[i] = (data-uni).T@np.linalg.inv(covmat_input)@(data-uni)
+    if i == 0: 
+      #print('x2: ',chi_squared_arr[0])
+      p_value = 1 - chi2.cdf(chi_squared_arr[0], dof)
     w = normalization*np.exp(-0.5*chi_squared_arr[i])
     W_arr[i] = w
   W_arr = len(universes)/np.sum(W_arr)*W_arr
-  return W_arr,chi_squared_arr
-W_arr,chi_squared_arr = chi_weights_calc(covmat)
-W_arr_syst,chi_squared_arr_syst = chi_weights_calc(covmat_syst)
-W_arr_stat,chi_squared_arr_stat = chi_weights_calc(covmat_stat)
+  return W_arr,chi_squared_arr,p_value
+W_arr,chi_squared_arr,p_value = chi_weights_calc(covmat,data)
+#print('total: ',chi_squared_arr[0],p_value)
+W_arr_syst,chi_squared_arr_syst,p_value_syst = chi_weights_calc(covmat_syst,data)
+#print('syst: ',chi_squared_arr_syst[0], p_value_syst)
+W_arr_stat,chi_squared_arr_stat,p_value_stat = chi_weights_calc(covmat_stat,data)
+#print('stat: ',chi_squared_arr[0],p_value_stat)
+file1 = open(f'{state_dir}/means.txt','a')
+file1.writelines([str(d)+', ' for d in data])
+file1.write('\n')
+file1.close()
 
-
-np.savetxt(f'{state_dir}/universes.txt',universes)
-np.savetxt(f'{state_dir}/x2.txt',np.exp(-0.5*chi_squared_arr))
-np.savetxt(f'{state_dir}/weights.txt',W_arr)
-np.savetxt(f'{state_dir}/weights_syst.txt',W_arr_syst)
-np.savetxt(f'{state_dir}/weights_stat.txt',W_arr_stat)
+np.savetxt(f'{state_dir}/{meas}/data.txt',data)
+np.savetxt(f'{state_dir}/{meas}/universes.txt',universes)
+np.savetxt(f'{state_dir}/{meas}/x2.txt',chi_squared_arr)
+np.savetxt(f'{state_dir}/{meas}/x2_stat.txt',chi_squared_arr_stat)
+np.savetxt(f'{state_dir}/{meas}/x2_syst.txt',chi_squared_arr_syst)
+#np.savetxt(f'{state_dir}/pvalue.txt',p_value)
+#np.savetxt(f'{state_dir}/pvalue_stat.txt',p_value_stat)
+#np.savetxt(f'{state_dir}/pvalue_syst.txt',p_value_syst)
+np.savetxt(f'{state_dir}/{meas}/weights.txt',W_arr)
+np.savetxt(f'{state_dir}/{meas}/weights_syst.txt',W_arr_syst)
+np.savetxt(f'{state_dir}/{meas}/weights_stat.txt',W_arr_stat)
 #print(W_arr,chi_squared_arr)
 if True:
   plt.hist(W_arr)
@@ -195,11 +225,14 @@ if True:
   plotters.save_plot('n_ele',folder_name=f'{state_dir}/plots')
   plt.close()
 
-  fig,ax = plot_reweighted_nue_dist(np.sum(universes,axis=1),W_arr,histtype='step')
+  fig,ax = plot_reweighted_nue_dist(np.sum(data),
+                                    np.sum(universes,axis=1),W_arr,histtype='step')
   plotters.save_plot('reweighted_ne',folder_name=f'{state_dir}/plots/total',fig=fig)
 
-  fig,ax = plot_reweighted_nue_dist(np.sum(universes,axis=1),W_arr_stat,histtype='step')
+  fig,ax = plot_reweighted_nue_dist(np.sum(data),
+                                    np.sum(universes,axis=1),W_arr_stat,histtype='step')
   plotters.save_plot('reweighted_ne',folder_name=f'{state_dir}/plots/stat_only',fig=fig)
 
-  fig,ax = plot_reweighted_nue_dist(np.sum(universes,axis=1),W_arr_syst,histtype='step')
+  fig,ax = plot_reweighted_nue_dist(np.sum(data),
+                                    np.sum(universes,axis=1),W_arr_syst,histtype='step')
   plotters.save_plot('reweighted_ne',folder_name=f'{state_dir}/plots/syst_only',fig=fig)

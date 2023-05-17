@@ -31,6 +31,7 @@ using namespace ana;
 #include "utils.h"
 #include "TrueEventCategories.h"
 #include "NuEScatterRecoVars.h"
+#include "NuEScatterTrueVars.h"
 #include "NuEScatterCuts.h"
 #include "plotStyle.C"
 
@@ -46,9 +47,8 @@ using namespace ana;
 
 using namespace std;
 
-const string state_fname = "NuEScatter_state_all.root";
 const bool do_systematics = true;
-const SpillCut kSystematicSelection = kTrueSelection && kNuEScat;
+const SpillCut kSystematicSelection = kTrueAV && kHasSlc && kNuEScat;
 
 
 void NuEScatter_systs(bool save = true)
@@ -61,7 +61,7 @@ void NuEScatter_systs(bool save = true)
 
 
   const double gPOT = 10e20;
-  const string surName = "systs_truth_cuts";
+  const string surName = "systs_truth_cuts_nueng_av";
   const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"_"+surName;
   const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 
@@ -76,10 +76,11 @@ void NuEScatter_systs(bool save = true)
   }
   const Var kTrueE = SIMPLEVAR(truth.E);
   //const Var kRecoE = SIMPLEVAR(reco.reco_energy);
-  //const Binning binsEnergy = Binning::Simple(6, 0, 4);
-  const vector<double>& edges = {0,0.6,0.8,1.1,2.,10};
-  const Binning binsEnergy = Binning::Custom(edges);
-  HistAxis ax("True Energy (GeV)",binsEnergy,kTrueNuESlice);
+  const Binning binsEnergy = Binning::Simple(15, 0, 3);
+  //const vector<double>& edges = {0,0.6,0.8,1.1,2.,10};
+  //const Binning binsEnergy = Binning::Custom(edges);
+  //HistAxis ax("True Visible Energy (GeV)",binsEnergy,kTrueE);
+  HistAxis ax("True Electron Energy (GeV)",binsEnergy,kTrueE);
   for (unsigned j=0; j<1000; j++){
     weis[j] = weis[j]*GetUniverseWeight("multisim_Genie", j); //Get weight from 
   }
@@ -116,23 +117,23 @@ void NuEScatter_systs(bool save = true)
     for (unsigned i=0; i<syst_names.size(); i++){
       //Assign different weights to each
       if (syst_names[i] == "GENIE_multisim"){
-        SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
-        new EnsembleSpectrum(loaderNu,ax,kSystematicSelection,kNoCut,weis)};
+        SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueElectronEVar,
+        new EnsembleSpectrum(loaderNu,ax,kSystematicSelection,kTruthEleEngCut,weis)};
         systs.emplace_back(syst);
       }
       else if (syst_names[i] == "Flux_multisim"){
-        SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
-        new EnsembleSpectrum(loaderNu,ax,kSystematicSelection,kNoCut,weis_flux)};
+        SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueElectronEVar,
+        new EnsembleSpectrum(loaderNu,ax,kSystematicSelection,kTruthEleEngCut,weis_flux)};
         systs.emplace_back(syst);
       }
       else if (syst_names[i] == "total_multisim"){
-        SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
-        new EnsembleSpectrum(loaderNu,ax,kSystematicSelection,kNoCut,weis_tot)};
+        SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueElectronEVar,
+        new EnsembleSpectrum(loaderNu,ax,kSystematicSelection,kTruthEleEngCut,weis_tot)};
         systs.emplace_back(syst);
       }
       else { //Important to put all of the flux weights in alignment with syst_name indexing
-        SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueE,
-        new EnsembleSpectrum(loaderNu,ax,kSystematicSelection,kNoCut,weis_flux_all[i])};
+        SystEnsemble syst = {syst_names[i],syst_colors[i],syst_labels[i],kTrueElectronEVar,
+        new EnsembleSpectrum(loaderNu,ax,kSystematicSelection,kTruthEleEngCut,weis_flux_all[i])};
         systs.emplace_back(syst);
       }
     }
@@ -142,7 +143,6 @@ void NuEScatter_systs(bool save = true)
   std::cout.clear();
   //loaderIntime.Go();
 
-  TFile fout(state_fname.c_str(),"RECREATE");
 
   gSystem->Exec("mkdir -p " + stateDir);
 
@@ -181,26 +181,16 @@ void NuEScatter_systs(bool save = true)
 
     // Fill hist with all systs.
     for (auto const& syst: systs){
-      if (syst.label == "Total"){
-        // Create a new TFile to write to
-        TFile *file_nominal = new TFile(stateDir+"/state_nominal.root", "RECREATE");
-        file_nominal->cd();
-
-        //Save to nominal file
-        TH1D *hist_nominal = syst.syst->Nominal().ToTH1(gPOT, syst.color);
-        hist_nominal->Write();
-        file_nominal->Close();
-
-        TFile *file_all = new TFile(stateDir+"/state_all.root", "RECREATE");
-        file_all->cd();
-        //Save to all file
-        TH1D *hist_all = syst.syst->Nominal().ToTH1(gPOT, syst.color);
-        hist_all->Write();
-        for (unsigned iUni = 0; iUni < syst.syst->NUniverses(); ++iUni){
-          syst.syst->Universe(iUni).ToTH1(gPOT, syst.color)->Write();
-        }
-        file_all->Close();
+      const TString state_fname = "state_"+syst.name;
+      TFile *file_all = new TFile(stateDir+"/"+state_fname+".root", "RECREATE");
+      file_all->cd();
+      //Save to all file
+      TH1D *hist_all = syst.syst->Nominal().ToTH1(gPOT, syst.color);
+      hist_all->Write();
+      for (unsigned iUni = 0; iUni < syst.syst->NUniverses(); ++iUni){
+        syst.syst->Universe(iUni).ToTH1(gPOT, syst.color)->Write();
       }
+      file_all->Close();
     }
   }
   

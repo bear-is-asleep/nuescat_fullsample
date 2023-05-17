@@ -1,0 +1,266 @@
+
+Processing /sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbnana/v09_62_00/slf7.x86_64.e20.prof/bin/load_cafana_libs.C...
+Loading libraries..............
+Welcome to the ROOT of all evils 
+Processing NuEScatter_reweightv2.C++()...
+Info in <TUnixSystem::ACLiC>: creating shared library /sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/./NuEScatter_reweightv2_C.so
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_reweightv2_linkdef.h, output: $EIGEN_INC/NuEScatter_reweightv2_linkdef.h
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_reweightv2_linkdef.hh, output: $EIGEN_INC/NuEScatter_reweightv2_linkdef.hh
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_reweightv2_linkdef.hpp, output: $EIGEN_INC/NuEScatter_reweightv2_linkdef.hpp
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_reweightv2_linkdef.hxx, output: $EIGEN_INC/NuEScatter_reweightv2_linkdef.hxx
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_reweightv2_linkdef.hPP, output: $EIGEN_INC/NuEScatter_reweightv2_linkdef.hPP
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_reweightv2_linkdef.hXX, output: $EIGEN_INC/NuEScatter_reweightv2_linkdef.hXX
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_reweightv2.h, output: $EIGEN_INC/NuEScatter_reweightv2.h
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_reweightv2.hh, output: $EIGEN_INC/NuEScatter_reweightv2.hh
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_reweightv2.hpp, output: $EIGEN_INC/NuEScatter_reweightv2.hpp
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_reweightv2.hxx, output: $EIGEN_INC/NuEScatter_reweightv2.hxx
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_reweightv2.hPP, output: $EIGEN_INC/NuEScatter_reweightv2.hPP
+Error in <TSystem::ExpandFileName>: input: $EIGEN_INC/NuEScatter_reweightv2.hXX, output: $EIGEN_INC/NuEScatter_reweightv2.hXX
+In file included from input_line_12:6:
+././NuEScatter_reweightv2.C:89:35: error: use of undeclared identifier 'GetUniverseWeightSpill'
+      weis_flux[j] = weis_flux[j]*GetUniverseWeightSpill(flux_systs[i]+"_Flux", j); //Get weight from spill
+                                  ^
+././NuEScatter_reweightv2.C:94:76: error: use of undeclared identifier 'kTrueNuE_0'
+    Spectrum *s = new Spectrum("ENu_uni"+to_string(j), binsEnergy, loader, kTrueNuE_0, kIsTrueAV_0, weis[j]);
+                                                                           ^
+././NuEScatter_reweightv2.C:99:67: error: use of undeclared identifier 'kTrueNuE_0'
+  Spectrum *s_Nu0_CV = new Spectrum("ENu_CV", binsEnergy, loader, kTrueNuE_0, kIsTrueAV_0, kFluxWeight_0);
+                                                                  ^
+Error in <ACLiC>: Executing '/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/bin/rootcling -v0 "--lib-list-prefix=/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatter_reweightv2_C_ACLiC_map" -f "/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatter_reweightv2_C_ACLiC_dict.cxx" -I/sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbnana/v09_62_00/include -I$ROOTSYS/include -I$SRPROXY_INC -I$OSCLIB_INC -I$EIGEN_INC -I"/sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbndcode/v09_62_00/include" -I"/sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbncode/v09_62_00/include" -I"/sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbnana/v09_62_00/include" -I"/sbnd/app/users/brindenc/mysbn/localProducts_larsoft_v09_62_00_e20_prof/sbnanaobj/v09_19_06/include" -I"/sbnd/app/users/brindenc/mysbn/build_slf7.x86_64/sbnana" -I"/sbnd/app/users/brindenc/mysbn/srcs/sbnana" -I"/sbnd/app/users/brindenc/mysbn/build_slf7.x86_64/sbndcode" -I"/sbnd/app/users/brindenc/mysbn/srcs/sbndcode" -I"/sbnd/app/users/brindenc/mysbn/build_slf7.x86_64/sbncode" -I"/sbnd/app/users/brindenc/mysbn/srcs/sbncode" -I"/sbnd/app/users/brindenc/mysbn/build_slf7.x86_64/sbnanaobj" -I"/sbnd/app/users/brindenc/mysbn/srcs/sbnanaobj" -I"/cvmfs/larsoft.opensciencegrid.org/products/larwirecell/v09_10_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/hdf5/v1_12_0b/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/spdlog/v1_8_2a/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/wirecell/v0_23_0/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/gallery/v1_18_05/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larsimrad/v09_06_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larsimdnn/v09_02_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larrecodnn/v09_15_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/opencv/v4_2_0b/Linux64bit+3.10-2.17-e20-p392/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larpandora/v09_14_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larpandoracontent/v04_02_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/pandora/v03_16_00f/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/protobuf/v3_12_3a/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/libtorch/v1_6_0d/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larexamples/v09_05_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/lareventdisplay/v09_06_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/nuevdb/v1_07_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larana/v09_08_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larreco/v09_14_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/rstartree/v2016_07/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larsim/v09_28_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/nutools/v3_13_02/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/cry/v1_7n/Linux64bit+3.10-2.17-e20-prof/cry_v1.7/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/nugen/v1_16_03/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/ifdh_art/v2_13_12/slf7.x86_64.e20.prof/inc" -I"/cvmfs/larsoft.opensciencegrid.org/products/dk2nugenie/v01_10_00d/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/genie/v3_00_06p/Linux64bit+3.10-2.17-e20-prof/include/GENIE" -I"/cvmfs/larsoft.opensciencegrid.org/products/genie/v3_00_06p/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/marley/v1_2_0g/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larg4/v09_13_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/nurandom/v1_09_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/nug4/v1_13_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larevt/v09_06_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/lardata/v09_10_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larvecutils/v09_02_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/lardataalg/v09_12_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larcore/v09_07_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/artg4tk/v10_06_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/art_root_io/v1_08_05/include" -I"/cvmfs/sbnd.opensciencegrid.org/products/sbnd/sbnobj/v09_14_12/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/lardataobj/v09_13_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/nusimdata/v1_26_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/dk2nudata/v01_10_00d/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larcorealg/v09_07_01/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/larcoreobj/v09_07_00/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/art/v3_09_04/include" -I"/cvmfs/sbnd.opensciencegrid.org/products/sbnd/sbndaq_artdaq_core/v1_04_00of0/include" -I"." -I"/cvmfs/larsoft.opensciencegrid.org/products/fhiclcpp/v4_15_03/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/cetlib/v3_13_04/slf7.x86_64.e20.prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/boost/v1_75_0/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/artdaq_core/v3_09_02/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/artdaq_core/v3_09_02/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/canvas_root_io/v1_09_05/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/canvas/v3_12_05/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/range/v3_0_11_0/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/messagefacility/v2_08_04/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/fhiclcpp/v4_15_03/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/cetlib/v3_13_04/slf7.x86_64.e20.prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/hep_concurrency/v1_07_04/slf7.x86_64.e20.prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/cetlib_except/v1_07_04/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/clhep/v2_4_5_1/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/TRACE/v3_17_05/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/boost/v1_75_0/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/tbb/v2021_1_1/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/xrootd/v5_1_0/Linux64bit+3.10-2.17-e20-p392-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/mysql_client/v8_0_23/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/postgresql/v13_2/Linux64bit+3.10-2.17-p392/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/pythia/v6_4_28r/Linux64bit+3.10-2.17-gcc930-prof/include" -I"." -I"/cvmfs/larsoft.opensciencegrid.org/products/fftw/v3_3_9/Linux64bit+3.10-2.17/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/openblas/v0_3_13/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/etc/" -I"/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/etc//cling" -I"/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/" -I"/cvmfs/larsoft.opensciencegrid.org/products/tbb/v2021_1_1/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include" -D__ACLIC__  "/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/./NuEScatter_reweightv2.C" "/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatter_reweightv2_C_ACLiC_linkdef.h"' failed!
+
+Processing /sbnd/app/users/brindenc/mysbn_v09_69_01/localProducts_larsoft_v09_70_00_e20_prof/sbnana/v09_69_01/slf7.x86_64.e20.prof/bin/load_cafana_libs.C...
+Loading libraries..............
+Welcome to the ROOT of all evils 
+Processing NuEScatter_reweightv2.C++()...
+Info in <TUnixSystem::ACLiC>: creating shared library /sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/./NuEScatter_reweightv2_C.so
+In file included from input_line_12:6:
+././NuEScatter_reweightv2.C:94:76: error: use of undeclared identifier 'kTrueNuE_0'
+    Spectrum *s = new Spectrum("ENu_uni"+to_string(j), binsEnergy, loader, kTrueNuE_0, kIsTrueAV_0, weis[j]);
+                                                                           ^
+././NuEScatter_reweightv2.C:99:67: error: use of undeclared identifier 'kTrueNuE_0'
+  Spectrum *s_Nu0_CV = new Spectrum("ENu_CV", binsEnergy, loader, kTrueNuE_0, kIsTrueAV_0, kFluxWeight_0);
+                                                                  ^
+Error in <ACLiC>: Executing '/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/bin/rootcling -v0 "--lib-list-prefix=/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatter_reweightv2_C_ACLiC_map" -f "/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatter_reweightv2_C_ACLiC_dict.cxx" -I/sbnd/app/users/brindenc/mysbn_v09_69_01/localProducts_larsoft_v09_70_00_e20_prof/sbnana/v09_69_01/include -I$ROOTSYS/include -I$SRPROXY_INC -I$OSCLIB_INC -I$EIGEN_INC -I"/sbnd/app/users/brindenc/mysbn_v09_69_01/localProducts_larsoft_v09_70_00_e20_prof/sbnana/v09_69_01/include" -I"/sbnd/app/users/brindenc/mysbn_v09_69_01/localProducts_larsoft_v09_70_00_e20_prof/sbnanaobj/v09_20_05/include" -I"/sbnd/app/users/brindenc/mysbn_v09_69_01/build_slf7.x86_64/sbnana" -I"/sbnd/app/users/brindenc/mysbn_v09_69_01/srcs/sbnana" -I"/sbnd/app/users/brindenc/mysbn_v09_69_01/build_slf7.x86_64/sbnanaobj" -I"/sbnd/app/users/brindenc/mysbn_v09_69_01/srcs/sbnanaobj" -I"/cvmfs/larsoft.opensciencegrid.org/products/boost/v1_75_0/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/tbb/v2021_1_1/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/xrootd/v5_1_0/Linux64bit+3.10-2.17-e20-p392-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/mysql_client/v8_0_23/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/postgresql/v13_2/Linux64bit+3.10-2.17-p392/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/pythia/v6_4_28r/Linux64bit+3.10-2.17-gcc930-prof/include" -I"." -I"/cvmfs/larsoft.opensciencegrid.org/products/fftw/v3_3_9/Linux64bit+3.10-2.17/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/openblas/v0_3_13/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/etc/" -I"/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/etc//cling" -I"/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/" -I"/cvmfs/larsoft.opensciencegrid.org/products/tbb/v2021_1_1/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include" -D__ACLIC__  "/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/./NuEScatter_reweightv2.C" "/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatter_reweightv2_C_ACLiC_linkdef.h"' failed!
+
+Processing /sbnd/app/users/brindenc/mysbn_v09_69_01/localProducts_larsoft_v09_70_00_e20_prof/sbnana/v09_69_01/slf7.x86_64.e20.prof/bin/load_cafana_libs.C...
+Loading libraries..............
+Welcome to the ROOT of all evils 
+Processing NuEScatter_reweightv2.C++()...
+Info in <TUnixSystem::ACLiC>: creating shared library /sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/./NuEScatter_reweightv2_C.so
+In file included from input_line_12:6:
+In file included from ././NuEScatter_reweightv2.C:31:
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterTrueVars.h:61:16: error: redefinition of 'kTrueNuE_1'
+const SpillVar kTrueNuE_1([](const caf::SRSpillProxy* sr) -> double {
+               ^
+/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatterTrueVars.h:57:16: note: previous definition is here
+const SpillVar kTrueNuE_1([](const caf::SRSpillProxy* sr) -> double {
+               ^
+In file included from input_line_12:6:
+././NuEScatter_reweightv2.C:94:76: error: use of undeclared identifier 'kTrueNuE_0'
+    Spectrum *s = new Spectrum("ENu_uni"+to_string(j), binsEnergy, loader, kTrueNuE_0, kIsTrueAV_0, weis[j]);
+                                                                           ^
+././NuEScatter_reweightv2.C:99:67: error: use of undeclared identifier 'kTrueNuE_0'
+  Spectrum *s_Nu0_CV = new Spectrum("ENu_CV", binsEnergy, loader, kTrueNuE_0, kIsTrueAV_0, kFluxWeight_0);
+                                                                  ^
+Error in <ACLiC>: Executing '/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/bin/rootcling -v0 "--lib-list-prefix=/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatter_reweightv2_C_ACLiC_map" -f "/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatter_reweightv2_C_ACLiC_dict.cxx" -I/sbnd/app/users/brindenc/mysbn_v09_69_01/localProducts_larsoft_v09_70_00_e20_prof/sbnana/v09_69_01/include -I$ROOTSYS/include -I$SRPROXY_INC -I$OSCLIB_INC -I$EIGEN_INC -I"/sbnd/app/users/brindenc/mysbn_v09_69_01/localProducts_larsoft_v09_70_00_e20_prof/sbnana/v09_69_01/include" -I"/sbnd/app/users/brindenc/mysbn_v09_69_01/localProducts_larsoft_v09_70_00_e20_prof/sbnanaobj/v09_20_05/include" -I"/sbnd/app/users/brindenc/mysbn_v09_69_01/build_slf7.x86_64/sbnana" -I"/sbnd/app/users/brindenc/mysbn_v09_69_01/srcs/sbnana" -I"/sbnd/app/users/brindenc/mysbn_v09_69_01/build_slf7.x86_64/sbnanaobj" -I"/sbnd/app/users/brindenc/mysbn_v09_69_01/srcs/sbnanaobj" -I"/cvmfs/larsoft.opensciencegrid.org/products/boost/v1_75_0/Linux64bit+3.10-2.17-e20-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/tbb/v2021_1_1/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/xrootd/v5_1_0/Linux64bit+3.10-2.17-e20-p392-prof/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/mysql_client/v8_0_23/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/postgresql/v13_2/Linux64bit+3.10-2.17-p392/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/pythia/v6_4_28r/Linux64bit+3.10-2.17-gcc930-prof/include" -I"." -I"/cvmfs/larsoft.opensciencegrid.org/products/fftw/v3_3_9/Linux64bit+3.10-2.17/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/openblas/v0_3_13/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/etc/" -I"/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/etc//cling" -I"/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/" -I"/cvmfs/larsoft.opensciencegrid.org/products/tbb/v2021_1_1/Linux64bit+3.10-2.17-e20/include" -I"/cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include" -D__ACLIC__  "/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/./NuEScatter_reweightv2.C" "/sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/NuEScatter_reweightv2_C_ACLiC_linkdef.h"' failed!
+
+Processing /sbnd/app/users/brindenc/mysbn_v09_69_01/localProducts_larsoft_v09_70_00_e20_prof/sbnana/v09_69_01/slf7.x86_64.e20.prof/bin/load_cafana_libs.C...
+Loading libraries..............
+Welcome to the ROOT of all evils 
+Processing NuEScatter_reweightv2.C++()...
+Info in <TUnixSystem::ACLiC>: creating shared library /sbnd/app/users/brindenc/analyze_sbnd/nue/fullsample/caf_scripts/./NuEScatter_reweightv2_C.so
+Warning in <TColor::TColor>: color 999 already defined
+Warning in <TColor::TColor>: color 998 already defined
+Warning in <TColor::TColor>: color 997 already defined
+Warning in <TColor::TColor>: color 996 already defined
+Warning in <TColor::TColor>: color 995 already defined
+Warning in <TColor::TColor>: color 994 already defined
+Warning in <TColor::TColor>: color 993 already defined
+Warning in <TColor::TColor>: color 992 already defined
+Warning in <TColor::TColor>: color 991 already defined
+Warning in <TColor::TColor>: color 990 already defined
+Warning in <TColor::TColor>: color 989 already defined
+Warning in <TColor::TColor>: color 988 already defined
+Warning in <TColor::TColor>: color 987 already defined
+Warning in <TColor::TColor>: color 986 already defined
+Warning in <TColor::TColor>: color 985 already defined
+Warning in <TColor::TColor>: color 984 already defined
+Warning in <TColor::TColor>: color 983 already defined
+Warning in <TColor::TColor>: color 982 already defined
+Warning in <TColor::TColor>: color 981 already defined
+Warning in <TColor::TColor>: color 980 already defined
+Warning in <TColor::TColor>: color 979 already defined
+Warning in <TColor::TColor>: color 978 already defined
+Warning in <TColor::TColor>: color 977 already defined
+Warning in <TColor::TColor>: color 976 already defined
+Warning in <TColor::TColor>: color 975 already defined
+Warning in <TColor::TColor>: color 974 already defined
+Warning in <TColor::TColor>: color 973 already defined
+Warning in <TColor::TColor>: color 972 already defined
+Warning in <TColor::TColor>: color 971 already defined
+Warning in <TColor::TColor>: color 970 already defined
+Warning in <TColor::TColor>: color 969 already defined
+Warning in <TColor::TColor>: color 968 already defined
+Warning in <TColor::TColor>: color 967 already defined
+Warning in <TColor::TColor>: color 966 already defined
+Warning in <TColor::TColor>: color 965 already defined
+Warning in <TColor::TColor>: color 964 already defined
+Warning in <TColor::TColor>: color 963 already defined
+Warning in <TColor::TColor>: color 962 already defined
+Warning in <TColor::TColor>: color 961 already defined
+Warning in <TColor::TColor>: color 960 already defined
+Warning in <TColor::TColor>: color 959 already defined
+Warning in <TColor::TColor>: color 958 already defined
+Warning in <TColor::TColor>: color 957 already defined
+Warning in <TColor::TColor>: color 956 already defined
+Warning in <TColor::TColor>: color 955 already defined
+Warning in <TColor::TColor>: color 954 already defined
+Warning in <TColor::TColor>: color 953 already defined
+Warning in <TColor::TColor>: color 952 already defined
+Warning in <TColor::TColor>: color 951 already defined
+Warning in <TColor::TColor>: color 950 already defined
+Looking up files matching 'defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd with stride 100' using SAM...
+Looking up locations of 11 files using SAM...
+Filling 0 spectra from 11 files matching 'defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd'...
+
+Systematic weights in file:
+52 parameter sets:
+  0: AhtBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    AhtBY
+  1: BhtBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    BhtBY
+  2: CV1uBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    CV1uBY
+  3: CV2uBY_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    CV2uBY
+  4: EtaNCEL_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    EtaNCEL
+  5: FormZone_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FormZone
+  6: FrAbs_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrAbs_N
+  7: FrAbs_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrAbs_pi
+  8: FrCEx_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrCEx_N
+  9: FrCEx_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrCEx_pi
+  10: FrInel_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrInel_N
+  11: FrInel_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrInel_pi
+  12: FrPiProd_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrPiProd_N
+  13: FrPiProd_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    FrPiProd_pi
+  14: MFP_N_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MFP_N
+  15: MFP_pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MFP_pi
+  16: MaCCQE_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaCCQE
+  17: MaCCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaCCRES
+  18: MaNCEL_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaNCEL
+  19: MaNCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MaNCRES
+  20: MvCCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MvCCRES
+  21: MvNCRES_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    MvNCRES
+  22: NonRESBGvbarnCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnCC1pi
+  23: NonRESBGvbarnCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnCC2pi
+  24: NonRESBGvbarnNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnNC1pi
+  25: NonRESBGvbarnNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarnNC2pi
+  26: NonRESBGvbarpCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpCC1pi
+  27: NonRESBGvbarpCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpCC2pi
+  28: NonRESBGvbarpNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpNC1pi
+  29: NonRESBGvbarpNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvbarpNC2pi
+  30: NonRESBGvnCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnCC1pi
+  31: NonRESBGvnCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnCC2pi
+  32: NonRESBGvnNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnNC1pi
+  33: NonRESBGvnNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvnNC2pi
+  34: NonRESBGvpCC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvpCC1pi
+  35: NonRESBGvpCC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvpCC2pi
+  36: NonRESBGvpNC1pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvpNC1pi
+  37: NonRESBGvpNC2pi_multisigma_Genie, type 3, 6 universes, adjusted parameters:
+    NonRESBGvpNC2pi
+  38: multisim_Genie, type 0, 1000 universes, adjusted parameters:
+    AhtBY
+    BhtBY
+    CV1uBY
+    CV2uBY
+    EtaNCEL
+    FrAbs_N
+    FrAbs_pi
+    FrCEx_N
+    FrCEx_pi
+    FrInel_N
+    FrInel_pi
+    MFP_N
+    MFP_pi
+    MaCCQE
+    MaCCRES
+    MaNCEL
+    MaNCRES
+    MvCCRES
+    MvNCRES
+    NonRESBGvbarnCC1pi
+    NonRESBGvbarnCC2pi
+    NonRESBGvbarnNC1pi
+    NonRESBGvbarnNC2pi
+    NonRESBGvbarpCC1pi
+    NonRESBGvbarpCC2pi
+    NonRESBGvbarpNC1pi
+    NonRESBGvbarpNC2pi
+    NonRESBGvnCC1pi
+    NonRESBGvnCC2pi
+    NonRESBGvnNC1pi
+    NonRESBGvnNC2pi
+    NonRESBGvpCC1pi
+    NonRESBGvpCC2pi
+    NonRESBGvpNC1pi
+    NonRESBGvpNC2pi
+  39: expskin_Flux, type 0, 1000 universes, adjusted parameters:
+    expskin
+  40: horncurrent_Flux, type 0, 1000 universes, adjusted parameters:
+    horncurrent
+  41: kminus_Flux, type 0, 1000 universes, adjusted parameters:
+    kminus
+  42: kplus_Flux, type 0, 1000 universes, adjusted parameters:
+    kplus
+  43: kzero_Flux, type 0, 1000 universes, adjusted parameters:
+    kzero
+  44: nucleoninexsec_Flux, type 0, 1000 universes, adjusted parameters:
+    nucleoninexsec
+  45: nucleonqexsec_Flux, type 0, 1000 universes, adjusted parameters:
+    nucleonqexsec
+  46: nucleontotxsec_Flux, type 0, 1000 universes, adjusted parameters:
+    nucleontotxsec
+  47: piminus_Flux, type 0, 1000 universes, adjusted parameters:
+    piminus
+  48: pioninexsec_Flux, type 0, 1000 universes, adjusted parameters:
+    pioninexsec
+  49: pionqexsec_Flux, type 0, 1000 universes, adjusted parameters:
+    pionqexsec
+  50: piontotxsec_Flux, type 0, 1000 universes, adjusted parameters:
+    piontotxsec
+  51: piplus_Flux, type 0, 1000 universes, adjusted parameters:
+    piplus
+3.0901e+18 POT over 203200 readouts

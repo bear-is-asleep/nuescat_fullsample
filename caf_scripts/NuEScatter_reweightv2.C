@@ -47,34 +47,27 @@ using namespace ana;
 
 using namespace std;
 
-const string state_fname = "test_flux.root";
+const string state_fname = "all_flux.root";
 const bool do_systematics = true;
-const SpillCut kIsTrueAV_0([](const caf::SRSpillProxy* sp) {
-  if (sp->mc.nnu==0){return false;} //Return dummy value
-  auto const& nu = sp->mc.nu[0];
-  return PtInVolAbsX(nu.position, avnd);
-});
 
-const SpillCut kIsTrueAV_1([](const caf::SRSpillProxy* sp) {
-  if (sp->mc.nnu<=1){return false;} //Return dummy value
-  auto const& nu = sp->mc.nu[1];
-  return PtInVolAbsX(nu.position, avnd);
-});
+const SpillCut kFluxCut_0 = kIsNCQEOnArgon_0 && kIsTrueAV_0;
+unsigned int nuni = 100; //number of universes to check
 
-void test_flux(){
+
+void NuEScatter_reweightv2(){
   selectionstyle();
   setlocale(LC_NUMERIC, "");
 
   const std::string inputNameNu = "defname: official_MCP2022A_prodoverlay_corsika_cosmics_proton_genie_rockbox_sce_reco2_concat_flat_caf_sbnd";
   const double gPOT = 10e20;
-  const string surName = "test_flux";
-  const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/tests/"+get_date()+"_"+surName;
-  const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/tests/"+get_date()+"_"+surName;
+  const string surName = "reweight_flux_NCE";
+  const TString saveDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/plots/2022A/"+get_date()+"_"+surName;
+  const TString stateDir = "/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/"+get_date()+"_"+surName;
 
   SpectrumLoader loader(inputNameNu);
 
   //Get bins for both spectrum
-  const Binning binsEnergy = Binning::Simple(80, 0, 4);
+  const Binning binsEnergy = Binning::Simple(100, 0, 5);
   //HistAxis ax("True E_{#nu} (GeV)",binsEnergy,kTrueNuE_0);
 
   std::vector<Spectrum*> sNu;
@@ -82,21 +75,22 @@ void test_flux(){
   for (auto const& name : flux_systs){
     //std::cout<<name<<endl;
   }
-  vector<SpillVar> weis(1000,kSpillUnweighted); //Initialize weights
-  vector<SpillVar> weis_flux(1000,kSpillUnweighted); //Initialize weights
-  for (unsigned j=0; j<10; j++){
+  vector<SpillVar> weis(nuni,kSpillUnweighted); //Initialize weights
+  vector<SpillVar> weis_flux(nuni,kSpillUnweighted); //Initialize weights
+  for (unsigned j=0; j<nuni; j++){
     for (unsigned i =0; i<flux_systs.size(); i++){
       weis_flux[j] = weis_flux[j]*GetUniverseWeightSpill(flux_systs[i]+"_Flux", j); //Get weight from spill
     }
     //weis_flux_reweighted[j] = nue_reweight[j]*weis_flux[j]; //Reweight universe by nu+e constraint
     weis[j] = weis[j]*weis_flux[j]; //Get total flux weight and evenly weight it with the genie weight
     weis[j] = weis[j]*kFluxWeight_0; //Reweight by cross section and number of targets to get flux 
-    Spectrum *s = new Spectrum("ENu_uni"+to_string(j), binsEnergy, loader, kTrueNuE_0, kIsTrueAV_0, weis[j]);
+    Spectrum *s = new Spectrum("ENu_uni"+to_string(j), binsEnergy, loader, kTrueNuE_0, kFluxCut_0, weis[j]);
     sNu.emplace_back(s);
   }
   
 
-  Spectrum *s_Nu0_CV = new Spectrum("ENu_CV", binsEnergy, loader, kTrueNuE_0, kIsTrueAV_0, kFluxWeight_0);
+  //Spectrum *s_Nu0_CV = new Spectrum("ENu_CV", binsEnergy, loader, kTrueNuE_0, kFluxCut_0, kSpillUnweighted);
+  Spectrum *s_Nu0_CV = new Spectrum("ENu_CV", binsEnergy, loader, kTrueNuE_0, kFluxCut_0, kFluxWeight_0);
   //Spectrum *s_Nu0_uni1 = new Spectrum("ENu_uni1", binsEnergy, loader, kTrueNuE_0, kIsTrueAV_0, weis[0]);
   //EnsembleSpectrum *es = new EnsembleSpectrum("name", binsEnergy, loader, kTrueNuE_0, kIsTrueAV_0, weis,kFluxWeight_0);
 
@@ -122,7 +116,7 @@ void test_flux(){
   // }
 
   file_all->Close();
-
+  gSystem->Exec("cp NuEScatter_reweightv2.C NuEScatterTrueVars.h NuEScatterCuts.h TrueEventCategories.h Constants.h Structs.h " + stateDir);
   
 
 

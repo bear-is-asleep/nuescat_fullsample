@@ -18,7 +18,12 @@ day = helpers.day
 #suffix = '_systs_nuescat_cut'
 #state_folder = f'/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_3_systs_nuescat_cut'
 #state_folder = f'/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_16_systs_truth_cuts'
-state_folder = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_16_reweight_flux'
+#state_folder = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_16_reweight_flux'
+#state_folder = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_29_systs_truth_cuts_eleeng'
+#state_folder = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_29_reweight_flux_stride100'
+#state_folder = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_30_reweight_flux_var'
+state_folder = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_31_systs_truth_cuts_eleeng'
+
 plot_folder = f'{state_folder}/plots'
 
 fnames = os.listdir(state_folder)

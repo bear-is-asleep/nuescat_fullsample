@@ -22,10 +22,14 @@ plotters.use_science_style()
 #NuEScat_dir = f'/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_6_fullsample_few_recocut_recoslc'
 #NuEScat_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_8_fullsample_nue_few_recocut_recoslc'
 #NuEScat_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_2_23_pure_nue_truth_cuts'
-NuEScat_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_14_fullsample_softetheta_recoslc'
+#NuEScat_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_14_fullsample_softetheta_recoslc'
+NuEScat_dir = '/sbnd/data/users/brindenc/analyze_sbnd/nue/states/2022A/2023_3_29_fullsample_nue_trueav'
 surname = ''
 fnames = [f'cut_events_basic{surname}.root',f'cut_events_trk{surname}.root',f'cut_events_shw{surname}.root']
-folder_name=f'{NuEScat_dir}/cut_sel_{day}/cut_plots'
+folder_name=f'{NuEScat_dir}/plots/{day}'
+SAMPLE_POT = 3.08415e+20
+NOM_POT = 10e20
+NORMALIZATION = NOM_POT/SAMPLE_POT #Renormalize all counts to this number
 
 colors = helpers.colors
 categories = helpers.categories
@@ -142,7 +146,7 @@ def plot_df_keys(df,ftype='.png',keys_x=None,keys_y=None,plot_scat=False,plot_kd
         y = np.delete(df.loc[df['evt_type']==name,key_y].values,drop_ind) #use indeces from x for same size scatter plot
         xs.append(x)
         ys.append(y)
-        labels.append(f'{name} ({len(xs[i]):,})')
+        labels.append(f'{name} ({int(NORMALIZATION* len(xs[i])):,})')
         if key_x != key_y:
           sns.scatterplot(x=xs[i],y=ys[i],label=labels[i],ax=ax,alpha=alphas[i],**kwargs)
           ax.set_xlabel(f'{key_x}')
@@ -227,18 +231,19 @@ def plot_hist(df,key_x,title=None,**kwargs):
   """
   labels = []
   xs = []
+  weights = []
   for i,name in enumerate(event_names):
     x = df.loc[df['evt_type']==name,key_x].values
     #Mask certain values
     x = helpers.remove_dummy_values(x,
-                                    dummy_val_list=[-9999,-999,-5,9999,999],
+                                    dummy_val_list=[-9999,-999,-5,9999,999,0,-1],
                                     is_df=False)
     if len(x) == 0: continue #Skip event types that have no events
     xs.append(x)
-    labels.append(f'{name} ({len(x):,})')
+    weights.append(np.full(x.shape,NORMALIZATION))
+    labels.append(f'{name} ({int(NORMALIZATION* len(x)):,})')
   fig,ax = plt.subplots(figsize=(6,6),tight_layout=True)
-
-  ax.hist(xs,label=labels,edgecolor=colors[i],stacked=True,**kwargs)
+  ax.hist(xs,label=labels,edgecolor=colors[i],stacked=True,weights=weights,**kwargs)
   ax.set_xlabel(key_x)
   ax.set_ylabel('Count')
   if title is not None:
@@ -305,26 +310,28 @@ def plot_masked_vals(df,x_key,masks,labels,use_kde=True,y_key=None,title=None,**
   return fig,ax
 
 #Use uproot to load all the ttrees and concatenate them
-# dfs = []
-# for fname in fnames:
-#   print(fname)
-#   tree = uproot.open(f'{NuEScat_dir}/{fname}:rectree;1')
-#   #use numpy library to convert numpy array to dataframe
-#   df = helpers.get_df(tree,
-#                       tree.keys(),
-#                       hdrkeys=['run','subrun','evt'],
-#                       library='np')
-#   dfs.append(df)
-# events = pd.concat(dfs,axis=1)
+dfs = []
+for fname in fnames:
+  print(fname)
+  tree = uproot.open(f'{NuEScat_dir}/{fname}:rectree;1')
+  #use numpy library to convert numpy array to dataframe
+  df = helpers.get_df(tree,
+                      tree.keys(),
+                      hdrkeys=['run','subrun','evt'],
+                      library='np')
+  dfs.append(df)
+events = pd.concat(dfs,axis=1)
 
-events = pd.read_csv(f'{NuEScat_dir}/cut_events.csv')
-events = events.set_index(['run','subrun','evt'])
+#events = pd.read_csv(f'{NuEScat_dir}/cut_events.csv')
+#events = events.set_index(['run','subrun','evt'])
 #print(events.loc[:,('ntrk','nshw')])
 print('-----Cleaning data')
 #Mask event type and get their names
 events = helpers.set_event_type(events)
 events.loc[:,'nreco'] = events.nshw + events.ntrk
 events.loc[:,'theta_err'] = (events.reco_theta-events.true_theta)/events.true_theta
+events.loc[:,'Q2_nuecc'] = helpers.Q2_nuecc(helpers.remove_dummy_values(events.loc[:,'true_slice_eng'].values,dummy_val_list=[-9999,-999,999,9999,-1,0])
+                                            ,helpers.remove_dummy_values(events.loc[:,'true_theta']))
 #events = cuts.apply_cuts(events)
 event_names = categories
 
@@ -358,7 +365,7 @@ for key in events.keys():
       other_keys.append(key)
 other_keys.extend(['evt_type'])
 other_events = events.loc[:,other_keys]
-#other_events = helpers.remove_dummy_values(other_events)
+#events = helpers.remove_dummy_values(events,dummy_val_list=[-9999,-999,999,9999,-1,-5,0])
 
 #Get reco and true labels and arrays
 reco_labels_other = ['nshw','ntrk','reco_eng','reco_theta',
@@ -459,6 +466,39 @@ if False:
 # plot_df_keys(lshw,keys_x=['lshw.eng'],plot_kde=False,plot_scat=True)
 
 print('-----Starting plots')
+#Truth plots
+fig,ax = plot_hist(events,'true_Etheta',bins=np.arange(0,1,0.025))
+ax.set_xlabel(r'$E_e\theta_e^2$ [Gev rad$^2$]')
+plotters.save_plot('aps_etheta2_singleele',folder_name=folder_name)
+
+fig,ax = plot_hist(events,'true_Etheta',bins=np.arange(0,0.025,0.001))
+ax.set_xlabel(r'$E_e\theta_e^2$ [Gev rad$^2$]')
+#ax.axvline(x=2*0.511*1e-3,linestyle='--')
+#ax.text(2*0.511*1e-3+0.001,200,r'$2m_e$')
+plotters.save_plot('aps_etheta2_singleele_zoom',folder_name=folder_name)
+
+fig,ax = plot_hist(events,'true_slice_eng',bins=np.arange(0,3,0.1))
+ax.set_xlabel(r'$E_e$ [Gev]')
+plotters.save_plot('aps_sliceeng_singleele',folder_name=folder_name)
+ax.set_yscale('log')
+plotters.save_plot('aps_sliceeng_singleele_logy',folder_name=folder_name)
+
+fig,ax = plot_hist(events,'true_theta',bins=np.arange(0,1,0.05))
+ax.set_xlabel(r'$\theta_e$ [rad]')
+plotters.save_plot('aps_theta_singleele',folder_name=folder_name)
+ax.set_yscale('log')
+ax.set_ylim([None,4e3])
+plotters.save_plot('aps_theta_singleele_logy',folder_name=folder_name)
+
+fig,ax = plot_hist(events,'Q2_nuecc',bins=np.arange(0,1,0.05))
+ax.set_xlabel(r'$Q^2$ [GeV$^2$] ($\nu_e$ CC)')
+plotters.save_plot('aps_Q2_singleele',folder_name=folder_name)
+ax.set_yscale('log')
+ax.set_ylim([None,4e3])
+plotters.save_plot('aps_Q2_singleele_logy',folder_name=folder_name)
+
+plt.close('all')
+
 #Make comps to true type of second 
 # for i,x_key in enumerate(events):
 #   for j,y_key in enumerate(events):
@@ -535,7 +575,7 @@ if False:
 
 
 #Make histograms
-if True:
+if False:
   for i,key in enumerate(events):
     if key == 'evt_type': continue
 

@@ -121,8 +121,7 @@
 ./test_flux_C.so: /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TMatrixFUtilsfwd.h
 ./test_flux_C.so: /sbnd/app/users/brindenc/mysbn_v09_69_01/localProducts_larsoft_v09_70_00_e20_prof/sbnanaobj/v09_20_05/include/sbnanaobj/StandardRecord/SRTrueParticle.h
 ./test_flux_C.so: Constants.h Structs.h utils.h TrueEventCategories.h
-./test_flux_C.so: NuEScatterRecoVars.h NuEScatterCuts.h NuEScatterTrueVars.h
-./test_flux_C.so: plotStyle.C
+./test_flux_C.so: NuEScatterTrueVars.h plotStyle.C
 ./test_flux_C.so: /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TStyle.h
 ./test_flux_C.so: /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TAttAxis.h
 ./test_flux_C.so: /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TAttText.h
@@ -163,5 +162,6 @@
 ./test_flux_C.so: /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TTimer.h
 ./test_flux_C.so: /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TSysEvtHandler.h
 ./test_flux_C.so: /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TTime.h
+./test_flux_C.so: /sbnd/app/users/brindenc/mysbn_v09_69_01/localProducts_larsoft_v09_70_00_e20_prof/sbnana/v09_69_01/include/sbnana/CAFAna/Systs/UniverseOracle.h
 ./test_flux_C.so: /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/RVersion.h /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/RConfig.h /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TClass.h /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TDictAttributeMap.h /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TInterpreter.h /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TROOT.h /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TBuffer.h /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TMemberInspector.h /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TError.h /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/RtypesImp.h /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TIsAProxy.h /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TFileMergeInfo.h /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/include/TCollectionProxyInfo.h /cvmfs/larsoft.opensciencegrid.org/products/root/v6_22_08d/Linux64bit+3.10-2.17-e20-p392-prof/bin/rootcling
 test_flux_C__ROOTBUILDVERSION= 6.22/08
